@@ -1,0 +1,2 @@
+Copyright (C) 2018 Djordje Jocic";
+License MIT <http://opensource.org/licenses/MIT>;

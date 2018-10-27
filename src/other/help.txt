@@ -1,0 +1,17 @@
+Usage: alarm {type} {options} {command}
+
+Initiates the countdown, interval, or simply adds an alarm.
+
+Alarm types:
+
+  -a, --alarm     : Setup an alarm.
+  -c, --countdown : Setup a countdown.
+  -i, --interval  : Setup an interval.
+
+Available options:
+
+  -t, --time      : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
+  -e, --execute   : Command to execute.
+  -s, --sound     : Sound of a countdown, interval, or an alarm in a WAV format.
+  -h, --help      : Display this help and exit.
+      --version   : Output version information and exit.

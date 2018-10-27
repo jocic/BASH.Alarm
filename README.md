@@ -1,6 +1,8 @@
 # Alarm
 
-Alarm is an extremely simple BASH script for creating countdowns, alarms, etc.
+Alarm is an extremely simple BASH script for creating countdowns, alarms, or an interval.
+
+
 
 Script has been tested on the following distributions:
 
