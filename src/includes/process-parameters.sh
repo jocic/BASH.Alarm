@@ -33,6 +33,8 @@
 # PARAMETER VARIABLES #
 #######################
 
+countdown="no";
+test_sound="no";
 display_help="no";
 display_version="no";
 
@@ -61,6 +63,10 @@ while :
     
     if [[ -z $param_key ]]; then
         break;
+    elif [[ $param_key == "-c" ]] || [[ $param_key == "--countdown" ]]; then
+        countdown="yes";
+    elif [[ $param_key == "--test" ]]; then
+        test_sound="yes";
     elif [[ $param_key == "-h" ]] || [[ $param_key == "--help" ]]; then
         display_help="yes";
     elif [[ $param_key == "--version" ]]; then

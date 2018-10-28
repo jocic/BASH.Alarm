@@ -29,36 +29,10 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##################
-# CORE VARIABLES #
-##################
+##########################
+# STEP 1 - APLAY COMMAND #
+##########################
 
-source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
-version="1.0.0";
-
-###################
-# OTHER VARIABLES #
-###################
-
-temp="";
-
-#########
-# LOGIC #
-#########
-
-source "$source_dir/includes/check-dependencies.sh";
-source "$source_dir/includes/process-parameters.sh";
-
-if [[ $display_help == "yes" ]]; then
-    
-    source "$source_dir/includes/show-help.sh";
-    
-elif [[ $display_version == "yes" ]]; then
-    
-    source "$source_dir/includes/show-version.sh";
-    
-else
-    
-    echo "TBI";
-    
-fi
+if [[ -z "$(command -v aplay)" ]]; then
+    echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
+fi;

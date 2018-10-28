@@ -12,6 +12,18 @@ Available options:
 
   -t, --time      : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
   -e, --execute   : Command to execute.
-  -s, --sound     : Sound of a countdown, interval, or an alarm in a WAV format.
+  -s, --sound     : Set sound of a countdown, interval, or an alarm in WAV format.
+  -v, --volume    : Change volume of the sound effect.
+  -g, --global    : Play sound effect globally.
   -h, --help      : Display this help and exit.
+      --test      : Test the sound effect.
       --version   : Output version information and exit.
+
+Available sound effects - alarm & countdown:
+
+  -0 : Analogue watch (default).
+  -1 : Anoyying alarm.
+
+Available sound effects - interval:
+
+  -0 : Beep (default).
