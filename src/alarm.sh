@@ -59,6 +59,38 @@ elif [[ $display_version == "yes" ]]; then
     
 else
     
-    echo "TBI";
+    #############################
+    # STEP 1 - CHECK PARAMETERS #
+    #############################
+    
+    # Check Type.
+    
+    if [[ -z $type ]]; then
+        echo "Error: You haven't selected a type." && exit;
+    fi
+    
+    ############################
+    # STEP 2 - PROCESS REQUEST #
+    ############################
+    
+    if [[ $type == "alarm" ]]; then
+        
+        source "$source_dir/includes/create-alarm.sh";
+        
+    elif [[ $type == "countdown" ]]; then
+        
+        source "$source_dir/includes/create-countdown.sh";
+        
+    elif [[ $type == "interval" ]]; then
+        
+        source "$source_dir/includes/create-interval.sh";
+        
+    else
+        
+        echo -e "Invalid type selected.";
+        
+    fi
+    
+    exit;
     
 fi

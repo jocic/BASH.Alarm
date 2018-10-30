@@ -29,59 +29,12 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-#######################
-# PARAMETER VARIABLES #
-#######################
-
-type="";
-test_sound="no";
-display_help="no";
-display_version="no";
-
-#####################
-# CONTROL VARIABLES #
-#####################
-
-param_key="";
-param_value="";
-current_param=1;
-next_param=2;
-
 #########
 # LOGIC #
 #########
 
-while :
-  do
+if [[ $test_sound == "yes" ]]; then
     
-    #############################
-    # STEP 1 - CHECK PARAMETERS #
-    #############################
+    echo "Testing countdown sound..." && aplay "$source_dir/effects/alarms/analogue-watch.wav" > /dev/null 2>&1;
     
-    param_key=$(eval echo \${$current_param});
-    param_value=$(eval echo \${$next_param});
-    
-    if [[ -z $param_key ]]; then
-        break;
-    elif [[ $param_key == "-a" ]] || [[ $param_key == "--alarm" ]]; then
-        type="alarm";
-    elif [[ $param_key == "-c" ]] || [[ $param_key == "--countdown" ]]; then
-        type="countdown";
-    elif [[ $param_key == "-i" ]] || [[ $param_key == "--interval" ]]; then
-        type="interval";
-    elif [[ $param_key == "--test" ]]; then
-        test_sound="yes";
-    elif [[ $param_key == "-h" ]] || [[ $param_key == "--help" ]]; then
-        display_help="yes";
-    elif [[ $param_key == "--version" ]]; then
-        display_version="yes";
-    fi
-    
-    ######################################
-    # STEP 2 - INCREMENT PARAM VARIABLES #
-    ######################################
-    
-    current_param=$(($current_param+1));
-    next_param=$(($next_param+1));
-    
-done
+fi
