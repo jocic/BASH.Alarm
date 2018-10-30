@@ -26,4 +26,4 @@ Available sound effects - alarm & countdown:
 
 Available sound effects - interval:
 
-  -0 : Beep (default).
+  -0 : AM/FM Beep (default).
