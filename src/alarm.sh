@@ -66,13 +66,13 @@ else
     
     # Check Alarm Time
     
-    if [[ ! $alarm_time =~ $time_regex ]]; then
+    if [[ ( $test_sound == "no" ) && ( ! $alarm_time =~ $time_regex ) ]]; then
         echo -e "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
     fi
     
     # Check Alarm Delay
     
-    if [[ ( ! -z $alarm_delay ) && ( ! $alarm_delay =~ $number_regex ) ]]; then
+    if [[ ( $test_sound == "no" ) && ( ! -z $alarm_delay ) && ( ! $alarm_delay =~ $number_regex ) ]]; then
         echo -e "Error: Invalid alarm delay provided, please use an integer." && exit;
     fi
     

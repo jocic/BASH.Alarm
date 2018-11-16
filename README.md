@@ -23,7 +23,15 @@ I use a 3-digit version identifier, for example 1.0.2. These digits have the fol
 
 This script was made for Debian and Debian-based distributions but it should work on other Linux distributions - as long as the audio and MIDI functionality on them is provided by ALSA.
 
-### Example 1 - Countdown
+### Example 1 - Testing Sound
+
+Sound of a countdown, interval, or an alarm can be easily tested prior to initialization using a "--test" flag.
+
+```bash
+bash ./alarm.sh --test -a
+```
+
+### Example 2 - Countdown
 
 In this example, we are starting a 10s countdown,= after which a generic alarm sound will be played.
 
@@ -31,7 +39,7 @@ In this example, we are starting a 10s countdown,= after which a generic alarm s
 bash ./alarm.sh -t 10s -c
 ```
 
-### Example 2 - Delayed Countdown
+### Example 3 - Delayed Countdown
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
 
@@ -39,7 +47,7 @@ Sometimes you may want to start a countdown after a slight delay, in this exampl
 bash ./alarm.sh -t 10m -d 10 -c
 ```
 
-### Example 3 - Countdown & Command
+### Example 4 - Countdown & Command
 
 Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
 
@@ -61,15 +69,10 @@ alias alarm="/path/to/your/folder/alarm.sh"
 
 ```bash
 echo alias alarm="/path/to/your/folder/alarm.sh" >> ~/.bash_aliases
-```
-
-```bash
-echo alias alarm="/path/to/your/folder/alarm.sh" >> ~/.bash_aliases
-```
 
 ## Installation
 
-Alternatively, you can add my personal APT repository to your machine and install **BASH.Alarm** like you would anything else.
+Alternatively, you can add my personal APT repository to your machine and install **Alarm** like you would anything else.
 
 Add a repository.
 
@@ -86,4 +89,12 @@ Install project.
 apt-get install alarm
 ```
 
-**Note:** Keep in mind that **BASH.Alarm** isn't yet available in my personal repository - mostly because it isn't yet up and running. ;)
+**Note:** Keep in mind that **Alarm** isn't yet available in my personal repository - mostly because it isn't up and running yet. ;)
+
+## Support
+
+Please don't hessitate to contact me if you have any questions, ideas, or concerns.
+
+My Twitter account is: [@jocic_91](https://www.twitter.com)
+
+My support E-Mail address is: <support@djordjejocic.com>

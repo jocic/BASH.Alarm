@@ -22,7 +22,7 @@ Available options:
 Available sound effects - alarm & countdown:
 
   -0 : Analogue watch (default).
-  -1 : Anoyying alarm.
+  -1 : Annoying alarm.
 
 Available sound effects - interval:
 
