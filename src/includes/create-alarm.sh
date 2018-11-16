@@ -35,6 +35,6 @@
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo -e "Testing alarm sound..." && aplay $sound_effect > /dev/null 2>&1;
+    echo -e "Testing alarm sound..." && aplay $sound_effect > /dev/null 2>&1 &
     
 fi

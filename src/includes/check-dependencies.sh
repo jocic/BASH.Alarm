@@ -33,6 +33,6 @@
 # STEP 1 - APLAY COMMAND #
 ##########################
 
-if [[ -z "$(command -v aplay)" ]]; then
+if [[ -z "$(command -v aplay)" || -z "$(command -v amixer)" ]]; then
     echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
 fi;

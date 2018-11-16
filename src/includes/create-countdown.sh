@@ -29,14 +29,42 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
+##################
+# CORE VARIABLES #
+##################
+
+left_channel="";
+right_channel="";
+
 #########
 # LOGIC #
 #########
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo -e "Testing countdown sound..." && aplay $sound_effect > /dev/null 2>&1;
+    # Print Notice
     
+    echo -e "Testing countdown sound...";
+    
+    # Play Effect
+    
+    if [[ -z $sound_volume ]]; then
+        
+        aplay $sound_effect > /dev/null 2>&1;
+        
+    else
+        
+        # Get Current Volume
+        
+        left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
+        right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
+        
+        # Play Effect
+        
+        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
+        
+    fi
+        
 else
     
     # Print Notice
@@ -55,7 +83,26 @@ else
     
     sleep $alarm_time;
     
-    aplay $sound_effect > /dev/null 2>&1 &
+    # Play Alarm
+    
+    if [[ -z $sound_volume ]]; then
+        
+        aplay $sound_effect > /dev/null 2>&1 &
+        
+    else
+        
+        # Get Current Volume
+        
+        left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
+        right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
+        
+        # Play Effect
+        
+        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
+        
+    fi
+    
+    # Execute Command
     
     if [[ ! -z $alarm_command ]]; then
         bash -c "$alarm_command" &

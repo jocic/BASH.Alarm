@@ -39,7 +39,7 @@ In this example, we are starting a 10s countdown,= after which a generic alarm s
 bash ./alarm.sh -t 10s -c
 ```
 
-### Example 3 - Delayed Countdown
+### Example 3 - Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
 
@@ -67,6 +67,14 @@ Or you can, alternatively, just point to your own sound effect.
 
 ```bash
 bash ./alarm.sh -t 10s -s /path/to/your/folder/effect.wav -c
+```
+
+### Example 6 - Sound Volume
+
+Flag "-v" is used to temporarily change the master volume during the alarm to a percentage of your choosing. It is a great way to avoid missing an alarm.
+
+```bash
+bash ./alarm.sh -t 10s -v 100 -c
 ```
 
 ## Alias

@@ -43,6 +43,7 @@ version="1.0.0";
 time_regex="^([0-9]+)(s|m|h|d)$";
 number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav$)$";
+volume_regex="^([0-9]{1,2}[0]?|100)$";
 
 #########
 # LOGIC #
@@ -93,6 +94,10 @@ else
             
             case $sound_effect in
                 
+                "")
+                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
+                ;;
+                
                 "1")
                     sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
                 ;;
@@ -106,7 +111,7 @@ else
                 ;;
                 
                 *)
-                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
+                    echo -e "Error: Invalid sound effect selected." && exit;
                 ;;
                 
             esac
@@ -118,6 +123,10 @@ else
         if [[ $alarm_type == "interval" ]]; then
             
             case $sound_effect in
+                
+                "")
+                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
+                ;;
                 
                 "1")
                     sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
@@ -132,7 +141,7 @@ else
                 ;;
                 
                 *)
-                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
+                    echo -e "Error: Invalid sound effect selected." && exit;
                 ;;
                 
             esac
@@ -145,8 +154,14 @@ else
         
     fi
     
+    # Check Sound Volume
+    
+    if [[ ( ! -z $sound_volume ) && ( ! $sound_volume =~ $volume_regex ) ]]; then
+        echo -e "Error: Invalid volume value provided, please use an integer with value between 0 to 100." && exit;
+    fi
+    
     ############################
-    # STEP 2 - PROCESS REQUEST #
+    # STEP 4 - PROCESS REQUEST #
     ############################
     
     if [[ $alarm_type == "alarm" ]]; then
