@@ -37,10 +37,11 @@ source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 version="1.0.0";
 
 ###################
-# OTHER VARIABLES #
+# REGEX VARIABLES #
 ###################
 
-temp="";
+time_regex="^([0-9]+)(s|m|h|d)$";
+number_regex="^([0-9]+)$";
 
 #########
 # LOGIC #
@@ -63,10 +64,22 @@ else
     # STEP 1 - CHECK PARAMETERS #
     #############################
     
-    # Check Type.
+    # Check Alarm Time
+    
+    if [[ ! $alarm_time =~ $time_regex ]]; then
+        echo -e "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
+    fi
+    
+    # Check Alarm Delay
+    
+    if [[ ( ! -z $alarm_delay ) && ( ! $alarm_delay =~ $number_regex ) ]]; then
+        echo -e "Error: Invalid alarm delay provided, please use an integer." && exit;
+    fi
+    
+    # Check Type
     
     if [[ -z $type ]]; then
-        echo "Error: You haven't selected a type." && exit;
+        echo -e "Error: You haven't selected a type." && exit;
     fi
     
     ############################
@@ -74,21 +87,13 @@ else
     ############################
     
     if [[ $type == "alarm" ]]; then
-        
         source "$source_dir/includes/create-alarm.sh";
-        
     elif [[ $type == "countdown" ]]; then
-        
         source "$source_dir/includes/create-countdown.sh";
-        
     elif [[ $type == "interval" ]]; then
-        
         source "$source_dir/includes/create-interval.sh";
-        
     else
-        
         echo -e "Invalid type selected.";
-        
     fi
     
     exit;

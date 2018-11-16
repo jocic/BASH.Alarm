@@ -35,6 +35,9 @@
 
 type="";
 test_sound="no";
+alarm_time="";
+alarm_delay="";
+alarm_command="";
 display_help="no";
 display_version="no";
 
@@ -60,15 +63,19 @@ while :
     
     param_key=$(eval echo \${$current_param});
     param_value=$(eval echo \${$next_param});
-    
+   
     if [[ -z $param_key ]]; then
         break;
     elif [[ $param_key == "-a" ]] || [[ $param_key == "--alarm" ]]; then
-        type="alarm";
+        type="alarm" && alarm_command=$param_value;
     elif [[ $param_key == "-c" ]] || [[ $param_key == "--countdown" ]]; then
-        type="countdown";
+        type="countdown" && alarm_command=$param_value;
     elif [[ $param_key == "-i" ]] || [[ $param_key == "--interval" ]]; then
-        type="interval";
+        type="interval" && alarm_command=$param_value;
+    elif [[ $param_key == "-t" ]] || [[ $param_key == "--time" ]]; then
+        alarm_time=$param_value;
+    elif [[ $param_key == "-d" ]] || [[ $param_key == "--delay" ]]; then
+        alarm_delay=$param_value;
     elif [[ $param_key == "--test" ]]; then
         test_sound="yes";
     elif [[ $param_key == "-h" ]] || [[ $param_key == "--help" ]]; then
