@@ -21,9 +21,12 @@ Available options:
 
 Available sound effects - alarm & countdown:
 
-  -0 : Analogue watch (default).
-  -1 : Annoying alarm.
+  -0 : Fire alarm (default).
+  -1 : Analogue watch.
+  -2 : Annoying alarm.
 
 Available sound effects - interval:
 
-  -0 : AM/FM Beep (default).
+  -1 : Electornic Chime (default).
+  -2 : AM/FM Beep.
+  -3 : Beep in A.

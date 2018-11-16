@@ -35,7 +35,7 @@
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo -e "Testing countdown sound..." && aplay "$source_dir/effects/alarms/analogue-watch.wav" > /dev/null 2>&1;
+    echo -e "Testing countdown sound..." && aplay $sound_effect > /dev/null 2>&1;
     
 else
     
@@ -55,7 +55,7 @@ else
     
     sleep $alarm_time;
     
-    aplay "$source_dir/effects/alarms/analogue-watch.wav" > /dev/null 2>&1 &
+    aplay $sound_effect > /dev/null 2>&1 &
     
     if [[ ! -z $alarm_command ]]; then
         bash -c "$alarm_command" &

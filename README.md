@@ -47,12 +47,26 @@ Sometimes you may want to start a countdown after a slight delay, in this exampl
 bash ./alarm.sh -t 10m -d 10 -c
 ```
 
-### Example 4 - Countdown & Command
+### Example 4 - Command Execution
 
 Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
 
 ```bash
 bash ./alarm.sh -t 10s -c "echo 'Hello World!'"
+```
+
+### Example 5 - Alternative Sound Effect
+
+You can easily change the default sound effect by providing an ID of a built-in sound effect.
+
+```bash
+bash ./alarm.sh -t 10s -s 2 -c
+```
+
+Or you can, alternatively, just point to your own sound effect.
+
+```bash
+bash ./alarm.sh -t 10s -s /path/to/your/folder/effect.wav -c
 ```
 
 ## Alias
@@ -69,6 +83,7 @@ alias alarm="/path/to/your/folder/alarm.sh"
 
 ```bash
 echo alias alarm="/path/to/your/folder/alarm.sh" >> ~/.bash_aliases
+```
 
 ## Installation
 

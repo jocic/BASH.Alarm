@@ -29,28 +29,12 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##################
-# CORE VARIABLES #
-##################
-
-counter=0;
-
 #########
 # LOGIC #
 #########
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo "Testing countdown sound...";
-    
-    while [[ $counter -lt 3 ]]; do
-        
-        aplay "$source_dir/effects/beeps/am-fm-beep.wav" > /dev/null 2>&1;
-        
-        sleep 1s;
-        
-        counter=$[$counter+1];
-        
-    done
+    echo -e "Testing interval sound..." && aplay $sound_effect > /dev/null 2>&1;
     
 fi

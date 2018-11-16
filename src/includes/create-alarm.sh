@@ -35,6 +35,6 @@
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo "Testing alarm sound..." && aplay "$source_dir/effects/alarms/analogue-watch.wav" > /dev/null 2>&1;
+    echo -e "Testing alarm sound..." && aplay $sound_effect > /dev/null 2>&1;
     
 fi

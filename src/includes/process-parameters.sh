@@ -33,11 +33,12 @@
 # PARAMETER VARIABLES #
 #######################
 
-type="";
-test_sound="no";
+alarm_type="";
 alarm_time="";
 alarm_delay="";
 alarm_command="";
+sound_effect="";
+test_sound="no";
 display_help="no";
 display_version="no";
 
@@ -54,8 +55,7 @@ next_param=2;
 # LOGIC #
 #########
 
-while :
-  do
+while [[ 1 == 1 ]]; do
     
     #############################
     # STEP 1 - CHECK PARAMETERS #
@@ -67,11 +67,13 @@ while :
     if [[ -z $param_key ]]; then
         break;
     elif [[ $param_key == "-a" ]] || [[ $param_key == "--alarm" ]]; then
-        type="alarm" && alarm_command=$param_value;
+        alarm_type="alarm" && alarm_command=$param_value;
     elif [[ $param_key == "-c" ]] || [[ $param_key == "--countdown" ]]; then
-        type="countdown" && alarm_command=$param_value;
+        alarm_type="countdown" && alarm_command=$param_value;
     elif [[ $param_key == "-i" ]] || [[ $param_key == "--interval" ]]; then
-        type="interval" && alarm_command=$param_value;
+        alarm_type="interval" && alarm_command=$param_value;
+    elif [[ $param_key == "-s" ]] || [[ $param_key == "--sound" ]]; then
+        sound_effect=$param_value;
     elif [[ $param_key == "-t" ]] || [[ $param_key == "--time" ]]; then
         alarm_time=$param_value;
     elif [[ $param_key == "-d" ]] || [[ $param_key == "--delay" ]]; then

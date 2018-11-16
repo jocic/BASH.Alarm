@@ -42,6 +42,7 @@ version="1.0.0";
 
 time_regex="^([0-9]+)(s|m|h|d)$";
 number_regex="^([0-9]+)$";
+effect_regex="(audio\/x-wav$)$";
 
 #########
 # LOGIC #
@@ -78,19 +79,81 @@ else
     
     # Check Type
     
-    if [[ -z $type ]]; then
+    if [[ -z $alarm_type ]]; then
         echo -e "Error: You haven't selected a type." && exit;
+    fi
+    
+    # Check Sound Effect
+    
+    if [[ ( -z $sound_effect ) || ( $sound_effect =~ $number_regex ) ]]; then
+        
+        # Handle Countdown & Alarm
+        
+        if [[ $alarm_type == "alarm" || $alarm_type == "countdown" ]]; then
+            
+            case $sound_effect in
+                
+                "1")
+                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
+                ;;
+                
+                "2")
+                    sound_effect="$source_dir/effects/alarms/analogue-watch.wav";
+                ;;
+                
+                "3")
+                    sound_effect="$source_dir/effects/alarms/annoying-alarm.wav";
+                ;;
+                
+                *)
+                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
+                ;;
+                
+            esac
+            
+        fi
+        
+        # Handle Interval
+        
+        if [[ $alarm_type == "interval" ]]; then
+            
+            case $sound_effect in
+                
+                "1")
+                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
+                ;;
+                
+                "2")
+                    sound_effect="$source_dir/effects/beeps/am-fm-beep.wav";
+                ;;
+                
+                "3")
+                    sound_effect="$source_dir/effects/beeps/beep-in-a.wav";
+                ;;
+                
+                *)
+                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
+                ;;
+                
+            esac
+            
+        fi
+        
+    elif [[ ( ! -f $sound_effect ) || ( ! $(file --mime-type $sound_effect) =~ $effect_regex ) ]]; then
+        
+        echo -e "Error: Invalid sound effect provided." && exit;
+        
     fi
     
     ############################
     # STEP 2 - PROCESS REQUEST #
     ############################
     
-    if [[ $type == "alarm" ]]; then
+    if [[ $alarm_type == "alarm" ]]; then
         source "$source_dir/includes/create-alarm.sh";
-    elif [[ $type == "countdown" ]]; then
+    elif [[ $alarm_type == "countdown" ]]; then
         source "$source_dir/includes/create-countdown.sh";
-    elif [[ $type == "interval" ]]; then
+    elif [[ $alarm_type == "interval" ]]; then
         source "$source_dir/includes/create-interval.sh";
     else
         echo -e "Invalid type selected.";
