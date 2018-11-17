@@ -38,7 +38,6 @@ In this example, we are starting a 10s countdown, after which a generic alarm so
 ```bash
 bash ./alarm.sh -t 10s -c
 ```
-```
 
 ### Example 3 - Interval
 
