@@ -29,10 +29,24 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##########################
-# STEP 1 - APLAY COMMAND #
-##########################
+#########
+# LOGIC #
+#########
 
-if [[ -z "$(command -v aplay)" ]]; then
-    echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
-fi;
+# Checks if the user running the script has root privileges.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return integer
+#   Value <i>1</i> if the user has root privileges, and vice versa.
+
+function is_root_user()
+{
+    # Logic.
+    
+    [[ "$(id -u)" == "0" ]] && return 1;
+    
+    return 0;
+}

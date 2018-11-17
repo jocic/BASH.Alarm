@@ -35,6 +35,56 @@
 
 if [[ $test_sound == "yes" ]]; then
     
-    echo -e "Testing interval sound..." && aplay $sound_effect > /dev/null 2>&1 &
+    # Print Notice
+    
+    echo -e "Testing interval sound...";
+    
+    # Play Effect
+    
+    play_sound_effect $sound_effect $sound_volume;
+    
+else
+    
+    # Print Notice
+    
+    if [[ ! -z $alarm_delay ]]; then
+        echo "Starting a ${alarm_time[@]} interval, after a $alarm_delay second delay...";
+    else
+        echo -e "Starting a ${alarm_time[@]} interval...";
+    fi
+    
+    echo -e "\nPress CTRL + C to stop it...";
+    
+    # Delay Interval
+    
+    if [[ ! -z $alarm_delay ]]; then
+        sleep $alarm_delay;
+    fi
+    
+    # Initialize Interval
+    
+    while [[ 1 == 1 ]]; do
+        
+        # Handle Multiple Interval Times
+        
+        for time in ${alarm_time[@]}; do
+            
+            # Delay Playback & Command Execution
+            
+            sleep $time;
+            
+            # Play Sound Effect
+            
+            play_sound_effect $sound_effect $sound_volume;
+            
+            # Execute Command
+            
+            if [[ ! -z $alarm_command ]]; then
+                bash -c "$alarm_command" &
+            fi
+            
+        done
+        
+    done
     
 fi

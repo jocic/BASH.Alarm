@@ -33,13 +33,28 @@ bash ./alarm.sh --test -a
 
 ### Example 2 - Countdown
 
-In this example, we are starting a 10s countdown,= after which a generic alarm sound will be played.
+In this example, we are starting a 10s countdown, after which a generic alarm sound will be played.
 
 ```bash
 bash ./alarm.sh -t 10s -c
 ```
+```
 
-### Example 3 - Initialization Delay
+### Example 3 - Interval
+
+Starting an interval is just as easy, in this example we are starting an interval that will play a generic alarm sound after each minute.
+
+```bash
+bash ./alarm.sh -t 1m -i
+```
+
+Alternatively, you can start an interval with varying time. First interval will trigger an alarm in 1m, second in 2m, and so on indefinitely.
+
+```bash
+bash ./alarm.sh -t 1m,2m,3m -i
+```
+
+### Example 4 - Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
 
@@ -47,7 +62,7 @@ Sometimes you may want to start a countdown after a slight delay, in this exampl
 bash ./alarm.sh -t 10m -d 10 -c
 ```
 
-### Example 4 - Command Execution
+### Example 5 - Command Execution
 
 Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
 
@@ -55,7 +70,7 @@ Usually, you would want to execute a certain command after a countdown, interval
 bash ./alarm.sh -t 10s -c "echo 'Hello World!'"
 ```
 
-### Example 5 - Alternative Sound Effect
+### Example 6 - Alternative Sound Effect
 
 You can easily change the default sound effect by providing an ID of a built-in sound effect.
 
@@ -69,7 +84,7 @@ Or you can, alternatively, just point to your own sound effect.
 bash ./alarm.sh -t 10s -s /path/to/your/folder/effect.wav -c
 ```
 
-### Example 6 - Sound Volume
+### Example 7 - Sound Volume
 
 Flag "-v" is used to temporarily change the master volume during the alarm to a percentage of your choosing. It is a great way to avoid missing an alarm.
 

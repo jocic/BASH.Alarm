@@ -29,10 +29,50 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##########################
-# STEP 1 - APLAY COMMAND #
-##########################
+#########
+# LOGIC #
+#########
 
-if [[ -z "$(command -v aplay)" ]]; then
-    echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
-fi;
+# Plays an alarm sound effect, with an option to temporarily change the master
+# volume of the system - both left & right sound channel independently.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $sound_effect
+#   Location of the sound effect that should be played.
+# @param integer $sound_volume
+#   Master volume (percentage) that should be used during playback.
+# @return void
+
+function play_sound_effect()
+{
+    # Core Variables
+    
+    sound_effect=$1;
+    sound_volume=$2;
+    
+    # Regex Variables.
+    
+    effect_regex="(audio\/x-wav$)$";
+    
+    # Other Variables
+    
+    left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
+    right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
+    
+    # Step 1 - Process Arguments
+    
+    if [[ ( ! -f $sound_effect ) || ( ! $(file --mime-type $sound_effect) =~ $effect_regex ) ]]; then
+        echo -e "Error: Invalid sound effect provided for playback." && exit;
+    fi
+    
+    # Step 2 - Play Sound Effect
+    
+    if [[ -z $sound_volume ]]; then
+        aplay $sound_effect > /dev/null 2>&1;
+    else
+        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
+    fi
+}

@@ -29,13 +29,6 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##################
-# CORE VARIABLES #
-##################
-
-left_channel="";
-right_channel="";
-
 #########
 # LOGIC #
 #########
@@ -48,31 +41,16 @@ if [[ $test_sound == "yes" ]]; then
     
     # Play Effect
     
-    if [[ -z $sound_volume ]]; then
-        
-        aplay $sound_effect > /dev/null 2>&1;
-        
-    else
-        
-        # Get Current Volume
-        
-        left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
-        right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
-        
-        # Play Effect
-        
-        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
-        
-    fi
+    play_sound_effect $sound_effect $sound_volume;
         
 else
     
     # Print Notice
     
     if [[ ! -z $alarm_delay ]]; then
-        echo "Starting a $alarm_time countdown, after a $alarm_delay second delay...";
+        echo "Starting a ${alarm_time[0]} countdown, after a $alarm_delay second delay...";
     else
-        echo -e "Starting a $alarm_time countdown...";
+        echo -e "Starting a ${alarm_time[0]} countdown...";
     fi
     
     # Initialize Countdown
@@ -81,26 +59,11 @@ else
         sleep $alarm_delay;
     fi
     
-    sleep $alarm_time;
+    sleep ${alarm_time[0]};
     
-    # Play Alarm
+    # Play Sound Effect
     
-    if [[ -z $sound_volume ]]; then
-        
-        aplay $sound_effect > /dev/null 2>&1 &
-        
-    else
-        
-        # Get Current Volume
-        
-        left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
-        right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
-        
-        # Play Effect
-        
-        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
-        
-    fi
+    play_sound_effect $sound_effect $sound_volume;
     
     # Execute Command
     

@@ -40,7 +40,7 @@ version="1.0.0";
 # REGEX VARIABLES #
 ###################
 
-time_regex="^([0-9]+)(s|m|h|d)$";
+time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
 number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav$)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
@@ -49,6 +49,8 @@ volume_regex="^([0-9]{1,2}[0]?|100)$";
 # LOGIC #
 #########
 
+source "$source_dir/includes/add-check-functions.sh";
+source "$source_dir/includes/add-alarm-functions.sh";
 source "$source_dir/includes/check-dependencies.sh";
 source "$source_dir/includes/process-parameters.sh";
 
@@ -160,8 +162,14 @@ else
         echo -e "Error: Invalid volume value provided, please use an integer with value between 0 to 100." && exit;
     fi
     
+    ###############################
+    # STEP 2 - PROCESS ALARM TIME #
+    ###############################
+    
+    alarm_time=($(echo "$alarm_time" | tr "," "\n"));
+    
     ############################
-    # STEP 4 - PROCESS REQUEST #
+    # STEP 3 - PROCESS REQUEST #
     ############################
     
     if [[ $alarm_type == "alarm" ]]; then
