@@ -41,6 +41,7 @@ version="1.0.0";
 ###################
 
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
+clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
 number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav$)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
@@ -70,8 +71,14 @@ else
     
     # Check Alarm Time
     
-    if [[ ( $test_sound == "no" ) && ( ! $alarm_time =~ $time_regex ) ]]; then
-        echo -e "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
+    if [[ $test_sound == "no" ]]; then
+        
+        if [[ ( $alarm_type == "countdown" || $alarm_type == "interval" ) && ( ! $alarm_time =~ $time_regex ) ]]; then
+            echo -e "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
+        elif [[ ( $alarm_type == "alarm" ) && ( ! $alarm_time =~ $clock_regex ) ]]; then
+            echo -e "Error: Invalid time provided, please use the HH:MM AM/PM format." && exit;
+        fi
+        
     fi
     
     # Check Alarm Delay
@@ -166,7 +173,11 @@ else
     # STEP 2 - PROCESS ALARM TIME #
     ###############################
     
-    alarm_time=($(echo "$alarm_time" | tr "," "\n"));
+    if [[ ( $alarm_type == "countdown" || $alarm_type == "interval" ) ]]; then
+        alarm_time=($(echo "$alarm_time" | tr "," "\n"));
+    else
+        alarm_time=($(echo "$alarm_time" | tr ":" "\n"));
+    fi
     
     ############################
     # STEP 3 - PROCESS REQUEST #

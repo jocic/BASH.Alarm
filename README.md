@@ -54,7 +54,19 @@ Alternatively, you can start an interval with varying time. First interval will 
 bash ./alarm.sh -t 1m,2m,3m -i
 ```
 
-### Example 4 - Initialization Delay
+**Note:** Keep in mind that intervals run idefinitely so in order to stop them you need to press CTRL + C or kill it using your prefered method.
+
+### Example 4 - Alarm
+
+To create an alarm that will be trigger at ex. 07:00 AM you simply need to issue the following command.
+
+```bash
+bash ./alarm.sh -t "07:00 AM" -a
+```
+
+**Note:** Command above will create an appropriate CRON job, and to remove it you need to use **crontab -e** command.
+
+### Example 5 - Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
 
@@ -62,7 +74,7 @@ Sometimes you may want to start a countdown after a slight delay, in this exampl
 bash ./alarm.sh -t 10m -d 10 -c
 ```
 
-### Example 5 - Command Execution
+### Example 6 - Command Execution
 
 Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
 
@@ -70,7 +82,7 @@ Usually, you would want to execute a certain command after a countdown, interval
 bash ./alarm.sh -t 10s -c "echo 'Hello World!'"
 ```
 
-### Example 6 - Alternative Sound Effect
+### Example 7 - Alternative Sound Effect
 
 You can easily change the default sound effect by providing an ID of a built-in sound effect.
 
@@ -84,7 +96,7 @@ Or you can, alternatively, just point to your own sound effect.
 bash ./alarm.sh -t 10s -s /path/to/your/folder/effect.wav -c
 ```
 
-### Example 7 - Sound Volume
+### Example 8 - Sound Volume
 
 Flag "-v" is used to temporarily change the master volume during the alarm to a percentage of your choosing. It is a great way to avoid missing an alarm.
 

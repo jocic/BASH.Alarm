@@ -42,7 +42,7 @@ if [[ $test_sound == "yes" ]]; then
     # Play Effect
     
     play_sound_effect $sound_effect $sound_volume;
-        
+    
 else
     
     # Print Notice
@@ -63,7 +63,7 @@ else
     
     # Play Sound Effect
     
-    play_sound_effect $sound_effect $sound_volume;
+    play_sound_effect $sound_effect $sound_volume &
     
     # Execute Command
     

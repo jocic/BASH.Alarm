@@ -75,7 +75,7 @@ else
             
             # Play Sound Effect
             
-            play_sound_effect $sound_effect $sound_volume;
+            play_sound_effect $sound_effect $sound_volume &
             
             # Execute Command
             

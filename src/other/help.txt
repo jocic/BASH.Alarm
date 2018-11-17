@@ -13,7 +13,6 @@ Available options:
   -t, --time      : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
   -s, --sound     : Set sound of a countdown, interval, or an alarm in WAV format.
   -v, --volume    : Change volume of the sound effect.
-  -g, --global    : Play sound effect globally.
   -d, --delay     : Initial delay in seconds, useful when wanting to postpone alarm initialization.
   -h, --help      : Display this help and exit.
       --test      : Test the sound effect.
