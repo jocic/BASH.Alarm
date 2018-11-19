@@ -73,11 +73,13 @@ else
             
             sleep $time;
             
-            # Play Sound Effect
+            # Trigger Alarm
             
             play_sound_effect $sound_effect $sound_volume &
             
-            # Execute Command
+            if [[ ! -z $alarm_message ]]; then
+                show_alarm_message $alarm_message &
+            fi
             
             if [[ ! -z $alarm_command ]]; then
                 bash -c "$alarm_command" &

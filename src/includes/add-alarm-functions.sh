@@ -76,3 +76,29 @@ function play_sound_effect()
         (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
     fi
 }
+
+# Shows an alarm message in form of a system notification.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $alarm_message
+#   Alarm message that should be shown.
+# @return void
+
+function show_alarm_message()
+{
+    # Core Variables
+    
+    alarm_message=$1;
+    
+    # Logic
+    
+    if [[ ! -z "$(command -v zenity)" ]]; then
+        echo "$alarm_message" | zenity --title "Alarm Message" --text-info;
+    elif [[ ! -z "$(command -v notify-send)" ]]; then
+        notify-send -u critical -t 300000 $alarm_message;
+    fi
+    
+}

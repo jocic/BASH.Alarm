@@ -37,6 +37,7 @@ alarm_type="";
 alarm_time="";
 alarm_delay="";
 alarm_command="";
+alarm_message="";
 sound_effect="";
 sound_volume="";
 test_sound="no";
@@ -77,6 +78,8 @@ while [[ 1 == 1 ]]; do
         alarm_time=$param_value;
     elif [[ $param_key == "-d" ]] || [[ $param_key == "--delay" ]]; then
         alarm_delay=$param_value;
+    elif [[ $param_key == "-m" ]] || [[ $param_key == "--message" ]]; then
+        alarm_message=$param_value;
     elif [[ $param_key == "-s" ]] || [[ $param_key == "--sound" ]]; then
         sound_effect=$param_value;
     elif [[ $param_key == "-v" ]] || [[ $param_key == "--volume" ]]; then

@@ -14,6 +14,7 @@ Available options:
   -s, --sound     : Set sound of a countdown, interval, or an alarm in WAV format.
   -v, --volume    : Change volume of the sound effect.
   -d, --delay     : Initial delay in seconds, useful when wanting to postpone alarm initialization.
+  -m, --message   : Message you want to display at the end of a countdown, interval, or an alarm.
   -h, --help      : Display this help and exit.
       --test      : Test the sound effect.
       --version   : Output version information and exit.

@@ -57,7 +57,7 @@ bash ./alarm.sh -t 1m,2m,3m -i
 
 ### Example 4 - Alarm
 
-To create an alarm that will be trigger at ex. 07:00 AM you simply need to issue the following command.
+To create an alarm that will be triggered at ex. 07:00 AM you simply need to issue the following command.
 
 ```bash
 bash ./alarm.sh -t "07:00 AM" -a
@@ -128,7 +128,7 @@ Add a repository.
 ```bash
 wget -nc https://www.djordjejocic.com/files/apt/Release.key
 sudo apt-key add Release.key
-sudo echo "deb http://apt.djordjejocic.com/ general main" >> "/etc/apt/sources.list"
+sudo echo "deb http://apt.djordjejocic.com general main" >> "/etc/apt/sources.list"
 sudo apt-get update
 ```
 
@@ -137,8 +137,6 @@ Install project.
 ```bash
 apt-get install alarm
 ```
-
-**Note:** Keep in mind that **Alarm** isn't yet available in my personal repository - mostly because it isn't up and running yet. ;)
 
 ## Support
 
