@@ -103,6 +103,16 @@ Flag "-v" is used to temporarily change the master volume during the alarm to a 
 bash ./alarm.sh -t 10s -v 100 -c
 ```
 
+### Example 9 - Displaying Messages
+
+You can display a custom message when the alarm is triggered using the "-m" flag.
+
+```bash
+bash ./alarm.sh -t 10s -m "My alarm message!" -c
+```
+
+**Note:** Your system needs to have either **zenity** or **notify-send** installed.
+
 ## Alias
 
 If you plan to use the script everyday, you should probably create an alias.

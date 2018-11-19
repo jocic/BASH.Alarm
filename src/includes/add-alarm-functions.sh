@@ -96,9 +96,9 @@ function show_alarm_message()
     # Logic
     
     if [[ ! -z "$(command -v zenity)" ]]; then
-        echo "$alarm_message" | zenity --title "Alarm Message" --text-info;
+        echo "$alarm_message" | zenity --title "Alarm Message" --text-info > /dev/null 2>&1 &
     elif [[ ! -z "$(command -v notify-send)" ]]; then
-        notify-send -u critical -t 300000 $alarm_message;
+        notify-send -u critical -t 300000 $alarm_message > /dev/null 2>&1 &
     fi
     
 }

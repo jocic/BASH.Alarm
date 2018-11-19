@@ -96,6 +96,12 @@ else
         cron_task="$cron_task -s '$sound_effect'";
     fi
     
+    if [[ $alarm_message =~ "'" ]]; then
+        cron_task="$cron_task -m \"$alarm_message\"";
+    else
+        cron_task="$cron_task -m '$alarm_message'";
+    fi
+    
     if [[ $alarm_command =~ "'" ]]; then
         cron_task="$cron_task -c \"$alarm_command\"";
     else
