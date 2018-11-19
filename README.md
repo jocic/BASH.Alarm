@@ -111,8 +111,6 @@ You can display a custom message when the alarm is triggered using the "-m" flag
 bash ./alarm.sh -t 10s -m "My alarm message!" -c
 ```
 
-**Note:** Your system needs to have either **zenity** or **notify-send** installed.
-
 ## Alias
 
 If you plan to use the script everyday, you should probably create an alias.
