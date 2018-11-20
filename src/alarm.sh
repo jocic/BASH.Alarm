@@ -33,6 +33,7 @@
 # CORE VARIABLES #
 ##################
 
+user_id=$(id -u);
 source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 version="1.0.0";
 
@@ -68,6 +69,12 @@ else
     #############################
     # STEP 1 - CHECK PARAMETERS #
     #############################
+    
+    # Check Privileges For Global Alarm
+    
+    if [[ ( $global_alarm == "yes" ) && ( $user_id != "0" ) ]]; then
+        echo -e "Error: Global alarms can only be created by users with root privileges." && exit;
+    fi
     
     # Check Alarm Time
     

@@ -111,6 +111,14 @@ You can display a custom message when the alarm is triggered using the "-m" flag
 bash ./alarm.sh -t 10s -m "My alarm message!" -c
 ```
 
+### Example 10 - Global Alarms
+
+If you want to set a countdown, interval, or an alarm that will trigger for all logged-in users, you should use the "--global" flag.
+
+```bash
+bash ./alarm.sh --global -t 1m -c
+```
+
 ## Alias
 
 If you plan to use the script everyday, you should probably create an alias.

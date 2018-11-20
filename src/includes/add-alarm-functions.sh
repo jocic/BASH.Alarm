@@ -71,9 +71,9 @@ function play_sound_effect()
     # Step 2 - Play Sound Effect
     
     if [[ -z $sound_volume ]]; then
-        aplay $sound_effect > /dev/null 2>&1;
+        execute_alarm_command "aplay $sound_effect > /dev/null 2>&1" $global_alarm;
     else
-        (amixer set "Master" "$sound_volume%" && aplay $sound_effect && amixer set "Master" "$left_channel,$right_channel") > /dev/null 2>&1 &
+        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay $sound_effect && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" $global_alarm;
     fi
 }
 
@@ -95,6 +95,48 @@ function show_alarm_message()
     
     # Logic
     
-    echo "$alarm_message" | zenity --title "Alarm Message" --text-info > /dev/null 2>&1 &
+    if [[ $alarm_message =~ "'" ]]; then
+        execute_alarm_command "echo \"$alarm_message\" | zenity --title \"Alarm Message\" --text-info > /dev/null 2>&1 &" $global_alarm;
+    else
+        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" $global_alarm;
+    fi
+}
+
+# Executes command of an alarm.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $alarm_command
+#   Alarm command that should be executed.
+# @param string $alarm_global
+#   Flag <i>yes</i> if command should be executed globally.
+# @return void
+
+function execute_alarm_command()
+{
+    # Core Variables
+    
+    alarm_command=$1;
+    alarm_global=$2;
+    
+    # Other Variables
+    
+    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d-);
+    
+    # Logic
+    
+    if [[ $alarm_global == "yes" ]]; then
+        
+        for user in ${logged_users[@]}; do
+            sudo -u $user bash -c "$alarm_command" &
+        done
+        
+    else
+        
+        bash -c "$alarm_command" &
+        
+    fi
     
 }

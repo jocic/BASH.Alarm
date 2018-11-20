@@ -82,7 +82,7 @@ else
             fi
             
             if [[ ! -z $alarm_command ]]; then
-                bash -c "$alarm_command" &
+                execute_alarm_command "$alarm_command" &
             fi
             
         done
