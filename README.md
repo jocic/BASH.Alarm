@@ -119,6 +119,14 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 bash ./alarm.sh --global -t 1m -c
 ```
 
+### Example 11 - Dependency Installation
+
+**Alarm** doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
+
+```bash
+bash ./alarm.sh --install
+```
+
 ## Alias
 
 If you plan to use the script everyday, you should probably create an alias.
