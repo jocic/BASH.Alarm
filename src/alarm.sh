@@ -64,6 +64,10 @@ elif [[ $display_version == "yes" ]]; then
     
     source "$source_dir/includes/show-version.sh";
     
+elif [[ $install_deps == "yes" ]]; then
+    
+    source "$source_dir/includes/install-dependencies.sh";
+    
 else
     
     #############################

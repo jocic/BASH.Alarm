@@ -42,6 +42,7 @@ sound_effect="";
 sound_volume="";
 test_sound="no";
 global_alarm="no";
+install_deps="no";
 display_help="no";
 display_version="no";
 
@@ -85,10 +86,12 @@ while [[ 1 == 1 ]]; do
         sound_effect=$param_value;
     elif [[ $param_key == "-v" ]] || [[ $param_key == "--volume" ]]; then
         sound_volume=$param_value;
+    elif [[ $param_key == "-g" ]] || [[ $param_key == "--global" ]]; then
+        global_alarm="yes";
     elif [[ $param_key == "--test" ]]; then
         test_sound="yes";
-    elif [[ $param_key == "--global" ]]; then
-        global_alarm="yes";
+    elif [[ $param_key == "--install" ]]; then
+        install_deps="yes";
     elif [[ $param_key == "-h" ]] || [[ $param_key == "--help" ]]; then
         display_help="yes";
     elif [[ $param_key == "--version" ]]; then

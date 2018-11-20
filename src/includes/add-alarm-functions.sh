@@ -111,7 +111,7 @@ function show_alarm_message()
 # @param string $alarm_command
 #   Alarm command that should be executed.
 # @param string $alarm_global
-#   Flag <i>yes</i> if command should be executed globally.
+#   Flag <i>yes</i> if command should be executed globally, and vice versa.
 # @return void
 
 function execute_alarm_command()
@@ -123,7 +123,7 @@ function execute_alarm_command()
     
     # Other Variables
     
-    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d-);
+    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
     
     # Logic
     
@@ -138,5 +138,4 @@ function execute_alarm_command()
         bash -c "$alarm_command" &
         
     fi
-    
 }
