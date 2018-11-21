@@ -29,18 +29,22 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##########################
-# STEP 1 - APLAY COMMAND #
-##########################
-
-if [[ -z "$(command -v aplay)" ]]; then
-    echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
-fi;
-
-###########################
-# STEP 2 - ZENITY COMMAND #
-###########################
-
-if [[ -z "$(command -v zenity)" ]]; then
-    echo "Error: Command \"zenity\" is missing. Please install it by typing \"apt-get install zenity\"." && exit;
-fi;
+if [[ $install_deps == "no" ]]; then
+    
+    ##########################
+    # STEP 1 - APLAY COMMAND #
+    ##########################
+    
+    if [[ -z "$(command -v aplay)" ]]; then
+        echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
+    fi
+    
+    ###########################
+    # STEP 2 - ZENITY COMMAND #
+    ###########################
+    
+    if [[ -z "$(command -v zenity)" ]]; then
+        echo "Error: Command \"zenity\" is missing. Please install it by typing \"apt-get install zenity\"." && exit;
+    fi
+    
+fi

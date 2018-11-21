@@ -51,10 +51,10 @@ volume_regex="^([0-9]{1,2}[0]?|100)$";
 # LOGIC #
 #########
 
+source "$source_dir/includes/process-parameters.sh";
 source "$source_dir/includes/add-check-functions.sh";
 source "$source_dir/includes/add-alarm-functions.sh";
 source "$source_dir/includes/check-dependencies.sh";
-source "$source_dir/includes/process-parameters.sh";
 
 if [[ $display_help == "yes" ]]; then
     
