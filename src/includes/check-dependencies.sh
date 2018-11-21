@@ -29,22 +29,41 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-if [[ $install_deps == "no" ]]; then
+##################
+# CORE VARIABLES #
+##################
+
+deps_commands=("aplay" "zenity");
+deps_packages=("alsa-utils" "zenity");
+
+#########
+# LOGIC #
+#########
+
+if [[ ${#deps_commands[@]} == ${#deps_packages[@]} ]]; then
     
-    ##########################
-    # STEP 1 - APLAY COMMAND #
-    ##########################
-    
-    if [[ -z "$(command -v aplay)" ]]; then
-        echo "Error: Command \"aplay\" is missing. Please install it by typing \"apt-get install alsa-utils\"." && exit;
+    if [[ $install_deps == "no" ]]; then
+        
+        for i in "${!deps_commands[@]}"; do
+            
+            if [[ -z "$(command -v ${deps_commands[$i]})" ]]; then
+                
+                if [[ ! -z "$(command -v apt-get)" ]]; then
+                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install the dependency by typing \"apt-get install ${deps_packages[$i]}\"." && exit;
+                elif [[ ! -z "$(command -v yum)" ]]; then
+                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install the dependency by typing \"yum install ${deps_packages[$i]}\"." && exit;
+                else
+                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install \"${deps_packages[$i]}\"." && exit;
+                fi
+                
+            fi
+            
+        done
+        
     fi
     
-    ###########################
-    # STEP 2 - ZENITY COMMAND #
-    ###########################
+else
     
-    if [[ -z "$(command -v zenity)" ]]; then
-        echo "Error: Command \"zenity\" is missing. Please install it by typing \"apt-get install zenity\"." && exit;
-    fi
+    echo -e "Error: Dependency command count doesn't correspond to it's package counterpart." && exit;
     
 fi
