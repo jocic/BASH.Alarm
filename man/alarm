@@ -1,0 +1,140 @@
+.\" Manpage for alarm.
+.\" Contact office@djordjejocic.com to correct errors or typos.
+.TH ALARM "1" "23 Nov 2018" "1.0.0" "General Commands Manual"
+.SH NAME
+alarm \- creates countdown, interval, or an alarm.
+.SH SYNOPSIS
+alarm [options] [type] [command]
+.SH DESCRIPTION
+Alarm is a simple BASH script for creating alarms, countdowns, and intervals with optional command execution at the end.
+.SH OPTIONS
+Creates a countdown, interval, or an alarm.
+
+.I Alarm types:
+.TP
+\fB -a\fR, \fB-\-alarm\fR
+Setup an alarm.
+.TP
+\fB\-c\fR, \fB\-\-countdown\fR
+Setup an countdown.
+.TP
+\fB\-i\fR, \fB\-\-interval\fR
+Setup an interval.
+.TP
+.I Available options:
+.TP
+\fB\-t\fR, \fB\-\-time\fR
+Countdown/interval time, or an alarm time in HH:MM AM/PM format.
+.TP
+\fB\-s\fR, \fB\-\-sound\fR
+Set sound of a countdown, interval, or an alarm in WAV format.
+.TP
+\fB\-v\fR, \fB\-\-volume\fR
+Change volume of the sound effect.
+.TP
+\fB\-d\fR, \fB\-\-delay\fR
+Initial delay in seconds, useful when wanting to postpone alarm initialization.
+.TP
+\fB\-m\fR, \fB\-\-message\fR
+Message you want to display at the end of a countdown, interval, or an alarm.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display this help and exit.
+.TP
+\fB\-g\fR, \fB\-\-global\fR
+Trigger an alarm for all logged-in users.
+.TP
+\fB\-\-test\fR
+Test the sound effect.
+.TP
+\fB\-\-install\fR
+Install required dependencies automatically.
+.TP
+\fB\-\-version\fR
+Output version information and exit.
+.SH EXAMPLES
+Following examples were created to help you get started.
+.TP
+.I Testing Sound
+
+Sound of a countdown, interval, or an alarm can be easily tested prior to initialization using a "--test" flag.
+
+\fBalarm --test -a\fR
+.TP
+.I Countdown
+
+In this example, we are starting a 10s countdown, after which a generic alarm sound will be played.
+
+\fBalarm -t 10s -c\fR
+.TP
+.I Interval
+
+Starting an interval is just as easy, in this example we are starting an interval that will play a generic alarm sound after each minute.
+
+\fBalarm -t 1m -i\fR
+
+Alternatively, you can start an interval with varying time. First interval will trigger an alarm in 1m, second in 2m, and so on indefinitely.
+
+\fBalarm -t 1m,2m,3m -i\fR
+
+\fBNote:\fR Keep in mind that intervals run idefinitely so in order to stop them you need to press CTRL + C or kill it using your prefered method.
+.TP
+.I Alarm
+
+To create an alarm that will be triggered at ex. 07:00 AM you simply need to issue the following command.
+
+\fBalarm -t "07:00 AM" -a\fR
+.TP
+.I Initialization Delay
+
+Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
+
+\fBalarm -t 10m -d 10 -c\fR
+.TP
+.I Command Execution
+
+Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
+
+\fBalarm -t 10s -c "echo 'Hello World!'"\fR
+.TP
+.I Alternative Sound Effect
+
+You can easily change the default sound effect by providing an ID of a built-in sound effect.
+
+\fBalarm -t 10s -s 2 -c\fR
+
+Or you can, alternatively, just point to your own sound effect.
+
+\fBalarm -t 10s -s /path/to/your/folder/effect.wav -c\fR
+.TP
+.I Sound Volume
+
+Flag "-v" is used to temporarily change the master volume during the alarm to a percentage of your choosing. It is a great way to avoid missing an alarm.
+
+\fBalarm -t 10s -v 100 -c\fR
+.TP
+.I Displaying Messages
+
+You can display a custom message when the alarm is triggered using the "-m" flag.
+
+\fBalarm -t 10s -m "My alarm message!" -c\fR
+.TP
+.I Global Alarms
+
+If you want to set a countdown, interval, or an alarm that will trigger for all logged-in users, you should use the "--global" flag.
+
+\fBalarm --global -t 1m -c\fR
+.TP
+.I Dependency Installation
+
+Alarm doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
+
+\fBalarm --install\fR
+.SH SEE ALSO
+Full documentation is available at: <http://www.github.com/jocic/BASH.Alarm>
+
+aplay(1), alsamixer(1), crontab(1)
+.SH BUGS
+There are no known bugs.
+.SH AUTHOR
+Đorđe Jocić (office@djordjejocic.com)

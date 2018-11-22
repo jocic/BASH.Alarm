@@ -16,7 +16,7 @@ Available options:
   -d, --delay     : Initial delay in seconds, useful when wanting to postpone alarm initialization.
   -m, --message   : Message you want to display at the end of a countdown, interval, or an alarm.
   -h, --help      : Display this help and exit.
-  -g, --global    : Triggers an alarm for all logged-in users.
+  -g, --global    : Trigger an alarm for all logged-in users.
       --test      : Test the sound effect.
       --install   : Install required dependencies automatically.
       --version   : Output version information and exit.
