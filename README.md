@@ -2,7 +2,7 @@
 
 Alarm is a simple BASH script for creating alarms, countdowns, and intervals with optional command execution at the end.
 
-![Help Example](assets/img/help.png)
+![Help Example](img/help.png)
 
 Script has been tested on the following distributions:
 
@@ -171,3 +171,9 @@ Please don't hessitate to contact me if you have any questions, ideas, or concer
 My Twitter account is: [@jocic_91](https://www.twitter.com)
 
 My support E-Mail address is: <support@djordjejocic.com>
+
+## Copyright & License
+
+Copyright (C) 2018 Đorđe Jocić
+
+Licensed under the MIT license.
