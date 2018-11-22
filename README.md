@@ -9,7 +9,7 @@ Script has been tested on the following distributions:
 * Ubuntu 18.04
 * Debian 9.5
 
-[![Buy Me Coffee](assets/img/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
+[![Buy Me Coffee](img/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
 
 ## Versioning Scheme
 
