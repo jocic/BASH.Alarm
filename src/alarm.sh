@@ -35,7 +35,7 @@
 
 user_id=$(id -u);
 source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
-version="1.0.0";
+version="1.1.0";
 
 ###################
 # REGEX VARIABLES #
@@ -75,7 +75,6 @@ temp="";
 ##############################
 
 source "$source_dir/includes/functions/core.sh";
-source "$source_dir/includes/functions/check.sh";
 source "$source_dir/includes/functions/alarm.sh";
 
 ############################
@@ -94,7 +93,7 @@ elif [[ $display_version == "yes" ]]; then
     
 elif [[ $install_deps == "yes" ]]; then
     
-    if [[ $(is_root_user) -eq 0 ]]; then
+    if [[ $user_id == "0" ]]; then
         
         # Get Confirmation
         

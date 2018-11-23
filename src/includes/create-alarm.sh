@@ -33,7 +33,7 @@
 # CORE VARIABLES #
 ##################
 
-cron_details=$(crontab -l);
+cron_details="";
 cron_task="";
 
 ###################
@@ -62,6 +62,10 @@ else
     # Print Notice
     
     echo "Creating an alarm that will trigger at ${alarm_time[0]}:${alarm_time[1]} ${alarm_time[2]} everyday...";
+    
+    # Get Crontab Details
+    
+    cron_details=$(crontab -l);
     
     # Handle 12-Hour Clock
     
