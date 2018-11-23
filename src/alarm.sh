@@ -47,31 +47,85 @@ number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav$)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
 
-#########
-# LOGIC #
-#########
+#######################
+# PARAMETER VARIABLES #
+#######################
 
-source "$source_dir/includes/process-parameters.sh";
-source "$source_dir/includes/add-check-functions.sh";
-source "$source_dir/includes/add-alarm-functions.sh";
-source "$source_dir/includes/check-dependencies.sh";
+alarm_type="";
+alarm_time="";
+alarm_delay="";
+alarm_command="";
+alarm_message="";
+sound_effect="";
+sound_volume="";
+test_sound="no";
+global_alarm="no";
+install_deps="no";
+display_help="no";
+display_version="no";
+
+###################
+# OTHER VARIABLES #
+###################
+
+temp="";
+
+##############################
+# STEP 1 - INCLUDE FUNCTIONS #
+##############################
+
+source "$source_dir/includes/functions/core.sh";
+source "$source_dir/includes/functions/check.sh";
+source "$source_dir/includes/functions/alarm.sh";
+
+############################
+# STEP 2 - PROCESS REQUEST #
+############################
+
+process_arguments $@;
 
 if [[ $display_help == "yes" ]]; then
     
-    source "$source_dir/includes/show-help.sh";
+    show_help;
     
 elif [[ $display_version == "yes" ]]; then
     
-    source "$source_dir/includes/show-version.sh";
+    show_version;
     
 elif [[ $install_deps == "yes" ]]; then
     
-    source "$source_dir/includes/install-dependencies.sh";
+    if [[ $(is_root_user) -eq 0 ]]; then
+        
+        # Get Confirmation
+        
+        read -p "Install dependencies? (y/n) - " -n 1 temp;
+        
+        # Install Depndencies
+        
+        if [[ $temp =~ ^[Yy]$ ]]; then
+            echo -e "\n" && install_dependencies;
+        else
+            echo -e "\n\nCancelling...";
+        fi
+        
+    else
+        echo "Error: You need root privileges to install dependencies." && exit;
+    fi
     
 else
     
+    ###############################
+    # STEP 1 - CHECK DEPENDENCIES #
+    ###############################
+    
+    temp=$(check_dependencies);
+    
+    if [[ ! -z $temp ]]; then
+        echo $temp && exit;
+    fi
+    
     #############################
-    # STEP 1 - CHECK PARAMETERS #
+    # STEP 2 - CHECK PARAMETERS #
     #############################
     
     # Check Privileges For Global Alarm
@@ -181,7 +235,7 @@ else
     fi
     
     ###############################
-    # STEP 2 - PROCESS ALARM TIME #
+    # STEP 3 - PROCESS ALARM TIME #
     ###############################
     
     if [[ ( $alarm_type == "countdown" || $alarm_type == "interval" ) ]]; then
@@ -191,7 +245,7 @@ else
     fi
     
     ############################
-    # STEP 3 - PROCESS REQUEST #
+    # STEP 4 - PROCESS REQUEST #
     ############################
     
     if [[ $alarm_type == "alarm" ]]; then
