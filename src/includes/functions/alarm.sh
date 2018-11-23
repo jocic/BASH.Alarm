@@ -124,18 +124,23 @@ function execute_alarm_command()
     # Other Variables
     
     logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
+    temp_file=$(mktemp)
     
-    # Logic
+    # Step 1 - Generate Temporary Script
+    
+    chmod 777 $temp_file && echo "$alarm_command" > $temp_file;
+    
+    # Step 2 - Execute Temporary Script
     
     if [[ $alarm_global == "yes" ]]; then
         
         for user in ${logged_users[@]}; do
-            sudo -u $user bash -c "$alarm_command" &
+            sudo -u $user bash $temp_file &
         done
         
     else
         
-        bash -c "$alarm_command" &
+        bash $temp_file &
         
     fi
 }

@@ -81,7 +81,7 @@ source "$source_dir/includes/functions/alarm.sh";
 # STEP 2 - PROCESS REQUEST #
 ############################
 
-process_arguments $@;
+process_arguments "$@";
 
 if [[ $display_help == "yes" ]]; then
     
