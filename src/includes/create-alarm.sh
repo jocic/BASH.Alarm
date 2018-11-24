@@ -35,7 +35,6 @@
 
 cron_details="";
 cron_task="";
-script_location="";
 
 ###################
 # OTHER VARIABLES #
@@ -95,10 +94,21 @@ else
     
     cron_task="$cron_minutes $cron_hour * * * bash '$source_dir/alarm.sh' -t 0s";
     
-    cron_task="$cron_task -v '$sound_volume'";
     cron_task="$cron_task -s '$sound_effect'";
-    cron_task="$cron_task -m '$alarm_message'";
-    cron_task="$cron_task -c '$alarm_command'";
+    
+    if [[ ! -z "$sound_volume" ]]; then
+        cron_task="$cron_task -v '$sound_volume'";
+    fi
+    
+    if [[ ! -z "$alarm_message" ]]; then
+        cron_task="$cron_task -m '$alarm_message'";
+    fi
+    
+    if [[ -z "$alarm_command" ]]; then
+        cron_task="$cron_task -c";
+    else
+        cron_task="$cron_task -c '$alarm_command'";
+    fi
     
     # Add Cron Task
     
