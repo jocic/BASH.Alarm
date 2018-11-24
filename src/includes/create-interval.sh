@@ -90,3 +90,5 @@ else
     done
     
 fi
+
+exit;
