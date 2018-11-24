@@ -70,15 +70,15 @@ else
     
     # Handle 12-Hour Clock
     
-    cron_hour=$[ "${alarm_time[0]}" + 0 ];
-    cron_minutes=$[ "${alarm_time[1]}" + 0 ];
+    cron_hour=$(echo "${alarm_time[0]}" | sed "s/^0*//");
+    cron_minutes=$(echo "${alarm_time[1]}" | sed "s/^0*//");
     
     if [[ "${alarm_time[2]}" == "PM" ]]; then
         
         if [[ "${alarm_time[0]}" == "12" ]]; then
             cron_hour=0;
         else
-            cron_hour=$[ "${alarm_time[0]}" + 12 ];
+            cron_hour=$[ $cron_hour + 12 ];
         fi
         
     fi

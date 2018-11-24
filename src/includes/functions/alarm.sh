@@ -124,7 +124,7 @@ function execute_alarm_command()
     # Other Variables
     
     logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
-    temp_file=$(mktemp)
+    temp_file=$(mktemp);
     
     # Step 1 - Generate Temporary Script
     
