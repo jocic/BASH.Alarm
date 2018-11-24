@@ -123,7 +123,6 @@ function execute_alarm_command()
     
     # Other Variables
     
-    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
     temp_file=$(mktemp);
     
     # Step 1 - Generate Temporary Script
@@ -132,15 +131,43 @@ function execute_alarm_command()
     
     # Step 2 - Execute Temporary Script
     
+    execute_alarm_script "$temp_file" "$alarm_global";
+}
+
+# Executes script of an alarm.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $alarm_script
+#   Alarm script that should be executed.
+# @param string $alarm_global
+#   Flag <i>yes</i> if script should be executed globally, and vice versa.
+# @return void
+
+function execute_alarm_script()
+{
+    # Core Variables
+    
+    alarm_script=$1;
+    alarm_global=$2;
+    
+    # Other Variables
+    
+    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
+    
+    # Logic
+    
     if [[ "$alarm_global" == "yes" ]]; then
         
         for user in ${logged_users[@]}; do
-            sudo -u "$user" bash "$temp_file" &
+            sudo -u "$user" bash "$alarm_script" &
         done
         
     else
         
-        bash "$temp_file" &
+        bash "$alarm_script" &
         
     fi
 }
