@@ -59,7 +59,7 @@ function process_arguments()
         param_key=$(eval echo \${$current_param});
         param_value=$(eval echo \${$next_param});
         
-        if [[ -z "$param_key" ]]; then
+        if [[ ( -z "$param_key" ) && ( -z "$param_value" ) ]]; then
             break;
         elif [[ "$param_key" == "-a" ]] || [[ "$param_key" == "--alarm" ]]; then
             alarm_type="alarm" && alarm_command=$param_value;
