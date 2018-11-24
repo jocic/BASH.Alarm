@@ -42,6 +42,7 @@ cron_task="";
 
 cron_hour="";
 cron_minutes="";
+temp_file=$(mktemp);
 
 #########
 # LOGIC #
@@ -65,7 +66,7 @@ else
     
     # Get Crontab Details
     
-    cron_details=$(crontab -l);
+    cron_details=$(crontab -l > "$temp_file" 2>&1 && cat "$temp_file");
     
     # Handle 12-Hour Clock
     
