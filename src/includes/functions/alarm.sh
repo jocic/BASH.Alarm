@@ -64,16 +64,16 @@ function play_sound_effect()
     
     # Step 1 - Process Arguments
     
-    if [[ ( ! -f $sound_effect ) || ( ! $(file --mime-type $sound_effect) =~ $effect_regex ) ]]; then
+    if [[ ( ! -f "$sound_effect" ) || ( ! $(file --mime-type "$sound_effect") =~ $effect_regex ) ]]; then
         echo -e "Error: Invalid sound effect provided for playback." && exit;
     fi
     
     # Step 2 - Play Sound Effect
     
-    if [[ -z $sound_volume ]]; then
-        execute_alarm_command "aplay $sound_effect > /dev/null 2>&1" $global_alarm;
+    if [[ -z "$sound_volume" ]]; then
+        execute_alarm_command "aplay $sound_effect > /dev/null 2>&1" "$global_alarm";
     else
-        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay $sound_effect && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" $global_alarm;
+        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay $sound_effect && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
     fi
 }
 
@@ -95,10 +95,10 @@ function show_alarm_message()
     
     # Logic
     
-    if [[ $alarm_message =~ "'" ]]; then
-        execute_alarm_command "echo \"$alarm_message\" | zenity --title \"Alarm Message\" --text-info > /dev/null 2>&1 &" $global_alarm;
+    if [[ "$alarm_message" =~ "'" ]]; then
+        execute_alarm_command "echo \"$alarm_message\" | zenity --title \"Alarm Message\" --text-info > /dev/null 2>&1 &" "$global_alarm";
     else
-        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" $global_alarm;
+        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" "$global_alarm";
     fi
 }
 
@@ -128,19 +128,19 @@ function execute_alarm_command()
     
     # Step 1 - Generate Temporary Script
     
-    chmod 777 $temp_file && echo "$alarm_command" > $temp_file;
+    chmod 777 "$temp_file" && echo "$alarm_command" > "$temp_file";
     
     # Step 2 - Execute Temporary Script
     
-    if [[ $alarm_global == "yes" ]]; then
+    if [[ "$alarm_global" == "yes" ]]; then
         
         for user in ${logged_users[@]}; do
-            sudo -u $user bash $temp_file &
+            sudo -u "$user" bash "$temp_file" &
         done
         
     else
         
-        bash $temp_file &
+        bash "$temp_file" &
         
     fi
 }

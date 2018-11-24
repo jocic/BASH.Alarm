@@ -33,7 +33,7 @@
 # LOGIC #
 #########
 
-if [[ $test_sound == "yes" ]]; then
+if [[ "$test_sound" == "yes" ]]; then
     
     # Print Notice
     
@@ -41,13 +41,13 @@ if [[ $test_sound == "yes" ]]; then
     
     # Play Effect
     
-    play_sound_effect $sound_effect $sound_volume;
+    play_sound_effect "$sound_effect" "$sound_volume";
     
 else
     
     # Print Notice
     
-    if [[ ! -z $alarm_delay ]]; then
+    if [[ ! -z "$alarm_delay" ]]; then
         echo "Starting a ${alarm_time[0]} countdown, after a $alarm_delay second delay...";
     else
         echo -e "Starting a ${alarm_time[0]} countdown...";
@@ -55,15 +55,15 @@ else
     
     # Initialize Countdown
     
-    if [[ ! -z $alarm_delay ]]; then
-        sleep $alarm_delay;
+    if [[ ! -z "$alarm_delay" ]]; then
+        sleep "$alarm_delay";
     fi
     
-    sleep ${alarm_time[0]};
+    sleep "${alarm_time[0]}";
     
     # Trigger Alarm
     
-    play_sound_effect $sound_effect $sound_volume &
+    play_sound_effect "$sound_effect" "$sound_volume" &
     
     if [[ ! -z $alarm_message ]]; then
         show_alarm_message "$alarm_message" &

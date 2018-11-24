@@ -59,33 +59,33 @@ function process_arguments()
         param_key=$(eval echo \${$current_param});
         param_value=$(eval echo \${$next_param});
         
-        if [[ -z $param_key ]]; then
+        if [[ -z "$param_key" ]]; then
             break;
-        elif [[ $param_key == "-a" ]] || [[ $param_key == "--alarm" ]]; then
+        elif [[ "$param_key" == "-a" ]] || [[ "$param_key" == "--alarm" ]]; then
             alarm_type="alarm" && alarm_command=$param_value;
-        elif [[ $param_key == "-c" ]] || [[ $param_key == "--countdown" ]]; then
+        elif [[ "$param_key" == "-c" ]] || [[ "$param_key" == "--countdown" ]]; then
             alarm_type="countdown" && alarm_command=$param_value;
-        elif [[ $param_key == "-i" ]] || [[ $param_key == "--interval" ]]; then
+        elif [[ "$param_key" == "-i" ]] || [[ "$param_key" == "--interval" ]]; then
             alarm_type="interval" && alarm_command=$param_value;
-        elif [[ $param_key == "-t" ]] || [[ $param_key == "--time" ]]; then
+        elif [[ "$param_key" == "-t" ]] || [[ "$param_key" == "--time" ]]; then
             alarm_time=$param_value;
-        elif [[ $param_key == "-d" ]] || [[ $param_key == "--delay" ]]; then
+        elif [[ "$param_key" == "-d" ]] || [[ "$param_key" == "--delay" ]]; then
             alarm_delay=$param_value;
-        elif [[ $param_key == "-m" ]] || [[ $param_key == "--message" ]]; then
+        elif [[ "$param_key" == "-m" ]] || [[ "$param_key" == "--message" ]]; then
             alarm_message=$param_value;
-        elif [[ $param_key == "-s" ]] || [[ $param_key == "--sound" ]]; then
+        elif [[ "$param_key" == "-s" ]] || [[ "$param_key" == "--sound" ]]; then
             sound_effect=$param_value;
-        elif [[ $param_key == "-v" ]] || [[ $param_key == "--volume" ]]; then
+        elif [[ "$param_key" == "-v" ]] || [[ "$param_key" == "--volume" ]]; then
             sound_volume=$param_value;
-        elif [[ $param_key == "-g" ]] || [[ $param_key == "--global" ]]; then
+        elif [[ "$param_key" == "-g" ]] || [[ "$param_key" == "--global" ]]; then
             global_alarm="yes";
-        elif [[ $param_key == "--test" ]]; then
+        elif [[ "$param_key" == "--test" ]]; then
             test_sound="yes";
-        elif [[ $param_key == "--install" ]]; then
+        elif [[ "$param_key" == "--install" ]]; then
             install_deps="yes";
-        elif [[ $param_key == "-h" ]] || [[ $param_key == "--help" ]]; then
+        elif [[ "$param_key" == "-h" ]] || [[ "$param_key" == "--help" ]]; then
             display_help="yes";
-        elif [[ $param_key == "--version" ]]; then
+        elif [[ "$param_key" == "--version" ]]; then
             display_version="yes";
         fi
         

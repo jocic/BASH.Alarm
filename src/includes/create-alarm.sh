@@ -47,7 +47,7 @@ cron_minutes="";
 # LOGIC #
 #########
 
-if [[ $test_sound == "yes" ]]; then
+if [[ "$test_sound" == "yes" ]]; then
     
     # Print Notice
     
@@ -69,44 +69,44 @@ else
     
     # Handle 12-Hour Clock
     
-    cron_hour=$[ ${alarm_time[0]} + 0 ];
-    cron_minutes=$[ ${alarm_time[1]} + 0 ];
+    cron_hour=$[ "${alarm_time[0]}" + 0 ];
+    cron_minutes=$[ "${alarm_time[1]}" + 0 ];
     
-    if [[ ${alarm_time[2]} == "PM" ]]; then
+    if [[ "${alarm_time[2]}" == "PM" ]]; then
         
-        if [[ ${alarm_time[0]} == "12" ]]; then
+        if [[ "${alarm_time[0]}" == "12" ]]; then
             cron_hour=0;
         else
-            cron_hour=$[ ${alarm_time[0]} + 12 ];
+            cron_hour=$[ "${alarm_time[0]}" + 12 ];
         fi
         
     fi
     
     # Generate Cron Task
     
-    if [[ $source_dir =~ "'" ]]; then
+    if [[ "$source_dir" =~ "'" ]]; then
         cron_task="$cron_minutes $cron_hour * * * bash \"$source_dir/alarm.sh\" -t 0s";
     else
         cron_task="$cron_minutes $cron_hour * * * bash '$source_dir/alarm.sh' -t 0s";
     fi
     
-    if [[ ! -z $sound_volume ]]; then
+    if [[ ! -z "$sound_volume" ]]; then
         cron_task="$cron_task -v \"$sound_volume\"";
     fi
     
-    if [[ $sound_effect =~ "'" ]]; then
+    if [[ "$sound_effect" =~ "'" ]]; then
         cron_task="$cron_task -s \"$sound_effect\"";
     else
         cron_task="$cron_task -s '$sound_effect'";
     fi
     
-    if [[ $alarm_message =~ "'" ]]; then
+    if [[ "$alarm_message" =~ "'" ]]; then
         cron_task="$cron_task -m \"$alarm_message\"";
     else
         cron_task="$cron_task -m '$alarm_message'";
     fi
     
-    if [[ $alarm_command =~ "'" ]]; then
+    if [[ "$alarm_command" =~ "'" ]]; then
         cron_task="$cron_task -c \"$alarm_command\"";
     else
         cron_task="$cron_task -c '$alarm_command'";

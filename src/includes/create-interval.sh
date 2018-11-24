@@ -33,7 +33,7 @@
 # LOGIC #
 #########
 
-if [[ $test_sound == "yes" ]]; then
+if [[ "$test_sound" == "yes" ]]; then
     
     # Print Notice
     
@@ -41,13 +41,13 @@ if [[ $test_sound == "yes" ]]; then
     
     # Play Effect
     
-    play_sound_effect $sound_effect $sound_volume;
+    play_sound_effect "$sound_effect" "$sound_volume";
     
 else
     
     # Print Notice
     
-    if [[ ! -z $alarm_delay ]]; then
+    if [[ ! -z "$alarm_delay" ]]; then
         echo "Starting a ${alarm_time[@]} interval, after a $alarm_delay second delay...";
     else
         echo -e "Starting a ${alarm_time[@]} interval...";
@@ -57,8 +57,8 @@ else
     
     # Delay Interval
     
-    if [[ ! -z $alarm_delay ]]; then
-        sleep $alarm_delay;
+    if [[ ! -z "$alarm_delay" ]]; then
+        sleep "$alarm_delay";
     fi
     
     # Initialize Interval
@@ -75,13 +75,13 @@ else
             
             # Trigger Alarm
             
-            play_sound_effect $sound_effect $sound_volume &
+            play_sound_effect "$sound_effect" "$sound_volume" &
             
-            if [[ ! -z $alarm_message ]]; then
+            if [[ ! -z "$alarm_message" ]]; then
                 show_alarm_message "$alarm_message" &
             fi
             
-            if [[ ! -z $alarm_command ]]; then
+            if [[ ! -z "$alarm_command" ]]; then
                 execute_alarm_command "$alarm_command" &
             fi
             
