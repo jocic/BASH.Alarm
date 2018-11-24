@@ -70,10 +70,12 @@ function play_sound_effect()
     
     # Step 2 - Play Sound Effect
     
+    sound_effect=$(parse_value "$sound_effect");
+    
     if [[ -z "$sound_volume" ]]; then
-        execute_alarm_command "aplay $sound_effect > /dev/null 2>&1" "$global_alarm";
+        execute_alarm_command "aplay '$sound_effect' > /dev/null 2>&1" "$global_alarm";
     else
-        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay $sound_effect && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
+        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
     fi
 }
 
@@ -95,11 +97,9 @@ function show_alarm_message()
     
     # Logic
     
-    if [[ "$alarm_message" =~ "'" ]]; then
-        execute_alarm_command "echo \"$alarm_message\" | zenity --title \"Alarm Message\" --text-info > /dev/null 2>&1 &" "$global_alarm";
-    else
-        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" "$global_alarm";
-    fi
+    alarm_message=$(parse_value "$alarm_message");
+    
+    execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" "$global_alarm";
 }
 
 # Executes command of an alarm.

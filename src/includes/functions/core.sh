@@ -33,6 +33,27 @@
 # LOGIC #
 #########
 
+# Parses provided value for use in single quotes.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $value
+#   Value that should be parsed.
+# @return void
+
+function parse_value()
+{
+    # Core Variables
+    
+    value=$1;
+    
+    # Logic
+    
+    echo ${value//\'/\'\\\'\'};
+}
+
 # Processes passed script arguments.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
