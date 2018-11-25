@@ -54,7 +54,7 @@ function play_sound_effect()
     sound_volume=$2;
     play_command="";
     
-    # Regex Variables.
+    # Regex Variables
     
     wav_regex="(audio\/x-wav)$";
     mp3_regex="(audio\/mpeg)$";
@@ -64,7 +64,7 @@ function play_sound_effect()
     left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
     right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
     
-    # Step 1 - Process Arguments.
+    # Step 1 - Process Arguments
     
     if [[ $(file --mime-type "$sound_effect") =~ $wav_regex ]]; then
         
@@ -84,11 +84,7 @@ function play_sound_effect()
         
     fi
     
-    # Step 2 - Set Environment Variables.
-    
-    export XDG_RUNTIME_DIR="/run/user/1000";
-    
-    # Step 3 - Play Sound Effect
+    # Step 2 - Play Sound Effect
     
     sound_effect=$(parse_value "$sound_effect");
     
@@ -147,7 +143,7 @@ function execute_alarm_command()
     
     # Step 1 - Generate Temporary Script
     
-    chmod 777 "$temp_file" && echo "$alarm_command" > "$temp_file";
+    chmod 777 "$temp_file" && echo "$alarm_command" >> "$temp_file";
     
     # Step 2 - Execute Temporary Script
     
@@ -175,6 +171,8 @@ function execute_alarm_script()
     
     # Other Variables
     
+    user_id="";
+    temp_file=$(mktemp);
     logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
     
     # Logic
@@ -182,10 +180,24 @@ function execute_alarm_script()
     if [[ "$alarm_global" == "yes" ]]; then
         
         for user in ${logged_users[@]}; do
+            
+            user_id=$(id -u $user);
+            
+            chmod 777 "$temp_file";
+            
+            echo "export XDG_RUNTIME_DIR='/run/user/$user_id'" >> "$temp_file" && cat "$alarm_script" >> "$temp_file";
+            
+            mv "$temp_file" "$alarm_script";
+            
             sudo -u "$user" bash "$alarm_script" &
+            
         done
         
     else
+        
+        user_id=$(id -u);
+        
+        export XDG_RUNTIME_DIR="/run/user/$user_id";
         
         bash "$alarm_script" &
         

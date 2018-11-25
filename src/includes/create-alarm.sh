@@ -96,6 +96,10 @@ else
     
     cron_task="$cron_task -s '$sound_effect'";
     
+    if [[ $global_alarm == "yes" ]]; then
+        cron_task="$cron_task --global";
+    fi
+    
     if [[ ! -z "$sound_volume" ]]; then
         cron_task="$cron_task -v '$sound_volume'";
     fi
