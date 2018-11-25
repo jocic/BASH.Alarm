@@ -84,6 +84,10 @@ function play_sound_effect()
         
     fi
     
+    # Step 2 - Set Environment Variables.
+    
+    export XDG_RUNTIME_DIR="/run/user/1000";
+    
     # Step 3 - Play Sound Effect
     
     sound_effect=$(parse_value "$sound_effect");
