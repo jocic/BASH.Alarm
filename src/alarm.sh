@@ -44,7 +44,9 @@ version="1.1.0";
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
 clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
 number_regex="^([0-9]+)$";
-effect_regex="(audio\/x-wav$)$";
+effect_regex="(audio\/x-wav|audio\/mpeg)$";
+wav_regex="(audio\/x-wav)$";
+mp3_regex="(audio\/mpeg)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
 
 #######################
@@ -221,9 +223,19 @@ else
             
         fi
         
-    elif [[ ( ! -f "$sound_effect" ) || ( ! $(file --mime-type "$sound_effect") =~ $effect_regex ) ]]; then
+    elif [[ -f "$sound_effect" ]]; then
         
-        echo -e "Error: Invalid sound effect provided." && exit;
+        # Check Sound Effect
+        
+        if [[ ! $(file --mime-type "$sound_effect") =~ $effect_regex ]]; then
+            echo -e "Error: Unsupported audio file types used. Only WAV & MP3 files are supported." && exit;
+        fi
+        
+        # Check If MP3 Playback Requested
+        
+        if [[ ( $(file --mime-type "$sound_effect") =~ $mp3_regex ) && ( -z "$(command -v ffplay)" ) ]]; then
+            echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
+        fi
         
     fi
     

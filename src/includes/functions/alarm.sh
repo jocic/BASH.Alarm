@@ -52,30 +52,46 @@ function play_sound_effect()
     
     sound_effect=$1;
     sound_volume=$2;
+    play_command="";
     
     # Regex Variables.
     
-    effect_regex="(audio\/x-wav$)$";
+    wav_regex="(audio\/x-wav)$";
+    mp3_regex="(audio\/mpeg)$";
     
     # Other Variables
     
     left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
     right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
     
-    # Step 1 - Process Arguments
+    # Step 1 - Process Arguments.
     
-    if [[ ( ! -f "$sound_effect" ) || ( ! $(file --mime-type "$sound_effect") =~ $effect_regex ) ]]; then
-        echo -e "Error: Invalid sound effect provided for playback." && exit;
+    if [[ $(file --mime-type "$sound_effect") =~ $wav_regex ]]; then
+        
+        play_command="aplay -q";
+        
+    elif [[ $(file --mime-type "$sound_effect") =~ $mp3_regex ]]; then
+        
+        if [[ -z "$(command -v ffplay)" ]]; then
+            echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
+        else
+            play_command="ffplay -nodisp";
+        fi
+        
+    else
+        
+        echo "Error: Provided audio file isn't supported. Only WAV & MP3 files are supported." && exit
+        
     fi
     
-    # Step 2 - Play Sound Effect
+    # Step 3 - Play Sound Effect
     
     sound_effect=$(parse_value "$sound_effect");
     
     if [[ -z "$sound_volume" ]]; then
-        execute_alarm_command "aplay '$sound_effect' > /dev/null 2>&1" "$global_alarm";
+        execute_alarm_command "$play_command '$sound_effect' > /dev/null 2>&1" "$global_alarm";
     else
-        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && aplay '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
+        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && $play_command '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
     fi
 }
 
