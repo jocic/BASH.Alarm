@@ -23,9 +23,9 @@ Available options:
 
 Available sound effects - alarm & countdown:
 
-  -0 : Fire alarm (default).
-  -1 : Analogue watch.
-  -2 : Annoying alarm.
+  -1 : Fire alarm (default).
+  -2 : Analogue watch.
+  -3 : Annoying alarm.
 
 Available sound effects - interval:
 

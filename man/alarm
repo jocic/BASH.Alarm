@@ -1,6 +1,6 @@
 .\" Manpage for alarm.
 .\" Contact office@djordjejocic.com to correct errors or typos.
-.TH ALARM "1" "23 Nov 2018" "1.0.0" "General Commands Manual"
+.TH ALARM "1" "23 Nov 2018" "1.1.0" "General Commands Manual"
 .SH NAME
 alarm \- creates countdown, interval, or an alarm.
 .SH SYNOPSIS
@@ -52,6 +52,28 @@ Install required dependencies automatically.
 .TP
 \fB\-\-version\fR
 Output version information and exit.
+.TP
+.I Available sound effects - alarm & countdown:
+.TP
+\fB -1\fR
+Fire alarm (default).
+.TP
+\fB -2\fR
+Analogue watch.
+.TP
+\fB -3\fR
+Annoying alarm.
+.TP
+.I Available sound effects - interval:
+.TP
+\fB -1\fR
+Electornic Chime (default).
+.TP
+\fB -2\fR
+AM/FM Beep.
+.TP
+\fB -3\fR
+Beep in A.
 .SH EXAMPLES
 Following examples were created to help you get started.
 .TP
