@@ -35,7 +35,7 @@
 
 user_id=$(id -u);
 source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
-version="1.1.0";
+version="1.1.1";
 
 ###################
 # REGEX VARIABLES #
