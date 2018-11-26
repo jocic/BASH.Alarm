@@ -33,6 +33,84 @@
 # LOGIC #
 #########
 
+# Pauses script execution for a given time.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $alarm_type
+#   Identifier, ex. <i>alarm</i>, <i>countdown</i>, or <i>interval</i>.
+# @param string $time
+#   Time that the script should be paused.
+# @return void
+
+function sleep_for()
+{
+    # Core Variables
+    
+    alarm_type=$1;
+    time=$2;
+    seconds=0;
+    seconds_passed=0;
+    
+    # Other Variables
+    
+    identifier="";
+    amount="";
+    input="";
+    diff="";
+    
+    # Step 1 - Determine Number Of Seconds For Pause
+    
+    identifier="${time: -1}";
+    amount="${time: 0 : -1}";
+    
+    if [[ "$identifier" == "d" ]]; then
+        seconds=$[ $amount * 24 * 60 * 60 ];
+    elif [[ "$identifier" == "h" ]]; then
+        seconds=$[ $amount * 60 * 60 ];
+    elif [[ "$identifier" == "m" ]]; then
+        seconds=$[ $amount * 60 ];
+    elif [[ "$identifier" == "s" ]]; then
+        seconds=$amount;
+    fi
+    
+    # Step 2 - Pause Execution
+    
+    stty -icanon time 0 min 0;
+    
+    for (( s=0; s < $seconds; s ++ )); do
+        
+        for (( d=0; d < 4; d ++ )); do
+            
+            read input;
+            
+            if [[ "$input" != "" ]]; then
+                
+                diff=$[ $seconds - $seconds_passed ];
+                
+                if [[ "$input" == "d" ]]; then
+                    diff=$[ (($diff / 60) / 60) / 24 ] && echo "ays requested...$alarm_type will end in ${diff}d...";
+                elif [[ "$input" == "h" ]]; then
+                    diff=$[ ($diff / 60) / 60 ] && echo "ours requested...$alarm_type will end in ${diff}h...";
+                elif [[ "$input" == "m" ]]; then
+                    diff=$[ $diff / 60 ] && echo "inutes requested...$alarm_type will end in ${diff}m...";
+                elif [[ "$input" == "s" ]]; then
+                    echo "econds requested...$alarm_type will end in ${diff}s...";
+                fi
+                
+            fi
+            
+            sleep 0.25;
+            
+        done
+        
+        seconds_passed=$[ $seconds_passed + 1 ];
+        
+    done
+}
+
 # Plays an alarm sound effect, with an option to temporarily change the master
 # volume of the system - both left & right sound channel independently.
 # 

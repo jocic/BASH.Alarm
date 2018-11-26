@@ -56,10 +56,10 @@ else
     # Initialize Countdown
     
     if [[ ! -z "$alarm_delay" ]]; then
-        sleep "$alarm_delay";
+        sleep_for "Delay" "${alarm_delay}s";
     fi
     
-    sleep "${alarm_time[0]}";
+    sleep_for "Countdown" "${alarm_time[0]}";
     
     # Trigger Alarm
     

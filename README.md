@@ -25,6 +25,8 @@ Complete documentation can be found by following the link above.
 
 This script was made for Debian and Debian-based distributions but it should work on other Linux distributions - as long as the audio and MIDI functionality on them is provided by ALSA.
 
+**Note:** You can always check the status of an alarm by pressing **d** key for days, **h** key for hours, **m** key for minutes, or **s** key for seconds.
+
 ### Example 1 - Testing Sound
 
 Sound of a countdown, interval, or an alarm can be easily tested prior to initialization using a "--test" flag.

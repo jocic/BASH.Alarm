@@ -58,7 +58,7 @@ else
     # Delay Interval
     
     if [[ ! -z "$alarm_delay" ]]; then
-        sleep "$alarm_delay";
+        sleep_for "Delay" "${alarm_delay}s";
     fi
     
     # Initialize Interval
@@ -71,7 +71,7 @@ else
             
             # Delay Playback & Command Execution
             
-            sleep $time;
+            sleep_for "Interval" $time;
             
             # Trigger Alarm
             
