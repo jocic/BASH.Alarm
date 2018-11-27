@@ -29,15 +29,21 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
+##################
+# CORE VARIABLES #
+##################
+
+interval="";
+
 #########
 # LOGIC #
 #########
 
-if [[ "$test_sound" == "yes" ]]; then
+if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo -e "Testing interval sound...";
+    echo "Testing interval sound...";
     
     # Play Effect
     
@@ -47,27 +53,29 @@ else
     
     # Print Notice
     
-    if [[ ! -z "$alarm_delay" ]]; then
-        echo "Starting a ${alarm_time[@]} interval, after a $alarm_delay second delay...";
+    interval=$(echo "$alarm_time" | tr "\n" "-" | sed -e "s/-$//g");
+    
+    if [ ! -z "$alarm_delay" ]; then
+        echo "Starting a $interval interval, after a $alarm_delay second delay...";
     else
-        echo -e "Starting a ${alarm_time[@]} interval...";
+        echo "Starting a $interval interval...";
     fi
     
-    echo -e "\nPress CTRL + C to stop it...";
+    echo "\nPress CTRL + C to stop it...";
     
     # Delay Interval
     
-    if [[ ! -z "$alarm_delay" ]]; then
+    if [ ! -z "$alarm_delay" ]; then
         sleep_for "Delay" "${alarm_delay}s";
     fi
     
     # Initialize Interval
     
-    while [[ 1 == 1 ]]; do
+    while [ 1 = 1 ]; do
         
         # Handle Multiple Interval Times
         
-        for time in ${alarm_time[@]}; do
+        for time in $alarm_time; do
             
             # Delay Playback & Command Execution
             
@@ -77,11 +85,11 @@ else
             
             play_sound_effect "$sound_effect" "$sound_volume" &
             
-            if [[ ! -z "$alarm_message" ]]; then
+            if [ ! -z "$alarm_message" ]; then
                 show_alarm_message "$alarm_message" &
             fi
             
-            if [[ ! -z "$alarm_command" ]]; then
+            if [ ! -z "$alarm_command" ]; then
                 execute_alarm_command "$alarm_command" &
             fi
             

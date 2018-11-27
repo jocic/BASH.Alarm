@@ -43,7 +43,7 @@
 #   Value that should be parsed.
 # @return void
 
-function parse_value()
+parse_value()
 {
     # Core Variables
     
@@ -51,7 +51,8 @@ function parse_value()
     
     # Logic
     
-    echo ${value//\'/\'\\\'\'};
+    echo $value | sed -e "s/'/'\\\''/g";
+
 }
 
 # Processes passed script arguments.
@@ -62,58 +63,65 @@ function parse_value()
 # 
 # @return void
 
-function process_arguments()
+process_arguments()
 {
     # Control Variables
     
-    param_key="";
-    param_value="";
-    current_param=1;
-    next_param=2;
+    queue="";
     
     # Logic
     
-    while [[ 1 == 1 ]]; do
+    for arg in "$@"; do
         
-        # Check Parameters
+        # Assign Queued Values
         
-        param_key=$(eval echo \${$current_param});
-        param_value=$(eval echo \${$next_param});
-        
-        if [[ ( -z "$param_key" ) && ( -z "$param_value" ) ]]; then
-            break;
-        elif [[ "$param_key" == "-a" ]] || [[ "$param_key" == "--alarm" ]]; then
-            alarm_type="alarm" && alarm_command=$param_value;
-        elif [[ "$param_key" == "-c" ]] || [[ "$param_key" == "--countdown" ]]; then
-            alarm_type="countdown" && alarm_command=$param_value;
-        elif [[ "$param_key" == "-i" ]] || [[ "$param_key" == "--interval" ]]; then
-            alarm_type="interval" && alarm_command=$param_value;
-        elif [[ "$param_key" == "-t" ]] || [[ "$param_key" == "--time" ]]; then
-            alarm_time=$param_value;
-        elif [[ "$param_key" == "-d" ]] || [[ "$param_key" == "--delay" ]]; then
-            alarm_delay=$param_value;
-        elif [[ "$param_key" == "-m" ]] || [[ "$param_key" == "--message" ]]; then
-            alarm_message=$param_value;
-        elif [[ "$param_key" == "-s" ]] || [[ "$param_key" == "--sound" ]]; then
-            sound_effect=$param_value;
-        elif [[ "$param_key" == "-v" ]] || [[ "$param_key" == "--volume" ]]; then
-            sound_volume=$param_value;
-        elif [[ "$param_key" == "-g" ]] || [[ "$param_key" == "--global" ]]; then
-            global_alarm="yes";
-        elif [[ "$param_key" == "--test" ]]; then
-            test_sound="yes";
-        elif [[ "$param_key" == "--install" ]]; then
-            install_deps="yes";
-        elif [[ "$param_key" == "-h" ]] || [[ "$param_key" == "--help" ]]; then
-            display_help="yes";
-        elif [[ "$param_key" == "--version" ]]; then
-            display_version="yes";
+        if [ "$queue" = "time" ]; then
+            alarm_time=$arg;
+        elif [ "$queue" = "delay" ]; then
+            alarm_delay=$arg;
+        elif [ "$queue" = "message" ]; then
+            alarm_message=$arg;
+        elif [ "$queue" = "sound" ]; then
+            sound_effect=$arg;
+        elif [ "$queue" = "volume" ]; then
+            sound_volume=$arg;
+        elif [ "$queue" = "alarm-command" ]; then
+            alarm_command="$arg";
         fi
         
-        # Increment Control Variables
+        # Reset Queue Value
         
-        current_param=$(($current_param+1));
-        next_param=$(($next_param+1));
+        queue="";
+        
+        # Queue Commands
+        
+        if [ "$arg" = "-t" ] || [ "$arg" = "--time" ]; then
+            queue="time";
+        elif [ "$arg" = "-d" ] || [ "$arg" = "--delay" ]; then
+            queue="delay";
+        elif [ "$arg" = "-m" ] || [ "$arg" = "--message" ]; then
+            queue="message";
+        elif [ "$arg" = "-s" ] || [ "$arg" = "--sound" ]; then
+            queue="sound";
+        elif [ "$arg" = "-v" ] || [ "$arg" = "--volume" ]; then
+            queue="volume";
+        elif [ "$arg" = "-g" ] || [ "$arg" = "--global" ]; then
+            global_alarm="yes";
+        elif [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
+            display_help="yes";
+        elif [ "$arg" = "--test" ]; then
+            test_sound="yes";
+        elif [ "$arg" = "--install" ]; then
+            install_deps="yes";
+        elif [ "$arg" = "--version" ]; then
+            display_version="yes";
+        elif [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ]; then
+            alarm_type="alarm";
+        elif [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ]; then
+            alarm_type="countdown";
+        elif [ "$arg" = "-i" ] || [ "$arg" = "--interval" ]; then
+            alarm_type="interval";
+        fi
         
     done
 }
@@ -126,38 +134,29 @@ function process_arguments()
 # 
 # @return void
 
-function check_dependencies()
+check_dependencies()
 {
     # Core Variables
     
-    deps_commands=("aplay" "zenity");
-    deps_packages=("alsa-utils" "zenity");
+    packages=$(echo "alsa-utils zenity" | tr " " "\n");
     
     # Logic
     
-    if [[ ${#deps_commands[@]} == ${#deps_packages[@]} ]]; then
+    for package in $packages; do
         
-        for i in "${!deps_commands[@]}"; do
+        if [ "$(dpkg -l | grep "$package")" = "" ]; then
             
-            if [[ -z "$(command -v ${deps_commands[$i]})" ]]; then
-                
-                if [[ ! -z "$(command -v apt-get)" ]]; then
-                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install the dependency by typing \"apt-get install ${deps_packages[$i]}\".";
-                elif [[ ! -z "$(command -v yum)" ]]; then
-                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install the dependency by typing \"yum install ${deps_packages[$i]}\".";
-                else
-                    echo -e "Error: Command \"${deps_commands[$i]}\" is missing. Please install \"${deps_packages[$i]}\".";
-                fi
-                
+            if [ ! -z "$(command -v apt-get)" ]; then
+                echo "Error: Command \"$package\" is missing. Please install the dependency by typing \"apt-get install $package\".";
+            elif [ ! -z "$(command -v yum)" ]; then
+                echo "Error: Command \"$package\" is missing. Please install the dependency by typing \"yum install $package\".";
+            else
+                echo "Error: Command \"$package\" is missing. Please install \"$package\".";
             fi
             
-        done
+        fi
         
-    else
-        
-        echo -e "Error: Dependency command count doesn't correspond to it's package counterpart.";
-        
-    fi
+    done
 }
 
 # Prints project's help.
@@ -168,7 +167,7 @@ function check_dependencies()
 # 
 # @return void
 
-function show_help()
+show_help()
 {
     # Logic
     
@@ -183,11 +182,11 @@ function show_help()
 # 
 # @return void
 
-function show_version()
+show_version()
 {
     # Logic
     
-    echo -e "Alarm $version";
+    echo "Alarm $version";
     
     cat "$source_dir/other/version.txt" && exit;
 }
@@ -200,19 +199,19 @@ function show_version()
 # 
 # @return void
 
-function install_dependencies()
+install_dependencies()
 {
     # Core Variables
     
-    dependencies=("alsa-utils" "zenity");
+    dependencies=$(echo "alsa-utils zenity" | tr " " "\n");
     
     # Logic
     
-    for dependency in ${dependencies[@]}; do
+    for dependency in $dependencies; do
         
-        if [[ ! -z "$(command -v apt-get)" ]]; then
+        if [ ! -z "$(command -v apt-get)" ]; then
             apt-get install $dependency -y;
-        elif [[ ! -z "$(command -v yum)" ]]; then
+        elif [ ! -z "$(command -v yum)" ]; then
             yum install $depndency -y;
         else
             echo "Error: Your system isn't supported." && exit;

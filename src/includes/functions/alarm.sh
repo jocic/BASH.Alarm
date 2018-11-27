@@ -45,14 +45,14 @@
 #   Time that the script should be paused.
 # @return void
 
-function sleep_for()
+sleep_for()
 {
     # Core Variables
     
     alarm_type=$1;
     time=$2;
     seconds=0;
-    seconds_passed=0;
+    passed=0;
     
     # Other Variables
     
@@ -63,16 +63,16 @@ function sleep_for()
     
     # Step 1 - Determine Number Of Seconds For Pause
     
-    identifier="${time: -1}";
-    amount="${time: 0 : -1}";
+    identifier=$(echo "$time" | grep -oP "[^0-9]+");
+    amount=$(echo "$time" | grep -oP "[0-9]+");
     
-    if [[ "$identifier" == "d" ]]; then
+    if [ "$identifier" = "d" ]; then
         seconds=$[ $amount * 24 * 60 * 60 ];
-    elif [[ "$identifier" == "h" ]]; then
+    elif [ "$identifier" = "h" ]; then
         seconds=$[ $amount * 60 * 60 ];
-    elif [[ "$identifier" == "m" ]]; then
+    elif [ "$identifier" = "m" ]; then
         seconds=$[ $amount * 60 ];
-    elif [[ "$identifier" == "s" ]]; then
+    elif [ "$identifier" = "s" ]; then
         seconds=$amount;
     fi
     
@@ -80,23 +80,23 @@ function sleep_for()
     
     stty -icanon time 0 min 0;
     
-    for (( s=0; s < $seconds; s ++ )); do
+    while [ "$passed" -lt "$seconds" ]; do
         
-        for (( d=0; d < 4; d ++ )); do
+        for i in $(seq 1 4); do
             
             read input;
             
-            if [[ "$input" != "" ]]; then
+            if [ "$input" != "" ]; then
                 
-                diff=$[ $seconds - $seconds_passed ];
+                diff=$((seconds - passed))
                 
-                if [[ "$input" == "d" ]]; then
-                    diff=$[ (($diff / 60) / 60) / 24 ] && echo "ays requested...$alarm_type will end in ${diff}d...";
-                elif [[ "$input" == "h" ]]; then
-                    diff=$[ ($diff / 60) / 60 ] && echo "ours requested...$alarm_type will end in ${diff}h...";
-                elif [[ "$input" == "m" ]]; then
-                    diff=$[ $diff / 60 ] && echo "inutes requested...$alarm_type will end in ${diff}m...";
-                elif [[ "$input" == "s" ]]; then
+                if [ "$input" = "d" ]; then
+                    diff=$(( ((diff / 60) / 60 ) / 24 )) && echo "ays requested...$alarm_type will end in ${diff}d...";
+                elif [ "$input" = "h" ]; then
+                    diff=$(( ($diff / 60) / 60 )) && echo "ours requested...$alarm_type will end in ${diff}h...";
+                elif [ "$input" = "m" ]; then
+                    diff=$(( diff / 60 )) && echo "inutes requested...$alarm_type will end in ${diff}m...";
+                elif [ "$input" = "s" ]; then
                     echo "econds requested...$alarm_type will end in ${diff}s...";
                 fi
                 
@@ -105,8 +105,8 @@ function sleep_for()
             sleep 0.25;
             
         done
-        
-        seconds_passed=$[ $seconds_passed + 1 ];
+       
+        passed=$((passed + 1))
         
     done
 }
@@ -124,7 +124,7 @@ function sleep_for()
 #   Master volume (percentage) that should be used during playback.
 # @return void
 
-function play_sound_effect()
+play_sound_effect()
 {
     # Core Variables
     
@@ -144,13 +144,13 @@ function play_sound_effect()
     
     # Step 1 - Process Arguments
     
-    if [[ $(file --mime-type "$sound_effect") =~ $wav_regex ]]; then
+    if [ ! -z $(file --mime-type "$sound_effect" | grep -oP $wav_regex) ]; then
         
         play_command="aplay -q";
         
-    elif [[ $(file --mime-type "$sound_effect") =~ $mp3_regex ]]; then
+    elif [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex) ]; then
         
-        if [[ -z "$(command -v ffplay)" ]]; then
+        if [ -z "$(command -v ffplay)" ]; then
             echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
         else
             play_command="ffplay -nodisp";
@@ -166,7 +166,7 @@ function play_sound_effect()
     
     sound_effect=$(parse_value "$sound_effect");
     
-    if [[ -z "$sound_volume" ]]; then
+    if [ -z "$sound_volume" ]; then
         execute_alarm_command "$play_command '$sound_effect' > /dev/null 2>&1" "$global_alarm";
     else
         execute_alarm_command "(amixer set 'Master' '$sound_volume%' && $play_command '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
@@ -183,7 +183,7 @@ function play_sound_effect()
 #   Alarm message that should be shown.
 # @return void
 
-function show_alarm_message()
+show_alarm_message()
 {
     # Core Variables
     
@@ -208,7 +208,7 @@ function show_alarm_message()
 #   Flag <i>yes</i> if command should be executed globally, and vice versa.
 # @return void
 
-function execute_alarm_command()
+execute_alarm_command()
 {
     # Core Variables
     
@@ -240,7 +240,7 @@ function execute_alarm_command()
 #   Flag <i>yes</i> if script should be executed globally, and vice versa.
 # @return void
 
-function execute_alarm_script()
+execute_alarm_script()
 {
     # Core Variables
     
@@ -255,7 +255,7 @@ function execute_alarm_script()
     
     # Logic
     
-    if [[ "$alarm_global" == "yes" ]]; then
+    if [ "$alarm_global" = "yes" ]; then
         
         for user in ${logged_users[@]}; do
             

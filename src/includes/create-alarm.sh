@@ -35,24 +35,26 @@
 
 cron_details="";
 cron_task="";
+alarm="";
 
 ###################
 # OTHER VARIABLES #
 ###################
 
-cron_hour="";
-cron_minutes="";
+clock_hour="";
+clock_minute="";
+clock_period="";
 temp_file=$(mktemp);
 
 #########
 # LOGIC #
 #########
 
-if [[ "$test_sound" == "yes" ]]; then
+if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo -e "Testing alarm sound...";
+    echo "Testing alarm sound...";
     
     # Play Effect
     
@@ -60,9 +62,15 @@ if [[ "$test_sound" == "yes" ]]; then
     
 else
     
+    # Determine Clock Parameters
+    
+    clock_hour=$(echo "$alarm_time" | sed -n "1p");
+    clock_minute=$(echo "$alarm_time" | sed -n "2p");
+    clock_period=$(echo "$alarm_time" | sed -n "3p");
+    
     # Print Notice
     
-    echo "Creating an alarm that will trigger at ${alarm_time[0]}:${alarm_time[1]} ${alarm_time[2]} everyday...";
+    echo "Creating an alarm that will trigger at $clock_hour:$clock_minute $clock_period everyday...";
     
     # Get Crontab Details
     
@@ -70,15 +78,15 @@ else
     
     # Handle 12-Hour Clock
     
-    cron_hour=$(echo "${alarm_time[0]}" | sed "s/^0//");
-    cron_minutes=$(echo "${alarm_time[1]}" | sed "s/^0//");
+    clock_hour=$(echo "$clock_hour" | sed "s/^0//");
+    clock_minute=$(echo "$clock_minute" | sed "s/^0//");
     
-    if [[ "${alarm_time[2]}" == "PM" ]]; then
+    if [ "$clock_period" = "PM" ]; then
         
-        if [[ "${alarm_time[0]}" == "12" ]]; then
-            cron_hour=0;
+        if [ "$clock_hour" = "12" ]; then
+            clock_hour=0;
         else
-            cron_hour=$[ $cron_hour + 12 ];
+            clock_hour=$(( clock_hour + 12 ));
         fi
         
     fi
@@ -92,23 +100,23 @@ else
     
     # Generate Cron Task
     
-    cron_task="$cron_minutes $cron_hour * * * bash '$source_dir/alarm.sh' -t 0s";
+    cron_task="$clock_minute $clock_hour * * * bash '$source_dir/alarm.sh' -t 0s";
     
     cron_task="$cron_task -s '$sound_effect'";
     
-    if [[ $global_alarm == "yes" ]]; then
-        cron_task="$cron_task --global";
+    if [ $global_alarm = "yes" ]; then
+        cron_task="$cron_task -g";
     fi
     
-    if [[ ! -z "$sound_volume" ]]; then
+    if [ ! -z "$sound_volume" ]; then
         cron_task="$cron_task -v '$sound_volume'";
     fi
     
-    if [[ ! -z "$alarm_message" ]]; then
+    if [ ! -z "$alarm_message" ]; then
         cron_task="$cron_task -m '$alarm_message'";
     fi
     
-    if [[ -z "$alarm_command" ]]; then
+    if [ -z "$alarm_command" ]; then
         cron_task="$cron_task -c";
     else
         cron_task="$cron_task -c '$alarm_command'";
@@ -118,6 +126,6 @@ else
     
     cron_details="$cron_details\n$cron_task";
     
-    echo -e "$cron_details" | crontab;
+    echo "$cron_details" | crontab;
     
 fi

@@ -33,8 +33,8 @@
 # CORE VARIABLES #
 ##################
 
-user_id=$(id -u);
-source_dir="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
+user_id="$(id -u)";
+source_dir="$(cd -- $(dirname -- "$0") && pwd -P)";
 version="1.1.1";
 
 ###################
@@ -42,7 +42,7 @@ version="1.1.1";
 ###################
 
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
-clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
+clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM{2,2})$";
 number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav|audio\/mpeg)$";
 wav_regex="(audio\/x-wav)$";
@@ -70,14 +70,15 @@ display_version="no";
 # OTHER VARIABLES #
 ###################
 
+probe="";
 temp="";
 
 ##############################
 # STEP 1 - INCLUDE FUNCTIONS #
 ##############################
 
-source "$source_dir/includes/functions/core.sh";
-source "$source_dir/includes/functions/alarm.sh";
+. "$source_dir/includes/functions/core.sh";
+. "$source_dir/includes/functions/alarm.sh";
 
 ############################
 # STEP 2 - PROCESS REQUEST #
@@ -85,28 +86,28 @@ source "$source_dir/includes/functions/alarm.sh";
 
 process_arguments "$@";
 
-if [[ "$display_help" == "yes" ]]; then
+if [ "$display_help" = "yes" ]; then
     
     show_help;
     
-elif [[ "$display_version" == "yes" ]]; then
+elif [ "$display_version" = "yes" ]; then
     
     show_version;
     
-elif [[ "$install_deps" == "yes" ]]; then
+elif [ "$install_deps" = "yes" ]; then
     
-    if [[ "$user_id" == "0" ]]; then
+    if [ "$user_id" = "0" ]; then
         
         # Get Confirmation
         
-        read -p "Install dependencies? (y/n) - " -n 1 temp;
+        read -p "Install dependencies? (y/n) - " temp;
         
         # Install Depndencies
         
-        if [[ "$temp" =~ ^[Yy]$ ]]; then
-            echo -e "\n" && install_dependencies;
+        if [ "$temp" = "Y" ] || [ "$temp" = "y" ]; then
+            echo "" && install_dependencies;
         else
-            echo -e "\n\nCancelling...";
+            echo "\nCancelling...";
         fi
         
     else
@@ -115,57 +116,57 @@ elif [[ "$install_deps" == "yes" ]]; then
     
 else
     
-    ###############################
-    # STEP 1 - CHECK DEPENDENCIES #
-    ###############################
+    ######################
+    # CHECK DEPENDENCIES #
+    ######################
     
     temp=$(check_dependencies);
     
-    if [[ ! -z "$temp" ]]; then
+    if [ ! -z "$temp" ]; then
         echo "$temp" && exit;
     fi
     
-    #############################
-    # STEP 2 - CHECK PARAMETERS #
-    #############################
+    ####################
+    # CHECK PARAMETERS #
+    ####################
     
     # Check Privileges For Global Alarm
     
-    if [[ ( "$global_alarm" == "yes" ) && ( "$user_id" != "0" ) ]]; then
-        echo -e "Error: Global alarms can only be created by users with root privileges." && exit;
+    if [ "$global_alarm" = "yes" ] && [ "$user_id" != "0" ]; then
+        echo "Error: Global alarms can only be created by users with root privileges." && exit;
     fi
     
     # Check Alarm Time
     
-    if [[ "$test_sound" == "no" ]]; then
+    if [ "$test_sound" = "no" ]; then
         
-        if [[ ( "$alarm_type" == "countdown" || "$alarm_type" == "interval" ) && ( ! "$alarm_time" =~ $time_regex ) ]]; then
-            echo -e "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
-        elif [[ ( "$alarm_type" == "alarm" ) && ( ! "$alarm_time" =~ $clock_regex ) ]]; then
-            echo -e "Error: Invalid time provided, please use the HH:MM AM/PM format." && exit;
+        if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z $(echo "$alarm_time" | grep -oP $time_regex | cut -c 1) ]; then
+            echo "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
+        elif [ "$alarm_type" = "alarm" ] && [ -z $(echo "$alarm_time" | grep -oP "$clock_regex" | cut -c 1) ]; then
+            echo "Error: Invalid time provided, please use the HH:MM AM/PM format." && exit;
         fi
         
     fi
     
     # Check Alarm Delay
     
-    if [[ ( "$test_sound" == "no" ) && ( ! -z "$alarm_delay" ) && ( ! "$alarm_delay" =~ $number_regex ) ]]; then
-        echo -e "Error: Invalid alarm delay provided, please use an integer." && exit;
+    if [ "$test_sound" = "no" ] && [ ! -z "$alarm_delay" ] && [ -z $(echo "$alarm_delay" | grep -oP $number_regex | cut -c 1) ]; then
+        echo "Error: Invalid alarm delay provided, please use an integer." && exit;
     fi
     
     # Check Type
     
-    if [[ -z "$alarm_type" ]]; then
-        echo -e "Error: You haven't selected a type." && exit;
+    if [ -z "$alarm_type" ]; then
+        echo "Error: You haven't selected a type." && exit;
     fi
     
     # Check Sound Effect
     
-    if [[ ( -z "$sound_effect" ) || ( "$sound_effect" =~ $number_regex ) ]]; then
+    if [ -z "$sound_effect" ] || [ ! -z $(echo "$sound_effect" | grep -oP $number_regex | cut -c 1) ]; then
         
         # Handle Countdown & Alarm
         
-        if [[ "$alarm_type" == "alarm" || "$alarm_type" == "countdown" ]]; then
+        if [ "$alarm_type" = "alarm" ] || [ "$alarm_type" = "countdown" ]; then
             
             case "$sound_effect" in
                 
@@ -186,7 +187,7 @@ else
                 ;;
                 
                 *)
-                    echo -e "Error: Invalid sound effect selected." && exit;
+                    echo "Error: Invalid sound effect selected." && exit;
                 ;;
                 
             esac
@@ -195,7 +196,7 @@ else
         
         # Handle Interval
         
-        if [[ "$alarm_type" == "interval" ]]; then
+        if [ "$alarm_type" = "interval" ]; then
             
             case "$sound_effect" in
                 
@@ -216,24 +217,24 @@ else
                 ;;
                 
                 *)
-                    echo -e "Error: Invalid sound effect selected." && exit;
+                    echo "Error: Invalid sound effect selected." && exit;
                 ;;
                 
             esac
             
         fi
         
-    elif [[ -f "$sound_effect" ]]; then
+    elif [ -f "$sound_effect" ]; then
         
         # Check Sound Effect
         
-        if [[ ! $(file --mime-type "$sound_effect") =~ $effect_regex ]]; then
-            echo -e "Error: Unsupported audio file types used. Only WAV & MP3 files are supported." && exit;
+        if [ -z $(file --mime-type "$sound_effect" | grep -oP $effect_regex | cut -c 1) ]; then
+            echo "Error: Unsupported audio file types used. Only WAV & MP3 files are supported." && exit;
         fi
         
         # Check If MP3 Playback Requested
         
-        if [[ ( $(file --mime-type "$sound_effect") =~ $mp3_regex ) && ( -z "$(command -v ffplay)" ) ]]; then
+        if [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex | cut -c 1) ] && [ -z "$(command -v ffplay)" ]; then
             echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
         fi
         
@@ -241,32 +242,32 @@ else
     
     # Check Sound Volume
     
-    if [[ ( ! -z "$sound_volume" ) && ( ! "$sound_volume" =~ $volume_regex ) ]]; then
-        echo -e "Error: Invalid volume value provided, please use an integer with value between 0 to 100." && exit;
+    if [ ! -z "$sound_volume" ] && [ -z $(echo "$sound_volume" | grep -oP $volume_regex | cut -c 1) ]; then
+        echo "Error: Invalid volume value provided, please use an integer with value between 0 to 100." && exit;
     fi
     
-    ###############################
-    # STEP 3 - PROCESS ALARM TIME #
-    ###############################
+    ######################
+    # PROCESS ALARM TIME #
+    ######################
     
-    if [[ ( "$alarm_type" == "countdown" || "$alarm_type" == "interval" ) ]]; then
-        alarm_time=($(echo "$alarm_time" | tr "," "\n"));
+    if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ]; then
+        alarm_time=$(echo "$alarm_time" | tr "," "\n");
     else
-        alarm_time=($(echo "$alarm_time" | tr ":" "\n"));
+        alarm_time=$(echo "$alarm_time" | tr ": " "\n");
     fi
     
-    ############################
-    # STEP 4 - PROCESS REQUEST #
-    ############################
+    ################
+    # CREATE ALARM #
+    ################
     
-    if [[ "$alarm_type" == "alarm" ]]; then
-        source "$source_dir/includes/create-alarm.sh";
-    elif [[ "$alarm_type" == "countdown" ]]; then
-        source "$source_dir/includes/create-countdown.sh";
-    elif [[ "$alarm_type" == "interval" ]]; then
-        source "$source_dir/includes/create-interval.sh";
+    if [ "$alarm_type" = "alarm" ]; then
+        . "$source_dir/includes/create-alarm.sh";
+    elif [ "$alarm_type" = "countdown" ]; then
+        . "$source_dir/includes/create-countdown.sh";
+    elif [ "$alarm_type" = "interval" ]; then
+        . "$source_dir/includes/create-interval.sh";
     else
-        echo -e "Invalid type selected.";
+        echo "Invalid type selected.";
     fi
     
     exit;

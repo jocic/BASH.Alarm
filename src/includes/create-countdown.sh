@@ -33,11 +33,11 @@
 # LOGIC #
 #########
 
-if [[ "$test_sound" == "yes" ]]; then
+if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo -e "Testing countdown sound...";
+    echo "Testing countdown sound...";
     
     # Play Effect
     
@@ -45,31 +45,35 @@ if [[ "$test_sound" == "yes" ]]; then
     
 else
     
+    # Handle Split Time
+    
+    alarm_time=$(echo $alarm_time);
+    
     # Print Notice
     
-    if [[ ! -z "$alarm_delay" ]]; then
-        echo "Starting a ${alarm_time[0]} countdown, after a $alarm_delay second delay...";
+    if [ ! -z "$alarm_delay" ]; then
+        echo "Starting a $alarm_time countdown, after a $alarm_delay second delay...";
     else
-        echo -e "Starting a ${alarm_time[0]} countdown...";
+        echo "Starting a $alarm_time countdown...";
     fi
     
     # Initialize Countdown
     
-    if [[ ! -z "$alarm_delay" ]]; then
+    if [ ! -z "$alarm_delay" ]; then
         sleep_for "Delay" "${alarm_delay}s";
     fi
     
-    sleep_for "Countdown" "${alarm_time[0]}";
+    sleep_for "Countdown" "$alarm_time";
     
     # Trigger Alarm
     
     play_sound_effect "$sound_effect" "$sound_volume" &
     
-    if [[ ! -z $alarm_message ]]; then
+    if [ ! -z $alarm_message ]; then
         show_alarm_message "$alarm_message" &
     fi
     
-    if [[ ! -z $alarm_command ]]; then
+    if [ ! -z $alarm_command ]; then
         execute_alarm_command "$alarm_command" &
     fi
     
