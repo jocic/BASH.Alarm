@@ -72,6 +72,10 @@ else
     
     echo "Creating an alarm that will trigger at $clock_hour:$clock_minute $clock_period everyday...";
     
+    if [ ! -z "$alarm_message" ]; then
+        printf "\nFollowing message will be shown: $alarm_message\n";
+    fi
+    
     # Get Crontab Details
     
     cron_details=$(crontab -l > "$temp_file" 2>&1 && cat "$temp_file");

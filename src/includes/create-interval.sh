@@ -61,6 +61,10 @@ else
         echo "Starting a $interval interval...";
     fi
     
+    if [ ! -z "$alarm_message" ]; then
+        printf "\nFollowing message will be shown: $alarm_message\n";
+    fi
+    
     echo "\nPress CTRL + C to stop it...";
     
     # Delay Interval

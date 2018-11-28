@@ -57,6 +57,10 @@ else
         echo "Starting a $alarm_time countdown...";
     fi
     
+    if [ ! -z "$alarm_message" ]; then
+        printf "\nFollowing message will be shown: $alarm_message\n";
+    fi
+    
     # Initialize Countdown
     
     if [ ! -z "$alarm_delay" ]; then
