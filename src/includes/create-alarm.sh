@@ -128,7 +128,7 @@ else
     
     # Add Cron Task
     
-    cron_details="$cron_details\n$cron_task";
+    cron_details="$cron_details\n$cron_task # ALARM #";
     
     echo "$cron_details" | crontab;
     
