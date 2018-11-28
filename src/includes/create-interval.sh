@@ -56,13 +56,13 @@ else
     interval=$(echo "$alarm_time" | tr "\n" "-" | sed -e "s/-$//g");
     
     if [ ! -z "$alarm_delay" ]; then
-        printf "Starting a $interval interval, after a $alarm_delay second delay...\n";
+        printf "Starting a %s interval, after a %s second delay...\n" $interval $alarm_delay;
     else
-        printf "Starting a $interval interval...\n";
+        printf "Starting a %s interval...\n" $interval;
     fi
     
     if [ ! -z "$alarm_message" ]; then
-        printf "\nFollowing message will be shown: $alarm_message\n";
+        printf "\nFollowing message will be shown: %s\n" $alarm_message;
     fi
     
     printf "\nPress CTRL + C to stop it...\n";

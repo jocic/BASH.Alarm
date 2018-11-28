@@ -123,7 +123,7 @@ else
     temp=$(check_dependencies);
     
     if [ ! -z "$temp" ]; then
-        printf "$temp\n" && exit;
+        printf "%s\n" $temp && exit;
     fi
     
     ####################

@@ -51,7 +51,7 @@ parse_value()
     
     # Logic
     
-    printf $value | sed -e "s/'/'\\\''/g";
+    printf "%s" $value | sed -e "s/'/'\\\''/g";
 
 }
 
@@ -147,11 +147,11 @@ check_dependencies()
         if [ "$(dpkg -l | grep "$package")" = "" ]; then
             
             if [ ! -z "$(command -v apt-get)" ]; then
-                printf "Error: Command \"$package\" is missing. Please install the dependency by typing \"apt-get install $package\".\n";
+                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"apt-get install %s\".\n" $package $package;
             elif [ ! -z "$(command -v yum)" ]; then
-                printf "Error: Command \"$package\" is missing. Please install the dependency by typing \"yum install $package\".\n";
+                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"yum install %s\".\n" $package $package;
             else
-                printf "Error: Command \"$package\" is missing. Please install \"$package\".\n";
+                printf "Error: Command \"%s\" is missing. Please install \"%s\".\n" $package $package;
             fi
             
         fi
@@ -186,7 +186,7 @@ show_version()
 {
     # Logic
     
-    printf "Alarm $version\n";
+    printf "Alarm %s\n" $version;
     
     cat "$source_dir/other/version.txt" && exit;
 }

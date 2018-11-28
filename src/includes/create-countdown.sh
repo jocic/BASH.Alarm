@@ -52,13 +52,13 @@ else
     # Print Notice
     
     if [ ! -z "$alarm_delay" ]; then
-        printf "Starting a $alarm_time countdown, after a $alarm_delay second delay...\n";
+        printf "Starting a %s countdown, after a %s second delay...\n" $alarm_time $alarm_delay;
     else
-        printf "Starting a $alarm_time countdown...\n";
+        printf "Starting a %s countdown...\n" $alarm_time;
     fi
     
     if [ ! -z "$alarm_message" ]; then
-        printf "\nFollowing message will be shown: $alarm_message\n";
+        printf "\nFollowing message will be shown: %s\n" $alarm_message;
     fi
     
     # Initialize Countdown

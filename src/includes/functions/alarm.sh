@@ -91,13 +91,13 @@ sleep_for()
                 diff=$((seconds - passed))
                 
                 if [ "$input" = "d" ]; then
-                    diff=$(( ((diff / 60) / 60 ) / 24 )) && printf "ays requested...$alarm_type will end in ${diff}d...\n";
+                    diff=$(( ((diff / 60) / 60 ) / 24 )) && printf "ays requested...%s will end in %sd...\n" $alarm_type $diff;
                 elif [ "$input" = "h" ]; then
-                    diff=$(( ($diff / 60) / 60 )) && printf "ours requested...$alarm_type will end in ${diff}h...\n";
+                    diff=$(( ($diff / 60) / 60 )) && printf "ours requested...%s will end in %sh...\n" $alarm_type $diff;
                 elif [ "$input" = "m" ]; then
-                    diff=$(( diff / 60 )) && printf "inutes requested...$alarm_type will end in ${diff}m...\n";
+                    diff=$(( diff / 60 )) && printf "inutes requested...%s will end in %sm...\n" $alarm_type $diff;
                 elif [ "$input" = "s" ]; then
-                    printf "econds requested...$alarm_type will end in ${diff}s...\n";
+                    printf "econds requested...%s will end in %ss...\n" $alarm_type $diff;
                 elif [ "$input" = "q" ]; then
                     printf "uitting...\n" && exit;
                 fi

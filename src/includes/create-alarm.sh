@@ -70,10 +70,10 @@ else
     
     # Print Notice
     
-    printf "Creating an alarm that will trigger at $clock_hour:$clock_minute $clock_period everyday...\n";
+    printf "Creating an alarm that will trigger at %s:%s %s everyday...\n" $clock_hour $clock_minute $clock_period;
     
     if [ ! -z "$alarm_message" ]; then
-        printf "\nFollowing message will be shown: $alarm_message\n";
+        printf "\nFollowing message will be shown: %s\n" $alarm_message;
     fi
     
     # Get Crontab Details
