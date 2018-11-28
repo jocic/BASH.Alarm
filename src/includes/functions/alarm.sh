@@ -98,6 +98,8 @@ sleep_for()
                     diff=$(( diff / 60 )) && printf "inutes requested...$alarm_type will end in ${diff}m...\n";
                 elif [ "$input" = "s" ]; then
                     printf "econds requested...$alarm_type will end in ${diff}s...\n";
+                elif [ "$input" = "q" ]; then
+                    printf "uitting...\n" && exit;
                 fi
                 
             fi
