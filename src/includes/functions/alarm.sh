@@ -91,13 +91,13 @@ sleep_for()
                 diff=$((seconds - passed))
                 
                 if [ "$input" = "d" ]; then
-                    diff=$(( ((diff / 60) / 60 ) / 24 )) && echo "ays requested...$alarm_type will end in ${diff}d...";
+                    diff=$(( ((diff / 60) / 60 ) / 24 )) && printf "ays requested...$alarm_type will end in ${diff}d...\n";
                 elif [ "$input" = "h" ]; then
-                    diff=$(( ($diff / 60) / 60 )) && echo "ours requested...$alarm_type will end in ${diff}h...";
+                    diff=$(( ($diff / 60) / 60 )) && printf "ours requested...$alarm_type will end in ${diff}h...\n";
                 elif [ "$input" = "m" ]; then
-                    diff=$(( diff / 60 )) && echo "inutes requested...$alarm_type will end in ${diff}m...";
+                    diff=$(( diff / 60 )) && printf "inutes requested...$alarm_type will end in ${diff}m...\n";
                 elif [ "$input" = "s" ]; then
-                    echo "econds requested...$alarm_type will end in ${diff}s...";
+                    printf "econds requested...$alarm_type will end in ${diff}s...\n";
                 fi
                 
             fi
@@ -151,14 +151,14 @@ play_sound_effect()
     elif [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex) ]; then
         
         if [ -z "$(command -v ffplay)" ]; then
-            echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
+            printf "Error: MP3 support is optional, please install ffmpeg to enable it.\n" && exit;
         else
             play_command="ffplay -nodisp";
         fi
         
     else
         
-        echo "Error: Provided audio file isn't supported. Only WAV & MP3 files are supported." && exit
+        printf "Error: Provided audio file isn't supported. Only WAV & MP3 files are supported.\n" && exit
         
     fi
     

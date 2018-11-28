@@ -51,7 +51,7 @@ parse_value()
     
     # Logic
     
-    echo $value | sed -e "s/'/'\\\''/g";
+    printf $value | sed -e "s/'/'\\\''/g";
 
 }
 
@@ -147,11 +147,11 @@ check_dependencies()
         if [ "$(dpkg -l | grep "$package")" = "" ]; then
             
             if [ ! -z "$(command -v apt-get)" ]; then
-                echo "Error: Command \"$package\" is missing. Please install the dependency by typing \"apt-get install $package\".";
+                printf "Error: Command \"$package\" is missing. Please install the dependency by typing \"apt-get install $package\".\n";
             elif [ ! -z "$(command -v yum)" ]; then
-                echo "Error: Command \"$package\" is missing. Please install the dependency by typing \"yum install $package\".";
+                printf "Error: Command \"$package\" is missing. Please install the dependency by typing \"yum install $package\".\n";
             else
-                echo "Error: Command \"$package\" is missing. Please install \"$package\".";
+                printf "Error: Command \"$package\" is missing. Please install \"$package\".\n";
             fi
             
         fi
@@ -186,7 +186,7 @@ show_version()
 {
     # Logic
     
-    echo "Alarm $version";
+    printf "Alarm $version\n";
     
     cat "$source_dir/other/version.txt" && exit;
 }
@@ -214,7 +214,7 @@ install_dependencies()
         elif [ ! -z "$(command -v yum)" ]; then
             yum install $depndency -y;
         else
-            echo "Error: Your system isn't supported." && exit;
+            printf "Error: Your system isn't supported.\n" && exit;
         fi;
         
     done

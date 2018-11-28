@@ -54,7 +54,7 @@ if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo "Testing alarm sound...";
+    printf "Testing alarm sound...\n";
     
     # Play Effect
     
@@ -70,7 +70,7 @@ else
     
     # Print Notice
     
-    echo "Creating an alarm that will trigger at $clock_hour:$clock_minute $clock_period everyday...";
+    printf "Creating an alarm that will trigger at $clock_hour:$clock_minute $clock_period everyday...\n";
     
     if [ ! -z "$alarm_message" ]; then
         printf "\nFollowing message will be shown: $alarm_message\n";

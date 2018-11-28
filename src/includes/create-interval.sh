@@ -43,7 +43,7 @@ if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo "Testing interval sound...";
+    printf "Testing interval sound...\n";
     
     # Play Effect
     
@@ -56,16 +56,16 @@ else
     interval=$(echo "$alarm_time" | tr "\n" "-" | sed -e "s/-$//g");
     
     if [ ! -z "$alarm_delay" ]; then
-        echo "Starting a $interval interval, after a $alarm_delay second delay...";
+        printf "Starting a $interval interval, after a $alarm_delay second delay...\n";
     else
-        echo "Starting a $interval interval...";
+        printf "Starting a $interval interval...\n";
     fi
     
     if [ ! -z "$alarm_message" ]; then
         printf "\nFollowing message will be shown: $alarm_message\n";
     fi
     
-    echo "\nPress CTRL + C to stop it...";
+    printf "\nPress CTRL + C to stop it...\n";
     
     # Delay Interval
     

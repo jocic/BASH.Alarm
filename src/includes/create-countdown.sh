@@ -37,7 +37,7 @@ if [ "$test_sound" = "yes" ]; then
     
     # Print Notice
     
-    echo "Testing countdown sound...";
+    printf "Testing countdown sound...\n";
     
     # Play Effect
     
@@ -52,9 +52,9 @@ else
     # Print Notice
     
     if [ ! -z "$alarm_delay" ]; then
-        echo "Starting a $alarm_time countdown, after a $alarm_delay second delay...";
+        printf "Starting a $alarm_time countdown, after a $alarm_delay second delay...\n";
     else
-        echo "Starting a $alarm_time countdown...";
+        printf "Starting a $alarm_time countdown...\n";
     fi
     
     if [ ! -z "$alarm_message" ]; then

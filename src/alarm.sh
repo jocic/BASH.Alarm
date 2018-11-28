@@ -105,13 +105,13 @@ elif [ "$install_deps" = "yes" ]; then
         # Install Depndencies
         
         if [ "$temp" = "Y" ] || [ "$temp" = "y" ]; then
-            echo "" && install_dependencies;
+            printf "\n" && install_dependencies;
         else
-            echo "\nCancelling...";
+            printf "\nCancelling...\n";
         fi
         
     else
-        echo "Error: You need root privileges to install dependencies." && exit;
+        printf "Error: You need root privileges to install dependencies.\n" && exit;
     fi
     
 else
@@ -123,7 +123,7 @@ else
     temp=$(check_dependencies);
     
     if [ ! -z "$temp" ]; then
-        echo "$temp" && exit;
+        printf "$temp\n" && exit;
     fi
     
     ####################
@@ -133,7 +133,7 @@ else
     # Check Privileges For Global Alarm
     
     if [ "$global_alarm" = "yes" ] && [ "$user_id" != "0" ]; then
-        echo "Error: Global alarms can only be created by users with root privileges." && exit;
+        printf "Error: Global alarms can only be created by users with root privileges.\n" && exit;
     fi
     
     # Check Alarm Time
@@ -141,9 +141,9 @@ else
     if [ "$test_sound" = "no" ]; then
         
         if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z $(echo "$alarm_time" | grep -oP $time_regex | cut -c 1) ]; then
-            echo "Error: Invalid time provided, please use an integer with the correct suffix." && exit;
+            printf "Error: Invalid time provided, please use an integer with the correct suffix.\n" && exit;
         elif [ "$alarm_type" = "alarm" ] && [ -z $(echo "$alarm_time" | grep -oP "$clock_regex" | cut -c 1) ]; then
-            echo "Error: Invalid time provided, please use the HH:MM AM/PM format." && exit;
+            printf "Error: Invalid time provided, please use the HH:MM AM/PM format.\n" && exit;
         fi
         
     fi
@@ -151,13 +151,13 @@ else
     # Check Alarm Delay
     
     if [ "$test_sound" = "no" ] && [ ! -z "$alarm_delay" ] && [ -z $(echo "$alarm_delay" | grep -oP $number_regex | cut -c 1) ]; then
-        echo "Error: Invalid alarm delay provided, please use an integer." && exit;
+        printf "Error: Invalid alarm delay provided, please use an integer.\n" && exit;
     fi
     
     # Check Type
     
     if [ -z "$alarm_type" ]; then
-        echo "Error: You haven't selected a type." && exit;
+        printf "Error: You haven't selected a type.\n" && exit;
     fi
     
     # Check Sound Effect
@@ -187,7 +187,7 @@ else
                 ;;
                 
                 *)
-                    echo "Error: Invalid sound effect selected." && exit;
+                    printf "Error: Invalid sound effect selected.\n" && exit;
                 ;;
                 
             esac
@@ -217,7 +217,7 @@ else
                 ;;
                 
                 *)
-                    echo "Error: Invalid sound effect selected." && exit;
+                    printf "Error: Invalid sound effect selected.\n" && exit;
                 ;;
                 
             esac
@@ -229,13 +229,13 @@ else
         # Check Sound Effect
         
         if [ -z $(file --mime-type "$sound_effect" | grep -oP $effect_regex | cut -c 1) ]; then
-            echo "Error: Unsupported audio file types used. Only WAV & MP3 files are supported." && exit;
+            printf "Error: Unsupported audio file types used. Only WAV & MP3 files are supported.\n" && exit;
         fi
         
         # Check If MP3 Playback Requested
         
         if [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex | cut -c 1) ] && [ -z "$(command -v ffplay)" ]; then
-            echo "Error: MP3 support is optional, please install ffmpeg to enable it." && exit;
+            printf "Error: MP3 support is optional, please install ffmpeg to enable it.\n" && exit;
         fi
         
     fi
@@ -243,7 +243,7 @@ else
     # Check Sound Volume
     
     if [ ! -z "$sound_volume" ] && [ -z $(echo "$sound_volume" | grep -oP $volume_regex | cut -c 1) ]; then
-        echo "Error: Invalid volume value provided, please use an integer with value between 0 to 100." && exit;
+        printf "Error: Invalid volume value provided, please use an integer with value between 0 to 100.\n" && exit;
     fi
     
     ######################
@@ -267,7 +267,7 @@ else
     elif [ "$alarm_type" = "interval" ]; then
         . "$source_dir/includes/create-interval.sh";
     else
-        echo "Invalid type selected.";
+        printf "Invalid type selected.\n";
     fi
     
     exit;
