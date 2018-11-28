@@ -42,7 +42,7 @@ version="1.1.1";
 ###################
 
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
-clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM{2,2})$";
+clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
 number_regex="^([0-9]+)$";
 effect_regex="(audio\/x-wav|audio\/mpeg)$";
 wav_regex="(audio\/x-wav)$";
