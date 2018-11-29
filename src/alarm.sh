@@ -79,8 +79,11 @@ temp="";
 # STEP 1 - INCLUDE FUNCTIONS #
 ##############################
 
-. "$source_dir/includes/functions/core.sh";
-. "$source_dir/includes/functions/alarm.sh";
+. "$source_dir/includes/script.sh";
+. "$source_dir/includes/core.sh";
+. "$source_dir/includes/alarm.sh";
+. "$source_dir/includes/countdown.sh";
+. "$source_dir/includes/interval.sh";
 
 ############################
 # STEP 2 - PROCESS REQUEST #
@@ -171,64 +174,20 @@ else
     
     if [ -z "$sound_effect" ] || [ ! -z $(echo "$sound_effect" | grep -oP $number_regex | cut -c 1) ]; then
         
-        # Handle Countdown & Alarm
+        # Resolve Sound Effect ID
         
-        if [ "$alarm_type" = "alarm" ] || [ "$alarm_type" = "countdown" ]; then
-            
-            case "$sound_effect" in
-                
-                "")
-                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
-                ;;
-                
-                "1")
-                    sound_effect="$source_dir/effects/alarms/fire-alarm.wav";
-                ;;
-                
-                "2")
-                    sound_effect="$source_dir/effects/alarms/analogue-watch.wav";
-                ;;
-                
-                "3")
-                    sound_effect="$source_dir/effects/alarms/annoying-alarm.wav";
-                ;;
-                
-                *)
-                    printf "Error: Invalid sound effect selected.\n" && exit;
-                ;;
-                
-            esac
-            
+        if [ "$alarm_type" = "alarm" ]; then
+            sound_effect=$(print_alarm_effect_path "$sound_effect");
+        elif [ "$alarm_type" = "countdown" ]; then
+            sound_effect=$(print_countdown_effect_path "$sound_effect");
+        elif [ "$alarm_type" = "interval" ]; then
+            sound_effect=$(print_interval_effect_path "$sound_effect");
         fi
         
-        # Handle Interval
+        # Check Resolved Path
         
-        if [ "$alarm_type" = "interval" ]; then
-            
-            case "$sound_effect" in
-                
-                "")
-                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
-                ;;
-                
-                "1")
-                    sound_effect="$source_dir/effects/beeps/electronic-chime.wav";
-                ;;
-                
-                "2")
-                    sound_effect="$source_dir/effects/beeps/am-fm-beep.wav";
-                ;;
-                
-                "3")
-                    sound_effect="$source_dir/effects/beeps/beep-in-a.wav";
-                ;;
-                
-                *)
-                    printf "Error: Invalid sound effect selected.\n" && exit;
-                ;;
-                
-            esac
-            
+        if [ -z "$sound_effect" ]; then
+            printf "Error: Invalid sound effect selected.\n" && exit;
         fi
         
     elif [ -f "$sound_effect" ]; then
@@ -268,13 +227,33 @@ else
     ################
     
     if [ "$alarm_type" = "alarm" ]; then
-        . "$source_dir/includes/create-alarm.sh";
+        
+        if [ "$test_sound" = "yes" ]; then
+            test_sound "Alarm" "$sound_effect" "$sound_volume";
+        else
+            create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+        fi
+        
     elif [ "$alarm_type" = "countdown" ]; then
-        . "$source_dir/includes/create-countdown.sh";
+        
+        if [ "$test_sound" = "yes" ]; then
+            test_sound "Countdown" "$sound_effect" "$sound_volume";
+        else
+            create_countdown "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+        fi
+        
     elif [ "$alarm_type" = "interval" ]; then
-        . "$source_dir/includes/create-interval.sh";
+        
+        if [ "$test_sound" = "yes" ]; then
+            test_sound "Interval" "$sound_effect" "$sound_volume";
+        else
+            create_interval "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+        fi
+        
     else
+        
         printf "Invalid type selected.\n";
+        
     fi
     
     exit;

@@ -29,9 +29,21 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-#########
-# LOGIC #
-#########
+#################
+# GET FUNCTIONS #
+#################
+
+# GET FUNCTIONS GO HERE
+
+#################
+# SET FUNCTIONS #
+#################
+
+# GET FUNCTIONS GO HERE
+
+##################
+# CORE FUNCTIONS #
+##################
 
 # Pauses script execution for a given time.
 # 
@@ -284,70 +296,42 @@ execute_alarm_script()
     fi
 }
 
-# Lists available alarms.
+###################
+# CHECK FUNCTIONS #
+###################
+
+# CHECK FUNCTIONS GO HERE
+
+###################
+# OTHER FUNCTIONS #
+###################
+
+# Test plays a sound based on the provided parameters.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $alarm_type
+#   Type of an alarm, ex. <i>alarm</i>, <i>countdown</i>, or an <i>interval</i>.
+# @param string $sound_effect
+# @param integer $sound_volume
+#   Master volume (percentage) that should be used during playback.
 # @return void
 
-list_alarms()
+test_sound()
 {
     # Core Variables
     
-    alarm="";
-    alarm_hour="";
-    alarm_minute="";
-    alarm_period="";
-    index=1;
+    alarm_type=$1;
+    sound_effect=$2;
+    sound_volume=$3;
     
-    # Temp Variables
+    # Print Notice
     
-    temp="";
-    temp_file=$(mktemp);
+    printf "$alarm_type sound testing...\n";
     
-    # Step 1 - Gather Data
+    # Play Effect
     
-    crontab -l > "$temp_file" 2>&1;
-    
-    # Step 2 - Print Data
-    
-    if [ $(cat "$temp_file" | grep -c "$alarm_mark$") = "0" ]; then
-        
-        printf "No available alarms.\n";
-        
-    else
-        
-        printf "Available alarms:\n\n";
-        
-        while read alarm; do
-            
-            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
-                
-                temp=$(echo "$alarm" | grep -oP "^([0-9]+)\s([0-9]+)" | tr " " "\n");
-                
-                alarm_hour=$(echo "$temp" | sed -n 2p);
-                alarm_minute=$(echo "$temp" | sed -n 1p);
-                
-                if [ "$alarm_hour" -lt "12" ]; then
-                    
-                    alarm_period="AM";
-                    
-                else
-                    
-                    alarm_hour=$(( clock_hour - 12 ));
-                    alarm_period="PM";
-                    
-                fi
-                
-                printf "%02d. alarm: %02d:%02d %s\n" $index $alarm_hour $alarm_minute $alarm_period;
-                
-                index=$(( index + 1 ));
-                
-            fi
-            
-        done < $temp_file;
-        
-    fi
+    play_sound_effect "$sound_effect" "$sound_volume";
 }

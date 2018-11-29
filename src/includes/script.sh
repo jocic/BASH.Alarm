@@ -29,29 +29,52 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-#########
-# LOGIC #
-#########
+#################
+# GET FUNCTIONS #
+#################
 
-# Parses provided value for use in single quotes.
+# GET FUNCTIONS GO HERE
+
+#################
+# SET FUNCTIONS #
+#################
+
+# GET FUNCTIONS GO HERE
+
+##################
+# CORE FUNCTIONS #
+##################
+
+# Prints project's help.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
-# @param string $value
-#   Value that should be parsed.
 # @return void
 
-parse_value()
+show_help()
 {
-    # Core Variables
-    
-    value=$1;
-    
     # Logic
     
-    printf "%s" $value | sed -e "s/'/'\\\''/g";
+    cat "$source_dir/other/help.txt" && exit;
+}
+
+# Prints project's version.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+show_version()
+{
+    # Logic
+    
+    printf "Alarm %s\n" $version;
+    
+    cat "$source_dir/other/version.txt" && exit;
 }
 
 # Processes passed script arguments.
@@ -129,6 +152,39 @@ process_arguments()
     done
 }
 
+# Installs project's dependencies.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+install_dependencies()
+{
+    # Core Variables
+    
+    dependencies=$(echo "alsa-utils zenity" | tr " " "\n");
+    
+    # Logic
+    
+    for dependency in $dependencies; do
+        
+        if [ ! -z "$(command -v apt-get)" ]; then
+            apt-get install $dependency -y;
+        elif [ ! -z "$(command -v yum)" ]; then
+            yum install $depndency -y;
+        else
+            printf "Error: Your system isn't supported.\n" && exit;
+        fi;
+        
+    done
+}
+
+###################
+# CHECK FUNCTIONS #
+###################
+
 # Checks dependencies and the potential error message.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
@@ -162,63 +218,27 @@ check_dependencies()
     done
 }
 
-# Prints project's help.
+###################
+# OTHER FUNCTIONS #
+###################
+
+# Parses provided value for use in single quotes.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $value
+#   Value that should be parsed.
 # @return void
 
-show_help()
-{
-    # Logic
-    
-    cat "$source_dir/other/help.txt" && exit;
-}
-
-# Prints project's version.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-show_version()
-{
-    # Logic
-    
-    printf "Alarm %s\n" $version;
-    
-    cat "$source_dir/other/version.txt" && exit;
-}
-
-# Installs project's dependencies.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-install_dependencies()
+parse_value()
 {
     # Core Variables
     
-    dependencies=$(echo "alsa-utils zenity" | tr " " "\n");
+    value=$1;
     
     # Logic
     
-    for dependency in $dependencies; do
-        
-        if [ ! -z "$(command -v apt-get)" ]; then
-            apt-get install $dependency -y;
-        elif [ ! -z "$(command -v yum)" ]; then
-            yum install $depndency -y;
-        else
-            printf "Error: Your system isn't supported.\n" && exit;
-        fi;
-        
-    done
+    printf "%s" $value | sed -e "s/'/'\\\''/g";
 }
