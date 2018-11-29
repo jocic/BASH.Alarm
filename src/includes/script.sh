@@ -140,11 +140,11 @@ process_arguments()
         elif [ "$arg" = "--version" ]; then
             display_version="yes";
         elif [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ]; then
-            alarm_type="alarm";
+            alarm_type="alarm" && queue="alarm-command";
         elif [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ]; then
-            alarm_type="countdown";
+            alarm_type="countdown" && queue="alarm-command";
         elif [ "$arg" = "-i" ] || [ "$arg" = "--interval" ]; then
-            alarm_type="interval";
+            alarm_type="interval" && queue="alarm-command";
         elif [ "$arg" = "-l" ] || [ "$arg" = "--list" ]; then
             list_alarms="yes";
         fi
