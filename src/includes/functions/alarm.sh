@@ -313,33 +313,41 @@ list_alarms()
     
     # Step 2 - Print Data
     
-    printf "Available alarms:\n\n";
-    
-    while read alarm; do
+    if [ $(cat "$temp_file" | grep -c "$alarm_mark$") = "0" ]; then
         
-        if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+        printf "No available alarms.\n";
+        
+    else
+        
+        printf "Available alarms:\n\n";
+        
+        while read alarm; do
             
-            temp=$(echo "$alarm" | grep -oP "^([0-9]+)\s([0-9]+)" | tr " " "\n");
-            
-            alarm_hour=$(echo "$temp" | sed -n 2p);
-            alarm_minute=$(echo "$temp" | sed -n 1p);
-            
-            if [ "$alarm_hour" -lt "12" ]; then
+            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
                 
-                alarm_period="AM";
+                temp=$(echo "$alarm" | grep -oP "^([0-9]+)\s([0-9]+)" | tr " " "\n");
                 
-            else
+                alarm_hour=$(echo "$temp" | sed -n 2p);
+                alarm_minute=$(echo "$temp" | sed -n 1p);
                 
-                alarm_hour=$(( clock_hour - 12 ));
-                alarm_period="PM";
+                if [ "$alarm_hour" -lt "12" ]; then
+                    
+                    alarm_period="AM";
+                    
+                else
+                    
+                    alarm_hour=$(( clock_hour - 12 ));
+                    alarm_period="PM";
+                    
+                fi
+                
+                printf "%02d. alarm: %02d:%02d %s\n" $index $alarm_hour $alarm_minute $alarm_period;
+                
+                index=$(( index + 1 ));
                 
             fi
             
-            printf "%02d. alarm: %02d:%02d %s\n" $index $alarm_hour $alarm_minute $alarm_period;
-            
-            index=$(( index + 1 ));
-            
-        fi
+        done < $temp_file;
         
-    done < $temp_file;
+    fi
 }
