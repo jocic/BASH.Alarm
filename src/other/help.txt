@@ -8,7 +8,11 @@ Alarm types:
   -c, --countdown : Setup a countdown.
   -i, --interval  : Setup an interval.
 
-Available options:
+Available alarm options:
+
+  -l, --list      : List available alarms.
+
+Available general options:
 
   -t, --time      : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
   -s, --sound     : Set sound of a countdown, interval, or an alarm in WAV format.

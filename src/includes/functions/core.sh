@@ -52,7 +52,6 @@ parse_value()
     # Logic
     
     printf "%s" $value | sed -e "s/'/'\\\''/g";
-
 }
 
 # Processes passed script arguments.
@@ -61,6 +60,8 @@ parse_value()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param array $args
+#   Arguments that should be processed.
 # @return void
 
 process_arguments()
@@ -121,6 +122,8 @@ process_arguments()
             alarm_type="countdown";
         elif [ "$arg" = "-i" ] || [ "$arg" = "--interval" ]; then
             alarm_type="interval";
+        elif [ "$arg" = "-l" ] || [ "$arg" = "--list" ]; then
+            list_alarms="yes";
         fi
         
     done

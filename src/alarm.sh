@@ -65,11 +65,13 @@ global_alarm="no";
 install_deps="no";
 display_help="no";
 display_version="no";
+list_alarms="no";
 
 ###################
 # OTHER VARIABLES #
 ###################
 
+alarm_mark="# ALARM #";
 probe="";
 temp="";
 
@@ -93,6 +95,11 @@ if [ "$display_help" = "yes" ]; then
 elif [ "$display_version" = "yes" ]; then
     
     show_version;
+    
+elif [ "$list_alarms" = "yes" ]; then
+    
+    list_alarms;
+    
     
 elif [ "$install_deps" = "yes" ]; then
     

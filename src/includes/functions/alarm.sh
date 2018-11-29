@@ -283,3 +283,63 @@ execute_alarm_script()
         
     fi
 }
+
+# Lists available alarms.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+list_alarms()
+{
+    # Core Variables
+    
+    alarm="";
+    alarm_hour="";
+    alarm_minute="";
+    alarm_period="";
+    index=1;
+    
+    # Temp Variables
+    
+    temp="";
+    temp_file=$(mktemp);
+    
+    # Step 1 - Gather Data
+    
+    crontab -l > "$temp_file" 2>&1;
+    
+    # Step 2 - Print Data
+    
+    printf "Available alarms:\n\n";
+    
+    while read alarm; do
+        
+        if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+            
+            temp=$(echo "$alarm" | grep -oP "^([0-9]+)\s([0-9]+)" | tr " " "\n");
+            
+            alarm_hour=$(echo "$temp" | sed -n 2p);
+            alarm_minute=$(echo "$temp" | sed -n 1p);
+            
+            if [ "$alarm_hour" -lt "12" ]; then
+                
+                alarm_period="AM";
+                
+            else
+                
+                alarm_hour=$(( clock_hour - 12 ));
+                alarm_period="PM";
+                
+            fi
+            
+            printf "%02d. alarm: %02d:%02d %s\n" $index $alarm_hour $alarm_minute $alarm_period;
+            
+            index=$(( index + 1 ));
+            
+        fi
+        
+    done < $temp_file;
+}

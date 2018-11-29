@@ -21,7 +21,12 @@ Setup an countdown.
 \fB\-i\fR, \fB\-\-interval\fR
 Setup an interval.
 .TP
-.I Available options:
+.I Available alarm options:
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+List available alarms.
+.TP
+.I Available general options:
 .TP
 \fB\-t\fR, \fB\-\-time\fR
 Countdown/interval time, or an alarm time in HH:MM AM/PM format.
