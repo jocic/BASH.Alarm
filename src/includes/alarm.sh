@@ -229,7 +229,80 @@ list_alarms()
                 
             fi
             
-        done < $temp_file;
+        done < "$temp_file";
+        
+    fi
+}
+
+# Remove alarm based on the provided index.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $alarm_index
+#   Index of an alarm that should be removed.
+# @return void
+
+remove_alarm()
+{
+    # Core Variables
+    
+    removal_index=$(echo "$1" | sed "s/^0//");
+    
+    # Control Variables
+    
+    line_index=0;
+    alarm_index=0;
+    alarm_removed="no";
+    
+    # Temp Variables
+    
+    temp_file=$(mktemp);
+    
+    # Step 1 - Gather Data
+    
+    crontab -l > "$temp_file" 2>&1;
+    
+    # Logic
+    
+    if [ -z "$removal_index" ]; then
+        
+        printf "You didn't provide an index.\n";
+        
+    else
+        
+        while read alarm; do
+            
+            line_index=$(( line_index + 1 ));
+            
+            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+                
+                alarm_index=$(( alarm_index + 1 ));
+                
+                if [ "$alarm_index" = "$removal_index" ]; then
+                    
+                    sed -i "${line_index}d" "$temp_file";
+                    
+                    alarm_removed="yes";
+                    
+                    cat "$temp_file" | crontab;
+                    
+                    break;
+                    
+                fi
+                
+            fi
+            
+        done < "$temp_file";
+        
+        if [ "$alarm_removed" = "yes" ]; then
+            printf "Alarm at %d. position has been removed.\n\n" "$removal_index";
+        else
+            printf "There was no alarm at position %d.\n\n" "$removal_index";
+        fi
+        
+        list_alarms;
         
     fi
 }

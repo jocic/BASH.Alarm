@@ -11,6 +11,7 @@ Alarm types:
 Available alarm options:
 
   -l, --list      : List available alarms.
+  -r, --remove    : Remove an alarm.
 
 Available general options:
 

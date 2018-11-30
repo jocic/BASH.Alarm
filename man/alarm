@@ -26,6 +26,9 @@ Setup an interval.
 \fB\-l\fR, \fB\-\-list\fR
 List available alarms.
 .TP
+\fB\-r\fR, \fB\-\-remove\fR
+Remove an alarm.
+.TP
 .I Available general options:
 .TP
 \fB\-t\fR, \fB\-\-time\fR
