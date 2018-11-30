@@ -167,7 +167,7 @@ echo alias alarm="/path/to/your/folder/alarm.sh" >> ~/.bash_aliases
 
 Alternatively, you can add my personal APT repository to your machine and install **Alarm** like you would anything else.
 
-Add a repository.
+Add the repository.
 
 ```bash
 wget -nc https://www.djordjejocic.com/files/apt/Release.key
@@ -179,7 +179,7 @@ sudo apt-get update
 Install project.
 
 ```bash
-apt-get install alarm
+sudo apt-get install alarm
 ```
 
 ## Support
