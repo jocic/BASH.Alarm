@@ -115,6 +115,18 @@ To create an alarm that will be triggered at ex. 07:00 AM you simply need to iss
 
 \fBalarm -t "07:00 AM" -a\fR
 .TP
+.I Listing Alarms
+
+Listing previously created alarms can be done using the "-l" flag.
+
+\fBalarm -l\fR
+.TP
+.I Removing Alarms
+
+Appropriate CRON job is created whenever you add an alarm, which may be a hassle to remove. To easily remove an alarm, simply determine the index of an alarm (using the listing feature) and pass it using the "-r" flag.
+
+\fBalarm -r 1\fR
+.TP
 .I Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
