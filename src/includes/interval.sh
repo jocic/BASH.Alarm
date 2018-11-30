@@ -69,16 +69,16 @@ create_interval()
 {
     # Core Variables
     
-    interval_time="$1";
-    interval_delay="$2";
-    interval_message="$3";
-    interval_effect="$4";
-    interval_volume="$5";
-    interval_command="$6";
+    local interval_time="$1";
+    local interval_delay="$2";
+    local interval_message="$3";
+    local interval_effect="$4";
+    local interval_volume="$5";
+    local interval_command="$6";
     
     # Other Variables
     
-    interval="";
+    local interval="";
     
     # Step 1 - Print Notice
     
@@ -155,7 +155,7 @@ print_interval_effect_path()
 {
     # Core Variables
     
-    effect_id=$1;
+    local effect_id="$1";
     
     # Logic
     

@@ -71,35 +71,35 @@ create_alarm()
 {
     # Core Variables
     
-    alarm_dir="$1";
-    alarm_time="$2";
-    alarm_delay="$3";
-    alarm_message="$4";
-    alarm_effect="$5";
-    alarm_volume="$6";
-    alarm_command="$7";
+    local alarm_dir="$1";
+    local alarm_time="$2";
+    local alarm_delay="$3";
+    local alarm_message="$4";
+    local alarm_effect="$5";
+    local alarm_volume="$6";
+    local alarm_command="$7";
     
     # Cront Variables
     
-    cron_details="";
-    cron_task="";
+    local cron_details="";
+    local cron_task="";
     
     # Clock Variables
     
-    clock_hour="";
-    clock_minute="";
-    clock_period="";
+    local clock_hour="";
+    local clock_minute="";
+    local clock_period="";
     
     # Other Variables
     
-    alarm="";
-    temp_file=$(mktemp);
+    local alarm="";
+    local temp_file=$(mktemp);
     
     # Step 1 - Determine Clock Parameters
     
-    clock_hour=$(echo "$alarm_time" | sed -n "1p");
-    clock_minute=$(echo "$alarm_time" | sed -n "2p");
-    clock_period=$(echo "$alarm_time" | sed -n "3p");
+    local clock_hour=$(echo "$alarm_time" | sed -n "1p");
+    local clock_minute=$(echo "$alarm_time" | sed -n "2p");
+    local clock_period=$(echo "$alarm_time" | sed -n "3p");
     
     # Step 2 - Print Notice
     
@@ -178,16 +178,16 @@ list_alarms()
 {
     # Core Variables
     
-    alarm="";
-    alarm_hour="";
-    alarm_minute="";
-    alarm_period="";
-    index=1;
+    local alarm="";
+    local alarm_hour="";
+    local alarm_minute="";
+    local alarm_period="";
+    local index=1;
     
     # Temp Variables
     
-    temp="";
-    temp_file=$(mktemp);
+    local temp="";
+    local temp_file=$(mktemp);
     
     # Step 1 - Gather Data
     
@@ -248,17 +248,17 @@ remove_alarm()
 {
     # Core Variables
     
-    removal_index=$(echo "$1" | sed "s/^0//");
+    local removal_index=$(echo "$1" | sed "s/^0//");
     
     # Control Variables
     
-    line_index=0;
-    alarm_index=0;
-    alarm_removed="no";
+    local line_index=0;
+    local alarm_index=0;
+    local alarm_removed="no";
     
     # Temp Variables
     
-    temp_file=$(mktemp);
+    local temp_file=$(mktemp);
     
     # Step 1 - Gather Data
     
@@ -331,7 +331,7 @@ print_alarm_effect_path()
 {
     # Core Variables
     
-    effect_id=$1;
+    local effect_id="$1";
     
     # Logic
     

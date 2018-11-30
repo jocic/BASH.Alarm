@@ -91,7 +91,7 @@ process_arguments()
 {
     # Control Variables
     
-    queue="";
+    local queue="";
     
     # Logic
     
@@ -168,7 +168,7 @@ install_dependencies()
 {
     # Core Variables
     
-    dependencies=$(echo "alsa-utils zenity" | tr " " "\n");
+    local dependencies=$(echo "alsa-utils zenity" | tr " " "\n");
     
     # Logic
     
@@ -201,7 +201,7 @@ check_dependencies()
 {
     # Core Variables
     
-    packages=$(echo "alsa-utils zenity" | tr " " "\n");
+    local packages=$(echo "alsa-utils zenity" | tr " " "\n");
     
     # Logic
     
@@ -240,7 +240,7 @@ parse_value()
 {
     # Core Variables
     
-    value=$1;
+    local value=$1;
     
     # Logic
     

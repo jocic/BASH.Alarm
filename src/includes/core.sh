@@ -61,22 +61,22 @@ sleep_for()
 {
     # Core Variables
     
-    alarm_type=$1;
-    time=$2;
-    seconds=0;
-    passed=0;
+    local alarm_type="$1";
+    local time="$2";
+    local seconds=0;
+    local passed=0;
     
     # Other Variables
     
-    identifier="";
-    amount="";
-    input="";
-    diff="";
+    local identifier="";
+    local amount="";
+    local input="";
+    local diff="";
     
     # Step 1 - Determine Number Of Seconds For Pause
     
-    identifier=$(echo "$time" | grep -oP "[^0-9]+");
-    amount=$(echo "$time" | grep -oP "[0-9]+");
+    local identifier=$(echo "$time" | grep -oP "[^0-9]+");
+    local amount=$(echo "$time" | grep -oP "[0-9]+");
     
     if [ "$identifier" = "d" ]; then
         seconds=$[ $amount * 24 * 60 * 60 ];
@@ -142,19 +142,19 @@ play_sound_effect()
 {
     # Core Variables
     
-    sound_effect=$1;
-    sound_volume=$2;
-    play_command="";
+    local sound_effect="$1";
+    local sound_volume="$2";
+    local play_command="";
     
     # Regex Variables
     
-    wav_regex="(audio\/x-wav)$";
-    mp3_regex="(audio\/mpeg)$";
+    local wav_regex="(audio\/x-wav)$";
+    local mp3_regex="(audio\/mpeg)$";
     
     # Other Variables
     
-    left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
-    right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
+    local left_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 1p);
+    local right_channel=$(amixer get "Master" | grep -oP "([0-9]+)%" | sed -n 2p);
     
     # Step 1 - Process Arguments
     
@@ -201,11 +201,11 @@ show_alarm_message()
 {
     # Core Variables
     
-    alarm_message=$1;
+    local alarm_message="$1";
     
     # Logic
     
-    alarm_message=$(parse_value "$alarm_message");
+    local alarm_message=$(parse_value "$alarm_message");
     
     execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" "$global_alarm";
 }
@@ -226,12 +226,12 @@ execute_alarm_command()
 {
     # Core Variables
     
-    alarm_command=$1;
-    alarm_global=$2;
+    local alarm_command="$1";
+    local alarm_global="$2";
     
     # Other Variables
     
-    temp_file=$(mktemp);
+    local temp_file=$(mktemp);
     
     # Step 1 - Generate Temporary Script
     
@@ -258,14 +258,14 @@ execute_alarm_script()
 {
     # Core Variables
     
-    alarm_script=$1;
-    alarm_global=$2;
+    local alarm_script="$1";
+    local alarm_global="$2";
     
     # Other Variables
     
-    user_id="";
-    temp_file=$(mktemp);
-    logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
+    local user_id="";
+    local temp_file=$(mktemp);
+    local logged_users=$(who | grep -oP "^([^\s]+)" | cut -f1 -d -);
     
     # Logic
     
@@ -323,9 +323,9 @@ test_sound()
 {
     # Core Variables
     
-    alarm_type=$1;
-    sound_effect=$2;
-    sound_volume=$3;
+    local alarm_type="$1";
+    local sound_effect="$2";
+    local sound_volume="$3";
     
     # Print Notice
     

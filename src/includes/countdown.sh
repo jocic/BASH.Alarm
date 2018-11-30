@@ -69,12 +69,12 @@ create_countdown()
 {
     # Core Variables
     
-    countdown_time="$1";
-    countdown_delay="$2";
-    countdown_message="$3";
-    countdown_effect="$4";
-    countdown_volume="$5";
-    countdown_command="$6";
+    local countdown_time="$1";
+    local countdown_delay="$2";
+    local countdown_message="$3";
+    local countdown_effect="$4";
+    local countdown_volume="$5";
+    local countdown_command="$6";
     
     # Step 1 -Print Notice
     
@@ -133,7 +133,7 @@ print_countdown_effect_path()
 {
     # Core Variables
     
-    effect_id=$1;
+    local effect_id="$1";
     
     # Logic
     
