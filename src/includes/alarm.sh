@@ -182,6 +182,7 @@ list_alarms()
     local alarm_hour="";
     local alarm_minute="";
     local alarm_period="";
+    local alarm_status="Enabled";
     local index=1;
     
     # Temp Variables
@@ -207,7 +208,9 @@ list_alarms()
             
             if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
                 
-                temp=$(echo "$alarm" | grep -oP "^([0-9]+)\s([0-9]+)" | tr " " "\n");
+                # Determine Alarm Time (HH:MM AM|FM Format)
+                
+                temp=$(echo "$alarm" | grep -oP "([0-9]+)\s([0-9]+)" | tr " " "\n");
                 
                 alarm_hour=$(echo "$temp" | sed -n 2p);
                 alarm_minute=$(echo "$temp" | sed -n 1p);
@@ -223,7 +226,25 @@ list_alarms()
                     
                 fi
                 
-                printf "%02d. alarm: %02d:%02d %s\n" $index $alarm_hour $alarm_minute $alarm_period;
+                # Check Alarm Time
+                
+                if [ $(echo "$alarm_hour" | grep -cP "^([0-9]+)$") = 0 ] || [ $(echo "$alarm_minute" | grep -cP "^([0-9]+)$") = 0 ]; then
+                    
+                    printf "%02d. alarm: XX:XX XX (%s) - INVALID ALARM\n" "$index" "$alarm_status";
+                    
+                    continue;
+                    
+                fi
+                
+                # Determine Alarm Status
+                
+                if [ $(echo "$alarm" | grep -cP "^#") = 1 ]; then
+                    alarm_status="Disabled";
+                fi
+                
+                # Print Alarm Line
+                
+                printf "%02d. alarm: %02d:%02d %s (%s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status";
                 
                 index=$(( index + 1 ));
                 
@@ -300,6 +321,81 @@ remove_alarm()
             printf "Alarm at %d. position has been removed.\n\n" "$removal_index";
         else
             printf "There was no alarm at position %d.\n\n" "$removal_index";
+        fi
+        
+        list_alarms;
+        
+    fi
+}
+
+# Disables alarm based on the provided index.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $alarm_index
+#   Index of an alarm that should be disabled.
+# @return void
+
+disable_alarm()
+{
+    # Core Variables
+    
+    local disable_index=$(echo "$1" | sed "s/^0//");
+    
+    # Control Variables
+    
+    local line_index=0;
+    local alarm_index=0;
+    local alarm_disabled="no";
+    
+    # Temp Variables
+    
+    local temp_file=$(mktemp);
+    
+    # Step 1 - Gather Data
+    
+    crontab -l > "$temp_file" 2>&1;
+    
+    if [ -z "$disable_index" ]; then
+        
+        printf "You didn't provide an index.\n";
+        
+    else
+        
+        while read alarm; do
+            
+            line_index=$(( line_index + 1 ));
+            
+            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+                
+                alarm_index=$(( alarm_index + 1 ));
+                
+                if [ "$alarm_index" = "$disable_index" ]; then
+                    
+                    if [ $(echo "$alarm" | grep -cP "^#") = 0 ]; then
+                        
+                        sed -i "${line_index}s/^/#/" "$temp_file";
+                        
+                        cat "$temp_file" | crontab;
+                        
+                    fi
+                    
+                    alarm_disabled="yes";
+                    
+                    break;
+                    
+                fi
+                
+            fi
+            
+        done < "$temp_file";
+        
+        if [ "$alarm_disabled" = "yes" ]; then
+            printf "Alarm at %d. position has been disabled.\n\n" "$disable_index";
+        else
+            printf "There was no alarm at position %d.\n\n" "$disable_index";
         fi
         
         list_alarms;

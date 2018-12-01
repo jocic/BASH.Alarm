@@ -29,6 +29,9 @@ List available alarms.
 \fB\-r\fR, \fB\-\-remove\fR
 Remove an alarm.
 .TP
+\fB\-b\fR, \fB\-\-disable\fR
+Disable an alarm.
+.TP
 .I Available general options:
 .TP
 \fB\-t\fR, \fB\-\-time\fR
@@ -126,6 +129,12 @@ Listing previously created alarms can be done using the "-l" flag.
 Appropriate CRON job is created whenever you add an alarm, which may be a hassle to remove. To easily remove an alarm, simply determine the index of an alarm (using the listing feature) and pass it using the "-r" flag.
 
 \fBalarm -r 1\fR
+.TP
+.I Disabling Alarms
+
+In some cases you would want to temporarily disable an alarm, which can be achieved using the "-b" flag.
+
+\fBalarm -b 1\fR
 .TP
 .I Initialization Delay
 

@@ -12,6 +12,7 @@ Available alarm options:
 
   -l, --list      : List available alarms.
   -r, --remove    : Remove an alarm.
+  -b, --disable   : Disable an alarm.
 
 Available general options:
 
