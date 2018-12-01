@@ -79,11 +79,11 @@ sleep_for()
     local amount=$(echo "$time" | grep -oP "[0-9]+");
     
     if [ "$identifier" = "d" ]; then
-        seconds=$[ $amount * 24 * 60 * 60 ];
+        seconds=$(( amount * 24 * 60 * 60 ));
     elif [ "$identifier" = "h" ]; then
-        seconds=$[ $amount * 60 * 60 ];
+        seconds=$(( amount * 60 * 60 ));
     elif [ "$identifier" = "m" ]; then
-        seconds=$[ $amount * 60 ];
+        seconds=$(( amount * 60 ));
     elif [ "$identifier" = "s" ]; then
         seconds=$amount;
     fi

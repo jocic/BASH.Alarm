@@ -79,13 +79,13 @@ create_countdown()
     # Step 1 -Print Notice
     
     if [ ! -z "$countdown_delay" ]; then
-        printf "Starting a %s countdown, after a %s second delay...\n" "$countdown_time" "$countdown_delay";
+        printf "Starting a %s countdown, after a %s second delay...\n\n" "$countdown_time" "$countdown_delay";
     else
-        printf "Starting a %s countdown...\n" "$countdown_time";
+        printf "Starting a %s countdown...\n\n" "$countdown_time";
     fi
     
     if [ ! -z "$countdown_message" ]; then
-        printf "\nFollowing message will be shown: %s\n" $countdown_message;
+        printf "\nFollowing message will be shown: %s\n\n" "$countdown_message";
     fi
     
     # Step 2 - Initialize Countdown
