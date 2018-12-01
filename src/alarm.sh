@@ -62,6 +62,7 @@ alarm_message="";
 sound_effect="";
 sound_volume="";
 alarm_removal="no";
+alarm_enabling="no";
 alarm_disabling="no";
 test_sound="no";
 global_alarm="no";
@@ -141,6 +142,10 @@ else
     elif [ "$alarm_removal" = "yes" ]; then
         
         remove_alarm "$alarm_index";
+        
+    elif [ "$alarm_enabling" = "yes" ]; then
+        
+        enable_alarm "$alarm_index";
         
     elif [ "$alarm_disabling" = "yes" ]; then
         

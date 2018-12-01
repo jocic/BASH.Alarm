@@ -111,6 +111,8 @@ process_arguments()
             sound_volume=$arg;
         elif [ "$queue" = "remove" ]; then
             alarm_index=$arg;
+        elif [ "$queue" = "enable" ]; then
+            alarm_index=$arg;
         elif [ "$queue" = "disable" ]; then
             alarm_index=$arg;
         elif [ "$queue" = "alarm-command" ]; then
@@ -153,6 +155,8 @@ process_arguments()
             list_alarms="yes";
         elif [ "$arg" = "-r" ] || [ "$arg" = "--remove" ]; then
             alarm_removal="yes" && queue="remove";
+        elif [ "$arg" = "-e" ] || [ "$arg" = "--enable" ]; then
+            alarm_enabling="yes" && queue="enable";
         elif [ "$arg" = "-b" ] || [ "$arg" = "--disable" ]; then
             alarm_disabling="yes" && queue="disable";
         fi

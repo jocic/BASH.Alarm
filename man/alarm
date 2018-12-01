@@ -136,6 +136,12 @@ In some cases you would want to temporarily disable an alarm, which can be achie
 
 \fBalarm -b 1\fR
 .TP
+.I Enabling Alarms
+
+In a similar fashion, you can enable previously disabled alarm using the "-e" flag.
+
+\fBalarm -e 1\fR
+.TP
 .I Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.

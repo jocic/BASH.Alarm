@@ -328,6 +328,81 @@ remove_alarm()
     fi
 }
 
+# Enables alarm based on the provided index.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $alarm_index
+#   Index of an alarm that should be enalbe.
+# @return void
+
+enable_alarm()
+{
+    # Core Variables
+    
+    local enable_index=$(echo "$1" | sed "s/^0//");
+    
+    # Control Variables
+    
+    local line_index=0;
+    local alarm_index=0;
+    local alarm_enabled="no";
+    
+    # Temp Variables
+    
+    local temp_file=$(mktemp);
+    
+    # Logic
+    
+    crontab -l > "$temp_file" 2>&1;
+    
+    if [ -z "$enable_index" ]; then
+        
+        printf "You didn't provide an index.\n";
+        
+    else
+        
+        while read alarm; do
+            
+            line_index=$(( line_index + 1 ));
+            
+            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+                
+                alarm_index=$(( alarm_index + 1 ));
+                
+                if [ "$alarm_index" = "$enable_index" ]; then
+                    
+                    if [ $(echo "$alarm" | grep -cP "^#") = 1 ]; then
+                        
+                        sed -i "${line_index}s/^#//" "$temp_file";
+                        
+                        cat "$temp_file" | crontab;
+                        
+                    fi
+                    
+                    alarm_enabled="yes";
+                    
+                    break;
+                    
+                fi
+                
+            fi
+            
+        done < "$temp_file";
+        
+        if [ "$alarm_enabled" = "yes" ]; then
+            printf "Alarm at %d. position has been enabled.\n\n" "$enable_index";
+        else
+            printf "There was no alarm at position %d.\n\n" "$enable_index";
+        fi
+        
+        list_alarms;
+        
+    fi
+}
+
 # Disables alarm based on the provided index.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
@@ -354,7 +429,7 @@ disable_alarm()
     
     local temp_file=$(mktemp);
     
-    # Step 1 - Gather Data
+    # Logic
     
     crontab -l > "$temp_file" 2>&1;
     

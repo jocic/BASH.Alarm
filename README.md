@@ -92,6 +92,15 @@ In some cases you would want to temporarily disable an alarm, which can be achie
 ```bash
 bash ./alarm.sh -b 1
 ```
+```
+
+### Example 8 - Enabling Alarms
+
+In a similar fashion, you can enable previously disabled alarm using the "-e" flag.
+
+```bash
+bash ./alarm.sh -e 1
+```
 
 ### Example 8 - Initialization Delay
 
