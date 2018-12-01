@@ -139,7 +139,7 @@ Alternatively, you can start an interval with varying time. First interval will 
 
 To create an alarm that will be triggered at ex. 07:00 AM you simply need to issue the following command.
 
-\fBalarm -t "07:00 AM" -a\fR
+\fBalarm -t "07:00 AM" -n "My Alarm" -a\fR
 .TP
 .I Listing Alarms
 

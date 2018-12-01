@@ -64,7 +64,7 @@ bash ./alarm.sh -t 1m,2m,3m -i
 To create an alarm that will be triggered at ex. 07:00 AM you simply need to issue the following command.
 
 ```bash
-bash ./alarm.sh -t "07:00 AM" -a
+bash ./alarm.sh -t "07:00 AM" -n "My Alarm" -a
 ```
 
 **Note:** Command above will create an appropriate CRON job.
