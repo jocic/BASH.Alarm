@@ -23,6 +23,23 @@ Setup an interval.
 .TP
 .I Available alarm options:
 .TP
+\fB\-n\fR, \fB\-\-name\fR
+Name of an alarm.
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+List of an alarm.
+.TP
+\fB\-r\fR, \fB\-\-remove\fR
+Remove an alarm.
+.TP
+\fB\-e\fR, \fB\-\-enable\fR
+Enable an alarm.
+.TP
+\fB\-b\fR, \fB\-\-disable\fR
+Disable an alarm.
+.TP
+.I Available alarm options:
+.TP
 \fB\-l\fR, \fB\-\-list\fR
 List available alarms.
 .TP

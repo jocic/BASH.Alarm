@@ -109,6 +109,8 @@ process_arguments()
             sound_effect=$arg;
         elif [ "$queue" = "volume" ]; then
             sound_volume=$arg;
+        elif [ "$queue" = "name" ]; then
+            alarm_name=$arg;
         elif [ "$queue" = "remove" ]; then
             alarm_index=$arg;
         elif [ "$queue" = "enable" ]; then
@@ -135,6 +137,8 @@ process_arguments()
             queue="sound";
         elif [ "$arg" = "-v" ] || [ "$arg" = "--volume" ]; then
             queue="volume";
+        elif [ "$arg" = "-n" ] || [ "$arg" = "--name" ]; then
+            queue="name";
         elif [ "$arg" = "-g" ] || [ "$arg" = "--global" ]; then
             global_alarm="yes";
         elif [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then

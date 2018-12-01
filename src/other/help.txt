@@ -10,6 +10,7 @@ Alarm types:
 
 Available alarm options:
 
+  -n, --name      : Name of an alarm.
   -l, --list      : List available alarms.
   -r, --remove    : Remove an alarm.
   -e, --enable    : Enable an alarm.

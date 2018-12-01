@@ -41,6 +41,7 @@ version="1.1.1";
 # REGEX VARIABLES #
 ###################
 
+alarm_mark="# ALARM,?(.*) #";
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
 clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
 number_regex="^([0-9]+)$";
@@ -54,6 +55,7 @@ volume_regex="^([0-9]{1,2}[0]?|100)$";
 #######################
 
 alarm_index="";
+alarm_name="";
 alarm_type="";
 alarm_time="";
 alarm_delay="";
@@ -75,7 +77,6 @@ list_alarms="no";
 # OTHER VARIABLES #
 ###################
 
-alarm_mark="# ALARM #";
 probe="";
 temp="";
 

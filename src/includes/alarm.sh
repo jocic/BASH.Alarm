@@ -161,7 +161,7 @@ create_alarm()
     
     # Step 7 - Add Cron Task
     
-    cron_details="$cron_details\n$cron_task $alarm_mark";
+    cron_details="$cron_details\n$cron_task # ALARM,$alarm_name #";
     
     echo "$cron_details" | crontab;
 }
@@ -183,6 +183,7 @@ list_alarms()
     local alarm_minute="";
     local alarm_period="";
     local alarm_status="Enabled";
+    local alarm_name="";
     local index=1;
     
     # Temp Variables
@@ -196,7 +197,7 @@ list_alarms()
     
     # Step 2 - Print Data
     
-    if [ $(cat "$temp_file" | grep -c "$alarm_mark$") = "0" ]; then
+    if [ $(cat "$temp_file" | grep -c "$alarm_regex") = "0" ]; then
         
         printf "No available alarms.\n";
         
@@ -206,12 +207,18 @@ list_alarms()
         
         while read alarm; do
             
-            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
+                
+                # Check If Blank Line
+                
+                if [ "$alarm" = "" ]; then
+                    continue;
+                fi
                 
                 # Determine Alarm Time (HH:MM AM|FM Format)
                 
                 temp=$(echo "$alarm" | grep -oP "([0-9]+)\s([0-9]+)" | tr " " "\n");
-                
+               
                 alarm_hour=$(echo "$temp" | sed -n 2p);
                 alarm_minute=$(echo "$temp" | sed -n 1p);
                 
@@ -242,9 +249,17 @@ list_alarms()
                     alarm_status="Disabled";
                 fi
                 
+                # Determine Alarm Name
+                
+                alarm_name=$(echo "$alarm" | grep -oP "# ALARM,(.*) #" | grep -oP "(?<=,)(.*)(?=\s)");
+                
+                if [ -z "$alarm_name" ]; then
+                    alarm_name="None";
+                fi
+                
                 # Print Alarm Line
                 
-                printf "%02d. alarm: %02d:%02d %s (%s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status";
+                printf "%02d. alarm: %02d:%02d %s (%s, %s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status" "$alarm_name";
                 
                 index=$(( index + 1 ));
                 
@@ -297,7 +312,7 @@ remove_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
@@ -368,7 +383,7 @@ enable_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
@@ -443,7 +458,7 @@ disable_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ ! -z $(echo "$alarm" | grep -oP "$alarm_mark$" | cut -c 1) ]; then
+            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
