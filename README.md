@@ -200,7 +200,11 @@ sudo apt-get install alarm
 
 ## Contribution
 
-By contributing to this project you agree to adheere to honor the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md) which can be found in the root directory.
+Please review the following documents if you are planning to contribute to the project:
+
+* [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
+* [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
+* [Contribution Guidelines](CONTRIBUTING.md)
 
 ## Support
 
