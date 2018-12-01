@@ -203,8 +203,10 @@ sudo apt-get install alarm
 Please review the following documents if you are planning to contribute to the project:
 
 * [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
-* [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
 * [Contribution Guidelines](CONTRIBUTING.md)
+* [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
+* [Bug Report Template](BUG_REPORT.md)
+* [Feature Request Template](FEATURE_REQUEST.md)
 
 ## Support
 
