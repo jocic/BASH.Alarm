@@ -92,6 +92,9 @@ Analogue watch.
 \fB -3\fR
 Annoying alarm.
 .TP
+\fB -4\fR
+Missile alert.
+.TP
 .I Available sound effects - interval:
 .TP
 \fB -1\fR
@@ -102,6 +105,9 @@ AM/FM Beep.
 .TP
 \fB -3\fR
 Beep in A.
+.TP
+\fB -4\fR
+Generic bleep.
 .SH EXAMPLES
 Following examples were created to help you get started.
 .TP

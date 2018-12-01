@@ -155,5 +155,9 @@ print_countdown_effect_path()
             echo "$source_dir/effects/alarms/annoying-alarm.wav";
         ;;
         
+        "4")
+            echo "$source_dir/effects/alarms/missile-alert.wav";
+        ;;
+        
     esac
 }

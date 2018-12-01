@@ -177,5 +177,9 @@ print_interval_effect_path()
             echo "$source_dir/effects/beeps/beep-in-a.wav";
         ;;
         
+        "4")
+            echo "$source_dir/effects/beeps/generic-bleep.wav";
+        ;;
+        
     esac
 }
