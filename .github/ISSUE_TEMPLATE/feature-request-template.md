@@ -1,7 +1,6 @@
 ---
 name: Feature Request Template
 about: Use the following markdown template when creating a feature request.
-
 ---
 
 ## Is your feature request related to a problem?

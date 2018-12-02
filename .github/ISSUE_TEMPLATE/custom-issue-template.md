@@ -1,7 +1,6 @@
 ---
 name: Custom Issue Template
 about: Use the following markdown template when creating a custom issue template.
-
 ---
 
 ## Issue description
