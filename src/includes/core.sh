@@ -314,11 +314,17 @@ get_user_input()
     
     get_initial_input;
     
-    if [ "$temp" = "3" ]; then
-        display_help="yes";
+    if [ "$temp" = "1" ]; then
+        continue;
+    elif [ "$temp" = "2" ]; then
+        continue;
+    elif [ "$temp" = "3" ]; then
+        continue;
     elif [ "$temp" = "4" ]; then
+        display_help="yes";
+    elif [ "$temp" = "5" ]; then
         display_version="yes";
-    elif [ "$temp" != "1" ] && [ "$temp" != "2" ]; then
+    else
         printf "Error: Invalid input provided.\n" && exit;
     fi
     
@@ -334,13 +340,23 @@ get_user_input()
             alarm_type="countdown";
         elif [ "$temp" = "3" ]; then
             alarm_type="interval";
+        else
+            printf "Error: Invalid input provided.\n" && exit;
         fi
         
         read -p "Enter alarm's time: - " alarm_time && printf "\n";
+        
         read -p "Enter alarm's delay (optional): - " alarm_delay && printf "\n";
         read -p "Enter alarm's message (optional): - " alarm_message && printf "\n";
+        read -p "Enter alarm's sound (optional): - " sound_effect && printf "\n";
         read -p "Enter alarm's volume (optional): - " sound_volume && printf "\n";
         read -p "Enter alarm's command (optional): - " alarm_command && printf "\n";
+        
+        read -p "Should alarm be global? (y/n) - " answer && printf "\n";
+        
+        if [ "$answer" = "Y" ] || [ "$answer" = "y" ]; then
+            global_alarm="yes";
+        fi
         
         temp="";
         
@@ -375,6 +391,29 @@ get_user_input()
         temp="";
         
     fi
+    
+    # Step 4 - Handle Test Alarm Sound Input
+    
+    if [ "$temp" = "3" ]; then
+        
+        get_test_alarm_sound_input;
+        
+        if [ "$temp" = "1" ]; then
+            alarm_type="alarm";
+        elif [ "$temp" = "2" ]; then
+            alarm_type="countdown";
+        elif [ "$temp" = "3" ]; then
+            alarm_type="interval";
+        else
+            printf "Error: Invalid input provided.\n" && exit;
+        fi
+        
+        test_sound="yes";
+        
+        read -p "Enter alarm's sound (optional): - " sound_effect && printf "\n";
+        read -p "Enter alarm's volume (optional): - " sound_volume && printf "\n";
+        
+    fi
 }
 
 ###################
@@ -405,8 +444,9 @@ get_initial_input()
     
     printf "1. Add an alarm\n";
     printf "2. Manage alarms\n";
-    printf "3. Display help\n";
-    printf "4. Display version\n\n";
+    printf "3. Test alarm sound\n";
+    printf "4. Display help\n";
+    printf "5. Display version\n\n";
     
     # Step 3 - Get Answer
     
@@ -458,6 +498,31 @@ get_manage_alarms_input()
     printf "2. Remove an alarm\n";
     printf "3. Enable an alarm\n";
     printf "4. Disable an alarm\n\n";
+    
+    # Step 3 - Get Answer
+    
+    read -p "Option: " temp && printf "\n";
+}
+
+# Gets test alarm sound input.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+get_test_alarm_sound_input()
+{
+    # Step 1 - Print Question
+    
+    printf -- "- What do you want to do?\n\n";
+    
+    # Step 2 - Print Options
+    
+    printf "1. Alarm\n";
+    printf "2. Countdown\n";
+    printf "3. Interval\n\n";
     
     # Step 3 - Get Answer
     

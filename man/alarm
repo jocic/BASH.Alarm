@@ -208,6 +208,12 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 
 \fBalarm --global -t 1m -c\fR
 .TP
+.I Interactive Mode
+
+If you don't want to deal with all of the flags above, simply use the interactive mode.
+
+\fBalarm --interactive\fR
+.TP
 .I Dependency Installation
 
 Alarm doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
