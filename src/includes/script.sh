@@ -99,27 +99,25 @@ process_arguments()
         
         # Assign Queued Values
         
-        if [ "$queue" = "time" ]; then
-            alarm_time=$arg;
-        elif [ "$queue" = "delay" ]; then
-            alarm_delay=$arg;
-        elif [ "$queue" = "message" ]; then
-            alarm_message=$arg;
-        elif [ "$queue" = "sound" ]; then
-            sound_effect=$arg;
-        elif [ "$queue" = "volume" ]; then
-            sound_volume=$arg;
-        elif [ "$queue" = "name" ]; then
-            alarm_name=$arg;
-        elif [ "$queue" = "remove" ]; then
-            alarm_index=$arg;
-        elif [ "$queue" = "enable" ]; then
-            alarm_index=$arg;
-        elif [ "$queue" = "disable" ]; then
-            alarm_index=$arg;
-        elif [ "$queue" = "alarm-command" ]; then
-            alarm_command="$arg";
-        fi
+        [ "$queue" = "time" ] && alarm_time=$arg;
+        
+        [ "$queue" = "delay" ] && alarm_delay=$arg;
+        
+        [ "$queue" = "message" ] && alarm_message=$arg;
+        
+        [ "$queue" = "sound" ] && sound_effect=$arg;
+        
+        [ "$queue" = "volume" ] && sound_volume=$arg;
+        
+        [ "$queue" = "name" ] && alarm_name=$arg;
+        
+        [ "$queue" = "remove" ] && alarm_index=$arg;
+        
+        [ "$queue" = "enable" ] && alarm_index=$arg;
+        
+        [ "$queue" = "disable" ] && alarm_index=$arg;
+        
+        [ "$queue" = "alarm-command" ] && alarm_command="$arg";
         
         # Reset Queue Value
         
@@ -127,43 +125,43 @@ process_arguments()
         
         # Queue Commands
         
-        if [ "$arg" = "-t" ] || [ "$arg" = "--time" ]; then
-            queue="time";
-        elif [ "$arg" = "-d" ] || [ "$arg" = "--delay" ]; then
-            queue="delay";
-        elif [ "$arg" = "-m" ] || [ "$arg" = "--message" ]; then
-            queue="message";
-        elif [ "$arg" = "-s" ] || [ "$arg" = "--sound" ]; then
-            queue="sound";
-        elif [ "$arg" = "-v" ] || [ "$arg" = "--volume" ]; then
-            queue="volume";
-        elif [ "$arg" = "-n" ] || [ "$arg" = "--name" ]; then
-            queue="name";
-        elif [ "$arg" = "-g" ] || [ "$arg" = "--global" ]; then
-            global_alarm="yes";
-        elif [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
-            display_help="yes";
-        elif [ "$arg" = "--test" ]; then
-            test_sound="yes";
-        elif [ "$arg" = "--install" ]; then
-            install_deps="yes";
-        elif [ "$arg" = "--version" ]; then
-            display_version="yes";
-        elif [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ]; then
-            alarm_type="alarm" && queue="alarm-command";
-        elif [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ]; then
-            alarm_type="countdown" && queue="alarm-command";
-        elif [ "$arg" = "-i" ] || [ "$arg" = "--interval" ]; then
-            alarm_type="interval" && queue="alarm-command";
-        elif [ "$arg" = "-l" ] || [ "$arg" = "--list" ]; then
-            list_alarms="yes";
-        elif [ "$arg" = "-r" ] || [ "$arg" = "--remove" ]; then
-            alarm_removal="yes" && queue="remove";
-        elif [ "$arg" = "-e" ] || [ "$arg" = "--enable" ]; then
-            alarm_enabling="yes" && queue="enable";
-        elif [ "$arg" = "-b" ] || [ "$arg" = "--disable" ]; then
-            alarm_disabling="yes" && queue="disable";
-        fi
+        [ "$arg" = "-t" ] || [ "$arg" = "--time" ] && queue="time";
+        
+        [ "$arg" = "-d" ] || [ "$arg" = "--delay" ] && queue="delay";
+        
+        [ "$arg" = "-m" ] || [ "$arg" = "--message" ] && queue="message";
+        
+        [ "$arg" = "-s" ] || [ "$arg" = "--sound" ] && queue="sound";
+        
+        [ "$arg" = "-v" ] || [ "$arg" = "--volume" ] && queue="volume";
+        
+        [ "$arg" = "-n" ] || [ "$arg" = "--name" ] && queue="name";
+        
+        [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ] && alarm_type="alarm" && queue="alarm-command";
+        
+        [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ] && alarm_type="countdown" && queue="alarm-command";
+        
+        [ "$arg" = "-i" ] || [ "$arg" = "--interval" ] && alarm_type="interval" && queue="alarm-command";
+        
+        [ "$arg" = "-r" ] || [ "$arg" = "--remove" ] && alarm_removal="yes" && queue="remove";
+        
+        [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && alarm_enabling="yes" && queue="enable";
+        
+        [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && alarm_disabling="yes" && queue="disable";
+        
+        [ "$arg" = "-g" ] || [ "$arg" = "--global" ] && global_alarm="yes";
+        
+        [ "$arg" = "-h" ] || [ "$arg" = "--help" ] && display_help="yes";
+        
+        [ "$arg" = "-l" ] || [ "$arg" = "--list" ] && list_alarms="yes";
+        
+        [ "$arg" = "--test" ] && test_sound="yes";
+        
+        [ "$arg" = "--interactive" ] && interactive_mode="yes";
+        
+        [ "$arg" = "--install" ] && install_deps="yes";
+        
+        [ "$arg" = "--version" ] && display_version="yes";
         
     done
 }

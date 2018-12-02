@@ -4,30 +4,31 @@ Initiates the countdown, interval, or simply adds an alarm.
 
 Alarm types:
 
-  -a, --alarm     : Setup an alarm.
-  -c, --countdown : Setup a countdown.
-  -i, --interval  : Setup an interval.
+  -a, --alarm       : Setup an alarm.
+  -c, --countdown   : Setup a countdown.
+  -i, --interval    : Setup an interval.
 
 Available alarm options:
 
-  -n, --name      : Name of an alarm.
-  -l, --list      : List available alarms.
-  -r, --remove    : Remove an alarm.
-  -e, --enable    : Enable an alarm.
-  -b, --disable   : Disable an alarm.
+  -n, --name        : Name of an alarm.
+  -l, --list        : List available alarms.
+  -r, --remove      : Remove an alarm.
+  -e, --enable      : Enable an alarm.
+  -b, --disable     : Disable an alarm.
 
 Available general options:
 
-  -t, --time      : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
-  -s, --sound     : Set sound of a countdown, interval, or an alarm in WAV format.
-  -v, --volume    : Change volume of the sound effect.
-  -d, --delay     : Initial delay in seconds, useful when wanting to postpone alarm initialization.
-  -m, --message   : Message you want to display at the end of a countdown, interval, or an alarm.
-  -h, --help      : Display this help and exit.
-  -g, --global    : Trigger an alarm for all logged-in users.
-      --test      : Test the sound effect.
-      --install   : Install required dependencies automatically.
-      --version   : Output version information and exit.
+  -t, --time        : Countdown/interval time, or an alarm time in HH:MM AM/PM format.
+  -s, --sound       : Set sound of a countdown, interval, or an alarm in WAV format.
+  -v, --volume      : Change volume of the sound effect.
+  -d, --delay       : Initial delay in seconds, useful when wanting to postpone alarm initialization.
+  -m, --message     : Message you want to display at the end of a countdown, interval, or an alarm.
+  -h, --help        : Display this help and exit.
+  -g, --global      : Trigger an alarm for all logged-in users.
+      --test        : Test the sound effect.
+      --interactive : Setup an alarm using an interactive mode.
+      --install     : Install required dependencies automatically.
+      --version     : Output version information and exit.
 
 Available sound effects - alarm & countdown:
 

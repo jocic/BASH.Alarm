@@ -50,9 +50,9 @@ wav_regex="(audio\/x-wav)$";
 mp3_regex="(audio\/mpeg)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
 
-#######################
-# PARAMETER VARIABLES #
-#######################
+###############################
+# GENERIC PARAMETER VARIABLES #
+###############################
 
 alarm_index="";
 alarm_name="";
@@ -63,6 +63,11 @@ alarm_command="";
 alarm_message="";
 sound_effect="";
 sound_volume="";
+
+###############################
+# CONTROL PARAMETER VARIABLES #
+###############################
+
 alarm_removal="no";
 alarm_enabling="no";
 alarm_disabling="no";
@@ -72,6 +77,7 @@ install_deps="no";
 display_help="no";
 display_version="no";
 list_alarms="no";
+interactive_mode="no";
 
 ###################
 # OTHER VARIABLES #
@@ -124,6 +130,12 @@ else
     
     if [ ! -z "$temp" ]; then
         printf "%s\n" $temp && exit;
+    fi
+    
+    # Handle Interactive Mode
+    
+    if [ "$interactive_mode" = "yes" ]; then
+        get_user_input;
     fi
     
     # Handle Request

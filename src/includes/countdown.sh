@@ -85,7 +85,7 @@ create_countdown()
     fi
     
     if [ ! -z "$countdown_message" ]; then
-        printf "\nFollowing message will be shown: %s\n\n" "$countdown_message";
+        printf "Following message will be shown: %s\n\n" "$countdown_message";
     fi
     
     # Step 2 - Initialize Countdown

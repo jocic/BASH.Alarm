@@ -75,6 +75,9 @@ Trigger an alarm for all logged-in users.
 \fB\-\-test\fR
 Test the sound effect.
 .TP
+\fB\-\-interactive\fR
+Setup an alarm using an interactive mode.
+.TP
 \fB\-\-install\fR
 Install required dependencies automatically.
 .TP
