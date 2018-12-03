@@ -220,11 +220,11 @@ check_dependencies()
         if [ "$(dpkg -l | grep "$package")" = "" ]; then
             
             if [ ! -z "$(command -v apt-get)" ]; then
-                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"apt-get install %s\".\n" $package $package;
+                printf  "Error: Command \"%s\" is missing. Please install the dependency by typing \"apt-get install %s\".\n" "$package" "$package";
             elif [ ! -z "$(command -v yum)" ]; then
-                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"yum install %s\".\n" $package $package;
+                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"yum install %s\".\n" "$package" "$package";
             else
-                printf "Error: Command \"%s\" is missing. Please install \"%s\".\n" $package $package;
+                printf "Error: Command \"%s\" is missing. Please install \"%s\".\n" "$package" "$package";
             fi
             
         fi
@@ -250,7 +250,7 @@ parse_value()
 {
     # Core Variables
     
-    local value=$1;
+    local value="$1";
     
     # Logic
     

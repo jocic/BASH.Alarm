@@ -344,15 +344,15 @@ get_user_input()
             printf "Error: Invalid input provided.\n" && exit;
         fi
         
-        read -p "Enter alarm's time: - " alarm_time && printf "\n";
+        read -rp "Enter alarm's time: - " alarm_time && printf "\n";
         
-        read -p "Enter alarm's delay (optional): - " alarm_delay && printf "\n";
-        read -p "Enter alarm's message (optional): - " alarm_message && printf "\n";
-        read -p "Enter alarm's sound (optional): - " sound_effect && printf "\n";
-        read -p "Enter alarm's volume (optional): - " sound_volume && printf "\n";
-        read -p "Enter alarm's command (optional): - " alarm_command && printf "\n";
+        read -rp "Enter alarm's delay (optional): " alarm_delay && printf "\n";
+        read -rp "Enter alarm's message (optional): " alarm_message && printf "\n";
+        read -rp "Enter alarm's sound (optional): " sound_effect && printf "\n";
+        read -rp "Enter alarm's volume (optional): " sound_volume && printf "\n";
+        read -rp "Enter alarm's command (optional): " alarm_command && printf "\n";
         
-        read -p "Should alarm be global? (y/n) - " answer && printf "\n";
+        read -rp "Should alarm be global? (y/n) - " answer && printf "\n";
         
         if [ "$answer" = "Y" ] || [ "$answer" = "y" ]; then
             global_alarm="yes";
@@ -374,7 +374,7 @@ get_user_input()
             
         else
             
-            read -p "Enter alarm's index: - " alarm_index && printf "\n";
+            read -rp "Enter alarm's index: " alarm_index && printf "\n";
             
             if [ "$temp" = "2" ]; then
                 alarm_removal="yes";
@@ -410,8 +410,8 @@ get_user_input()
         
         test_sound="yes";
         
-        read -p "Enter alarm's sound (optional): - " sound_effect && printf "\n";
-        read -p "Enter alarm's volume (optional): - " sound_volume && printf "\n";
+        read -rp "Enter alarm's sound (optional): " sound_effect && printf "\n";
+        read -rp "Enter alarm's volume (optional): " sound_volume && printf "\n";
         
     fi
 }
@@ -450,7 +450,7 @@ get_initial_input()
     
     # Step 3 - Get Answer
     
-    read -p "Option: " temp && printf "\n";
+    read -rp "Option: " temp && printf "\n";
 }
 
 # Get add alarm input.
@@ -475,7 +475,7 @@ get_add_alarm_input()
     
     # Step 3 - Get Answer
     
-    read -p "Option: " temp && printf "\n";
+    read -rp "Option: " temp && printf "\n";
 }
 
 # Gets manage alarms input.
@@ -501,7 +501,7 @@ get_manage_alarms_input()
     
     # Step 3 - Get Answer
     
-    read -p "Option: " temp && printf "\n";
+    read -rp "Option: " temp && printf "\n";
 }
 
 # Gets test alarm sound input.
@@ -526,7 +526,7 @@ get_test_alarm_sound_input()
     
     # Step 3 - Get Answer
     
-    read -p "Option: " temp && printf "\n";
+    read -rp "Option: " temp && printf "\n";
 }
 
 # Test plays a sound based on the provided parameters.

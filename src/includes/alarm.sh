@@ -197,7 +197,7 @@ list_alarms()
     
     # Step 2 - Print Data
     
-    if [ $(cat "$temp_file" | grep -c "$alarm_regex") = "0" ]; then
+    if [ -z "$(cat "$temp_file" | grep -oP "$alarm_regex")" ]; then
         
         printf "No available alarms.\n";
         
@@ -207,7 +207,7 @@ list_alarms()
         
         while read alarm; do
             
-            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
                 
                 # Check If Blank Line
                 
@@ -222,30 +222,34 @@ list_alarms()
                 alarm_hour=$(echo "$temp" | sed -n 2p);
                 alarm_minute=$(echo "$temp" | sed -n 1p);
                 
+                # Check Alarm Time (Fallback)
+                
+                if [ -z "$(echo "$alarm_hour" | grep -oP "^([0-9]+)$")" ] || [ -z "$(echo "$alarm_minute" | grep -oP "^([0-9]+)$")" ]; then
+                    
+                    printf "%02d. alarm: XX:XX XX (%s) - INVALID ALARM\n" "$index" "$alarm_status";
+                    
+                    index=$(( index + 1 ));
+                    
+                    continue;
+                    
+                fi
+                
+                # Process Alarm Time
+                
                 if [ "$alarm_hour" -lt "12" ]; then
                     
                     alarm_period="AM";
                     
                 else
                     
-                    alarm_hour=$(( clock_hour - 12 ));
+                    alarm_hour=$(( alarm_hour - 12 ));
                     alarm_period="PM";
-                    
-                fi
-                
-                # Check Alarm Time
-                
-                if [ $(echo "$alarm_hour" | grep -cP "^([0-9]+)$") = 0 ] || [ $(echo "$alarm_minute" | grep -cP "^([0-9]+)$") = 0 ]; then
-                    
-                    printf "%02d. alarm: XX:XX XX (%s) - INVALID ALARM\n" "$index" "$alarm_status";
-                    
-                    continue;
                     
                 fi
                 
                 # Determine Alarm Status
                 
-                if [ $(echo "$alarm" | grep -cP "^#") = 1 ]; then
+                if [ "$(echo "$alarm" | grep -cP "^#")" = "1" ]; then
                     alarm_status="Disabled";
                 fi
                 
@@ -312,7 +316,7 @@ remove_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
@@ -383,13 +387,13 @@ enable_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
                 if [ "$alarm_index" = "$enable_index" ]; then
                     
-                    if [ $(echo "$alarm" | grep -cP "^#") = 1 ]; then
+                    if [ "$(echo "$alarm" | grep -cP "^#")" = "1" ]; then
                         
                         sed -i "${line_index}s/^#//" "$temp_file";
                         
@@ -458,13 +462,13 @@ disable_alarm()
             
             line_index=$(( line_index + 1 ));
             
-            if [ $(echo "$alarm" | grep -c "$alarm_regex") = "1" ]; then
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
                 
                 alarm_index=$(( alarm_index + 1 ));
                 
                 if [ "$alarm_index" = "$disable_index" ]; then
                     
-                    if [ $(echo "$alarm" | grep -cP "^#") = 0 ]; then
+                    if [ "$(echo "$alarm" | grep -cP "^#")" = "0" ]; then
                         
                         sed -i "${line_index}s/^/#/" "$temp_file";
                         

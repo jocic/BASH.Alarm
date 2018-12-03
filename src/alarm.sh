@@ -34,14 +34,14 @@
 ##################
 
 user_id="$(id -u)";
-source_dir="$(cd -- $(dirname -- "$0") && pwd -P)";
+source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 version="1.2.0";
 
 ###################
 # REGEX VARIABLES #
 ###################
 
-alarm_mark="# ALARM,?(.*) #";
+alarm_regex="#?(.*)\s(.*)\s(.*)\s(.*)\s(.*)\sbash(.*)# ALARM,?(.*) #$";
 time_regex="^(([0-9]+)(s|m|h|d)(,?))+$";
 clock_regex="^([0-9]{2,2})(:)([0-9]{2,2})(\s)(AM|PM)$";
 number_regex="^([0-9]+)$";
@@ -108,7 +108,7 @@ if [ "$install_deps" = "yes" ]; then
         
         # Get Confirmation
         
-        read -p "Install dependencies? (y/n) - " temp;
+        read -rp "Install dependencies? (y/n) - " temp;
         
         # Install Depndencies
         
@@ -128,8 +128,8 @@ else
     
     temp=$(check_dependencies);
     
-    if [ ! -z "$temp" ]; then
-        printf "%s\n" $temp && exit;
+    if [ -n "$temp" ]; then
+        printf "%s\n" "$temp" && exit;
     fi
     
     # Handle Interactive Mode
@@ -176,9 +176,9 @@ else
         
         if [ "$test_sound" = "no" ]; then
             
-            if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z $(echo "$alarm_time" | grep -oP $time_regex | cut -c 1) ]; then
+            if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z "$(echo "$alarm_time" | grep -oP "$time_regex")" ]; then
                 printf "Error: Invalid time provided, please use an integer with the correct suffix.\n" && exit;
-            elif [ "$alarm_type" = "alarm" ] && [ -z $(echo "$alarm_time" | grep -oP "$clock_regex" | cut -c 1) ]; then
+            elif [ "$alarm_type" = "alarm" ] && [ -z "$(echo "$alarm_time" | grep -oP "$clock_regex")" ]; then
                 printf "Error: Invalid time provided, please use the HH:MM AM/PM format.\n" && exit;
             fi
             
@@ -186,7 +186,7 @@ else
         
         # Check Alarm Delay
         
-        if [ "$test_sound" = "no" ] && [ ! -z "$alarm_delay" ] && [ -z $(echo "$alarm_delay" | grep -oP $number_regex | cut -c 1) ]; then
+        if [ "$test_sound" = "no" ] && [ ! -z "$alarm_delay" ] && [ -z "$(echo "$alarm_delay" | grep -oP "$number_regex")" ]; then
             printf "Error: Invalid alarm delay provided, please use an integer.\n" && exit;
         fi
         
@@ -198,7 +198,7 @@ else
         
         # Check Sound Effect
         
-        if [ -z "$sound_effect" ] || [ ! -z $(echo "$sound_effect" | grep -oP $number_regex | cut -c 1) ]; then
+        if [ -z "$sound_effect" ] || [ ! -z "$(echo "$sound_effect" | grep -oP "$number_regex")" ]; then
             
             # Resolve Sound Effect ID
             
@@ -220,13 +220,13 @@ else
             
             # Check Sound Effect
             
-            if [ -z $(file --mime-type "$sound_effect" | grep -oP $effect_regex | cut -c 1) ]; then
+            if [ -z "$(file --mime-type "$sound_effect" | grep -oP "$effect_regex")" ]; then
                 printf "Error: Unsupported audio file types used. Only WAV & MP3 files are supported.\n" && exit;
             fi
             
             # Check If MP3 Playback Requested
             
-            if [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex | cut -c 1) ] && [ -z "$(command -v ffplay)" ]; then
+            if [ ! -z "$(file --mime-type "$sound_effect" | grep -oP "$mp3_regex")" ] && [ -z "$(command -v ffplay)" ]; then
                 printf "Error: MP3 support is optional, please install ffmpeg to enable it.\n" && exit;
             fi
             
@@ -234,7 +234,7 @@ else
         
         # Check Sound Volume
         
-        if [ ! -z "$sound_volume" ] && [ -z $(echo "$sound_volume" | grep -oP $volume_regex | cut -c 1) ]; then
+        if [ ! -z "$sound_volume" ] && [ -z "$(echo "$sound_volume" | grep -oP "$volume_regex")" ]; then
             printf "Error: Invalid volume value provided, please use an integer with value between 0 to 100.\n" && exit;
         fi
         
