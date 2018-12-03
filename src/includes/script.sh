@@ -72,7 +72,7 @@ show_version()
 {
     # Logic
     
-    printf "Alarm %s\n" $version;
+    printf "Alarm %s\n" "$version";
     
     cat "$source_dir/other/version.txt" && exit;
 }
@@ -184,10 +184,10 @@ install_dependencies()
     
     for dependency in $dependencies; do
         
-        if [ ! -z "$(command -v apt-get)" ]; then
-            apt-get install $dependency -y;
-        elif [ ! -z "$(command -v yum)" ]; then
-            yum install $depndency -y;
+        if [ -n "$(command -v apt-get)" ]; then
+            apt-get install "$dependency" -y;
+        elif [ -n "$(command -v yum)" ]; then
+            yum install "$dependency" -y;
         else
             printf "Error: Your system isn't supported.\n" && exit;
         fi;
@@ -219,9 +219,9 @@ check_dependencies()
         
         if [ "$(dpkg -l | grep "$package")" = "" ]; then
             
-            if [ ! -z "$(command -v apt-get)" ]; then
-                printf  "Error: Command \"%s\" is missing. Please install the dependency by typing \"apt-get install %s\".\n" "$package" "$package";
-            elif [ ! -z "$(command -v yum)" ]; then
+            if [ -n "$(command -v apt-get)" ]; then
+                printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"apt-get install %s\".\n" "$package" "$package";
+            elif [ -n "$(command -v yum)" ]; then
                 printf "Error: Command \"%s\" is missing. Please install the dependency by typing \"yum install %s\".\n" "$package" "$package";
             else
                 printf "Error: Command \"%s\" is missing. Please install \"%s\".\n" "$package" "$package";
@@ -254,5 +254,5 @@ parse_value()
     
     # Logic
     
-    printf "%s" $value | sed -e "s/'/'\\\''/g";
+    printf "%s" "$value" | sed -e "s/'/'\\\''/g";
 }

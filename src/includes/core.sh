@@ -96,20 +96,20 @@ sleep_for()
         
         for i in $(seq 1 4); do
             
-            read input;
+            read -r input;
             
             if [ "$input" != "" ]; then
                 
-                diff=$((seconds - passed))
+                diff=$(( seconds - passed ))
                 
                 if [ "$input" = "d" ]; then
-                    diff=$(( ((diff / 60) / 60 ) / 24 )) && printf "ays requested...%s will end in %sd...\n" $alarm_type $diff;
+                    diff=$(( ((diff / 60) / 60 ) / 24 )) && printf "ays requested...%s will end in %sd...\n" "$alarm_type" "$diff";
                 elif [ "$input" = "h" ]; then
-                    diff=$(( ($diff / 60) / 60 )) && printf "ours requested...%s will end in %sh...\n" $alarm_type $diff;
+                    diff=$(( (diff / 60) / 60 )) && printf "ours requested...%s will end in %sh...\n" "$alarm_type" "$diff";
                 elif [ "$input" = "m" ]; then
-                    diff=$(( diff / 60 )) && printf "inutes requested...%s will end in %sm...\n" $alarm_type $diff;
+                    diff=$(( diff / 60 )) && printf "inutes requested...%s will end in %sm...\n" "$alarm_type" "$diff";
                 elif [ "$input" = "s" ]; then
-                    printf "econds requested...%s will end in %ss...\n" $alarm_type $diff;
+                    printf "econds requested...%s will end in %ss...\n" "$alarm_type" "$diff";
                 elif [ "$input" = "q" ]; then
                     printf "uitting...\n" && exit;
                 fi
@@ -120,7 +120,7 @@ sleep_for()
             
         done
        
-        passed=$((passed + 1))
+        passed=$(( passed + 1 ))
         
     done
 }
@@ -158,11 +158,11 @@ play_sound_effect()
     
     # Step 1 - Process Arguments
     
-    if [ ! -z $(file --mime-type "$sound_effect" | grep -oP $wav_regex) ]; then
+    if [ -n "$(file --mime-type "$sound_effect" | grep -oP "$wav_regex")" ]; then
         
         play_command="aplay -q";
         
-    elif [ ! -z $(file --mime-type "$sound_effect" | grep -oP $mp3_regex) ]; then
+    elif [ -n "$(file --mime-type "$sound_effect" | grep -oP "$mp3_regex")" ]; then
         
         if [ -z "$(command -v ffplay)" ]; then
             printf "Error: MP3 support is optional, please install ffmpeg to enable it.\n" && exit;
@@ -271,9 +271,9 @@ execute_alarm_script()
     
     if [ "$alarm_global" = "yes" ]; then
         
-        for user in ${logged_users[@]}; do
+        for user in $logged_users; do
             
-            user_id=$(id -u $user);
+            user_id="$(id -u "$user")";
             
             chmod 777 "$temp_file";
             
@@ -314,17 +314,11 @@ get_user_input()
     
     get_initial_input;
     
-    if [ "$temp" = "1" ]; then
-        continue;
-    elif [ "$temp" = "2" ]; then
-        continue;
-    elif [ "$temp" = "3" ]; then
-        continue;
-    elif [ "$temp" = "4" ]; then
+    if [ "$temp" = "4" ]; then
         display_help="yes";
     elif [ "$temp" = "5" ]; then
         display_version="yes";
-    else
+    elif [ "$temp" != "1" ] && [ "$temp" != "2" ] && [ "$temp" != "3" ]; then
         printf "Error: Invalid input provided.\n" && exit;
     fi
     
@@ -552,7 +546,7 @@ test_sound()
     
     # Print Notice
     
-    printf "$alarm_type sound testing...\n";
+    printf "%s sound testing...\n" "$alarm_type";
     
     # Play Effect
     

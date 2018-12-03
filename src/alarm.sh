@@ -176,7 +176,7 @@ else
         
         if [ "$test_sound" = "no" ]; then
             
-            if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z "$(echo "$alarm_time" | grep -oP "$time_regex")" ]; then
+            if [ "$alarm_type" = "countdown" ] || [ "$alarm_type" = "interval" ] && [ -z "$(echo "$alarm_time" | grep -P "$time_regex")" ]; then
                 printf "Error: Invalid time provided, please use an integer with the correct suffix.\n" && exit;
             elif [ "$alarm_type" = "alarm" ] && [ -z "$(echo "$alarm_time" | grep -oP "$clock_regex")" ]; then
                 printf "Error: Invalid time provided, please use the HH:MM AM/PM format.\n" && exit;
@@ -186,7 +186,7 @@ else
         
         # Check Alarm Delay
         
-        if [ "$test_sound" = "no" ] && [ ! -z "$alarm_delay" ] && [ -z "$(echo "$alarm_delay" | grep -oP "$number_regex")" ]; then
+        if [ "$test_sound" = "no" ] && [ -n "$alarm_delay" ] && [ -z "$(echo "$alarm_delay" | grep -oP "$number_regex")" ]; then
             printf "Error: Invalid alarm delay provided, please use an integer.\n" && exit;
         fi
         
@@ -198,7 +198,7 @@ else
         
         # Check Sound Effect
         
-        if [ -z "$sound_effect" ] || [ ! -z "$(echo "$sound_effect" | grep -oP "$number_regex")" ]; then
+        if [ -z "$sound_effect" ] || [ -n "$(echo "$sound_effect" | grep -oP "$number_regex")" ]; then
             
             # Resolve Sound Effect ID
             
@@ -226,7 +226,7 @@ else
             
             # Check If MP3 Playback Requested
             
-            if [ ! -z "$(file --mime-type "$sound_effect" | grep -oP "$mp3_regex")" ] && [ -z "$(command -v ffplay)" ]; then
+            if [ -n "$(file --mime-type "$sound_effect" | grep -oP "$mp3_regex")" ] && [ -z "$(command -v ffplay)" ]; then
                 printf "Error: MP3 support is optional, please install ffmpeg to enable it.\n" && exit;
             fi
             
@@ -234,7 +234,7 @@ else
         
         # Check Sound Volume
         
-        if [ ! -z "$sound_volume" ] && [ -z "$(echo "$sound_volume" | grep -oP "$volume_regex")" ]; then
+        if [ -n "$sound_volume" ] && [ -z "$(echo "$sound_volume" | grep -oP "$volume_regex")" ]; then
             printf "Error: Invalid volume value provided, please use an integer with value between 0 to 100.\n" && exit;
         fi
         

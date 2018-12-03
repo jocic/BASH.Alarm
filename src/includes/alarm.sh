@@ -105,7 +105,7 @@ create_alarm()
     
     printf "Creating an alarm that will trigger at %s:%s %s everyday...\n" "$clock_hour" "$clock_minute" "$clock_period";
     
-    if [ ! -z "$alarm_message" ]; then
+    if [ -n "$alarm_message" ]; then
         printf "\nFollowing message will be shown: %s\n" "$alarm_message";
     fi
     
@@ -145,18 +145,18 @@ create_alarm()
         cron_task="$cron_task -g";
     fi
     
-    if [ ! -z "$alarm_volume" ]; then
+    if [ -n "$alarm_volume" ]; then
         cron_task="$cron_task -v '$alarm_volume'";
     fi
     
-    if [ ! -z "$alarm_message" ]; then
+    if [ -n "$alarm_message" ]; then
         cron_task="$cron_task -m '$alarm_message'";
     fi
     
-    if [ -z "$alarm_command" ]; then
-        cron_task="$cron_task -c";
-    else
+    if [ -n "$alarm_command" ]; then
         cron_task="$cron_task -c '$alarm_command'";
+    else
+        cron_task="$cron_task -c";
     fi
     
     # Step 7 - Add Cron Task

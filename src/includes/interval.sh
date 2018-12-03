@@ -84,13 +84,13 @@ create_interval()
     
     interval=$(echo "$interval_time" | tr "\n" "-" | sed -e "s/-$//g");
     
-    if [ ! -z "$interval_delay" ]; then
+    if [ -n "$interval_delay" ]; then
         printf "Starting a %s interval, after a %s second delay...\n" "$interval" "$interval_delay";
     else
         printf "Starting a %s interval...\n" "$interval";
     fi
     
-    if [ ! -z "$interval_message" ]; then
+    if [ -n "$interval_message" ]; then
         printf "\nFollowing message will be shown: %s\n" "$interval_message";
     fi
     
@@ -98,13 +98,13 @@ create_interval()
     
     # Step 2 - Delay Interval
     
-    if [ ! -z "$interval_delay" ]; then
+    if [ -n "$interval_delay" ]; then
         sleep_for "Delay" "${interval_delay}s";
     fi
     
     # Step 3 - Initialize Interval
     
-    while [ 1 = 1 ]; do
+    while true; do
         
         # Handle Multiple Interval Times
         
@@ -118,11 +118,11 @@ create_interval()
             
             play_sound_effect "$interval_effect" "$interval_volume" &
             
-            if [ ! -z "$interval_message" ]; then
+            if [ -n "$interval_message" ]; then
                 show_alarm_message "$interval_message" &
             fi
             
-            if [ ! -z "$interval_command" ]; then
+            if [ -n "$interval_command" ]; then
                 execute_alarm_command "$interval_command" &
             fi
             

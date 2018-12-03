@@ -78,19 +78,19 @@ create_countdown()
     
     # Step 1 -Print Notice
     
-    if [ ! -z "$countdown_delay" ]; then
+    if [ -n "$countdown_delay" ]; then
         printf "Starting a %s countdown, after a %s second delay...\n\n" "$countdown_time" "$countdown_delay";
     else
         printf "Starting a %s countdown...\n\n" "$countdown_time";
     fi
     
-    if [ ! -z "$countdown_message" ]; then
+    if [ -n "$countdown_message" ]; then
         printf "Following message will be shown: %s\n\n" "$countdown_message";
     fi
     
     # Step 2 - Initialize Countdown
     
-    if [ ! -z "$countdown_delay" ]; then
+    if [ -n "$countdown_delay" ]; then
         sleep_for "Delay" "${countdown_delay}s";
     fi
     
@@ -100,11 +100,11 @@ create_countdown()
     
     play_sound_effect "$countdown_effect" "$countdown_volume" &
     
-    if [ ! -z "$countdown_message" ]; then
+    if [ -n "$countdown_message" ]; then
         show_alarm_message "$countdown_message" &
     fi
     
-    if [ ! -z "$countdown_command" ]; then
+    if [ -n "$countdown_command" ]; then
         execute_alarm_command "$countdown_command" &
     fi
 }
