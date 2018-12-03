@@ -49,6 +49,7 @@ effect_regex="(audio\/x-wav|audio\/mpeg)$";
 wav_regex="(audio\/x-wav)$";
 mp3_regex="(audio\/mpeg)$";
 volume_regex="^([0-9]{1,2}[0]?|100)$";
+yes_regex="^Y|y$";
 
 ###############################
 # GENERIC PARAMETER VARIABLES #
@@ -112,7 +113,7 @@ if [ "$install_deps" = "yes" ]; then
         
         # Install Depndencies
         
-        if [ "$temp" = "Y" ] || [ "$temp" = "y" ]; then
+        if [ -n "$(echo "$temp" | grep -oP "$yes_regex")" ]; then
             printf "\n" && install_dependencies;
         else
             printf "\nCancelling...\n";

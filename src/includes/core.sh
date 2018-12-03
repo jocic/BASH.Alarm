@@ -348,7 +348,7 @@ get_user_input()
         
         read -rp "Should alarm be global? (y/n) - " answer && printf "\n";
         
-        if [ "$answer" = "Y" ] || [ "$answer" = "y" ]; then
+        if [ -n "$(echo "$answer" | grep -oP "$yes_regex")" ]; then
             global_alarm="yes";
         fi
         
