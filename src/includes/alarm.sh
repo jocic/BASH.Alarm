@@ -163,7 +163,7 @@ create_alarm()
     
     cron_details="$cron_details\n$cron_task # ALARM,$alarm_name #";
     
-    echo "$cron_details" | crontab;
+    printf "$cron_details\n" | crontab;
 }
 
 # Lists available alarms.
