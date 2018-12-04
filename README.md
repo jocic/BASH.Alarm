@@ -163,7 +163,15 @@ If you don't want to deal with all of the flags above, simply use the interactiv
 bash ./alarm.sh --interactive
 ```
 
-### Example 16 - Dependency Installation
+### Example 16 - Exporting
+
+Alarms can conveniently be exported to a file by using the following command.
+
+```bash
+bash ./alarm.sh --export
+```
+
+### Example 17 - Dependency Installation
 
 **Alarm** doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
 

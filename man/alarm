@@ -49,6 +49,9 @@ Remove an alarm.
 \fB\-b\fR, \fB\-\-disable\fR
 Disable an alarm.
 .TP
+\fB\-\-export\fR
+Export alarms to a file.
+.TP
 .I Available general options:
 .TP
 \fB\-t\fR, \fB\-\-time\fR
@@ -213,6 +216,12 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 If you don't want to deal with all of the flags above, simply use the interactive mode.
 
 \fBalarm --interactive\fR
+.TP
+.I Exporting
+
+Alarms can conveniently be exported to a file by using the following command.
+
+\fBalarm --export\fR
 .TP
 .I Dependency Installation
 

@@ -497,6 +497,47 @@ disable_alarm()
     fi
 }
 
+# Exports existing alarms to a selected file.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $export_file
+#   Export file that should be used.
+# @return void
+
+export_alarms()
+{
+    # Core Variables
+    
+    local export_file="$1";
+    
+    # Temp Variables
+    
+    local temp_file=$(mktemp);
+    
+    # Logic
+    
+    if [ -z "$export_file" ]; then
+        
+        printf "You didn't provide a file location.\n";
+        
+    else
+        
+        crontab -l > "$temp_file" 2>&1;
+        
+        while read alarm; do
+            
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
+                printf "$alarm\n" >> "$export_file";
+            fi
+            
+        done < "$temp_file";
+        
+    fi
+}
+
 ###################
 # CHECK FUNCTIONS #
 ###################

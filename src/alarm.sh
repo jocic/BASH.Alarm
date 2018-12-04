@@ -64,6 +64,7 @@ alarm_command="";
 alarm_message="";
 sound_effect="";
 sound_volume="";
+dump_location="";
 
 ###############################
 # CONTROL PARAMETER VARIABLES #
@@ -72,6 +73,7 @@ sound_volume="";
 alarm_removal="no";
 alarm_enabling="no";
 alarm_disabling="no";
+alarm_exporting="no";
 test_sound="no";
 global_alarm="no";
 install_deps="no";
@@ -164,6 +166,11 @@ else
     elif [ "$alarm_disabling" = "yes" ]; then
         
         disable_alarm "$alarm_index";
+        
+        
+    elif [ "$alarm_exporting" = "yes" ]; then
+        
+        export_alarms "$dump_location";
         
     else
         
