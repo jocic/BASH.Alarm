@@ -497,6 +497,56 @@ disable_alarm()
     fi
 }
 
+# Imports alarms from a selected file.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $import_file
+#   Import file that should be used.
+# @return void
+
+import_alarms()
+{
+    # Core Variables
+    
+    local import_file="$1";
+    local cron_details="";
+    
+    # Temp Variables
+    
+    local temp_file=$(mktemp);
+    
+    # Logic
+    
+    if [ -z "$import_file" ]; then
+        
+        printf "You didn't provide a file location.\n";
+        
+    elif [ -f "$import_file" ]; then
+        
+        printf "Importing alarms...\n";
+        
+        cron_details=$(crontab -l 2>&1);
+        
+        while read alarm; do
+            
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ] && [ -z "$(crontab -l | grep -Fx "$alarm")" ]; then
+                cron_details="$cron_details\n$alarm";
+            fi
+            
+        done < "$import_file";
+        
+        printf "$cron_details\n" | crontab;
+        
+    else
+        
+        printf "Provided file doesn't exist.\n";
+        
+    fi
+}
+
 # Exports existing alarms to a selected file.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>
@@ -524,6 +574,8 @@ export_alarms()
         printf "You didn't provide a file location.\n";
         
     else
+        
+        printf "Exporting alarms...\n";
         
         crontab -l > "$temp_file" 2>&1;
         

@@ -73,6 +73,7 @@ dump_location="";
 alarm_removal="no";
 alarm_enabling="no";
 alarm_disabling="no";
+alarm_importing="no";
 alarm_exporting="no";
 test_sound="no";
 global_alarm="no";
@@ -167,6 +168,9 @@ else
         
         disable_alarm "$alarm_index";
         
+    elif [ "$alarm_importing" = "yes" ]; then
+        
+        import_alarms "$dump_location";
         
     elif [ "$alarm_exporting" = "yes" ]; then
         

@@ -163,12 +163,18 @@ If you don't want to deal with all of the flags above, simply use the interactiv
 bash ./alarm.sh --interactive
 ```
 
-### Example 16 - Exporting
+### Example 16 - Exporting & Importing
 
 Alarms can conveniently be exported to a file by using the following command.
 
 ```bash
-bash ./alarm.sh --export
+bash ./alarm.sh --export my-export.dat
+```
+
+And later you can easily import your alarms in a similar fashion.
+
+```bash
+bash ./alarm.sh --import my-export.dat
 ```
 
 ### Example 17 - Dependency Installation

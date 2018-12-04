@@ -49,6 +49,9 @@ Remove an alarm.
 \fB\-b\fR, \fB\-\-disable\fR
 Disable an alarm.
 .TP
+\fB\-\-import\fR
+Import alarms from a file.
+.TP
 \fB\-\-export\fR
 Export alarms to a file.
 .TP
@@ -217,11 +220,16 @@ If you don't want to deal with all of the flags above, simply use the interactiv
 
 \fBalarm --interactive\fR
 .TP
-.I Exporting
+.I Exporting & Importing
 
 Alarms can conveniently be exported to a file by using the following command.
 
-\fBalarm --export\fR
+\fBalarm --export my-file.dat\fR
+
+And later you can easily import your alarms in a similar fashion.
+
+\fBalarm --import my-file.dat\fR
+
 .TP
 .I Dependency Installation
 

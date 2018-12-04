@@ -15,6 +15,7 @@ Available alarm options:
   -r, --remove      : Remove an alarm.
   -e, --enable      : Enable an alarm.
   -b, --disable     : Disable an alarm.
+      --import      : Import alarms from a file.
       --export      : Export alarms to a file.
 
 Available general options:

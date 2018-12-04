@@ -117,7 +117,7 @@ process_arguments()
         
         [ "$queue" = "disable" ] && alarm_index=$arg;
         
-        [ "$queue" = "export" ] && dump_location=$arg;
+        [ "$queue" = "export" ] || [ "$queue" = "import" ] && dump_location=$arg;
         
         [ "$queue" = "alarm-command" ] && alarm_command="$arg";
         
@@ -150,6 +150,8 @@ process_arguments()
         [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && alarm_enabling="yes" && queue="enable";
         
         [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && alarm_disabling="yes" && queue="disable";
+        
+        [ "$arg" = "--import" ] && alarm_importing="yes" && queue="import";
         
         [ "$arg" = "--export" ] && alarm_exporting="yes" && queue="export";
         
