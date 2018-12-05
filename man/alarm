@@ -38,6 +38,9 @@ Enable an alarm.
 \fB\-b\fR, \fB\-\-disable\fR
 Disable an alarm.
 .TP
+\fB\-o\fR, \fB\-\-toggle\fR
+Toggle an alarm.
+.TP
 .I Available alarm options:
 .TP
 \fB\-l\fR, \fB\-\-list\fR
@@ -176,6 +179,12 @@ In some cases you would want to temporarily disable an alarm, which can be achie
 In a similar fashion, you can enable previously disabled alarm using the "-e" flag.
 
 \fBalarm -e 1\fR
+.TP
+.I Toggling Alarms
+
+Alternatively, you can just toggle an alarm using the "-o" flag.
+
+\fBalarm -o 1\fR
 .TP
 .I Initialization Delay
 

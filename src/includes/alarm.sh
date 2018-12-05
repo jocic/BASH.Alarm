@@ -497,6 +497,87 @@ disable_alarm()
     fi
 }
 
+# Toggles alarm based on the provided index.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param integer $alarm_index
+#   Index of an alarm that should be toggles.
+# @return void
+
+toggle_alarm()
+{
+    # Core Variables
+    
+    local toggle_index=$(echo "$1" | sed "s/^0//");
+    
+    # Control Variables
+    
+    local line_index=0;
+    local alarm_index=0;
+    local alarm_toggled="no";
+    
+    # Temp Variables
+    
+    local temp_file=$(mktemp);
+    
+    # Logic
+    
+    crontab -l > "$temp_file" 2>&1;
+    
+    if [ -z "$toggle_index" ]; then
+        
+        printf "You didn't provide an index.\n";
+        
+    else
+        
+        while read alarm; do
+            
+            line_index=$(( line_index + 1 ));
+            
+            if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
+                
+                alarm_index=$(( alarm_index + 1 ));
+                
+                if [ "$alarm_index" = "$toggle_index" ]; then
+                    
+                    if [ "$(echo "$alarm" | grep -cP "^#")" = "0" ]; then
+                        
+                        sed -i "${line_index}s/^/#/" "$temp_file";
+                        
+                        cat "$temp_file" | crontab;
+                        
+                    else
+                        
+                        sed -i "${line_index}s/^#//" "$temp_file";
+                        
+                        cat "$temp_file" | crontab;
+                        
+                    fi
+                    
+                    alarm_toggled="yes";
+                    
+                    break;
+                    
+                fi
+                
+            fi
+            
+        done < "$temp_file";
+        
+        if [ "$alarm_toggled" = "yes" ]; then
+            printf "Alarm at %d. position has been toggled.\n\n" "$toggle_index";
+        else
+            printf "There was no alarm at position %d.\n\n" "$toggle_index";
+        fi
+        
+        list_alarms;
+        
+    fi
+}
+
 # Imports alarms from a selected file.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>

@@ -101,7 +101,15 @@ In a similar fashion, you can enable previously disabled alarm using the "-e" fl
 bash ./alarm.sh -e 1
 ```
 
-### Example 9 - Initialization Delay
+### Example 9 - Toggling Alarms
+
+Alternatively, you can just toggle an alarm using the "-o" flag.
+
+```bash
+bash ./alarm.sh -o 1
+```
+
+### Example 10 - Initialization Delay
 
 Sometimes you may want to start a countdown after a slight delay, in this example we are starting a 10m countdown with a 10 second delay. Like before, a generic alarm sound will be palyed after the countdown.
 
@@ -109,7 +117,7 @@ Sometimes you may want to start a countdown after a slight delay, in this exampl
 bash ./alarm.sh -t 10m -d 10 -c
 ```
 
-### Example 10 - Command Execution
+### Example 11 - Command Execution
 
 Usually, you would want to execute a certain command after a countdown, interval or an alarm. This example shows you how to do just that, execute an arbitrary command after a 10s countdown.
 
@@ -117,7 +125,7 @@ Usually, you would want to execute a certain command after a countdown, interval
 bash ./alarm.sh -t 10s -c "echo 'Hello World!'"
 ```
 
-### Example 11 - Alternative Sound Effect
+### Example 12 - Alternative Sound Effect
 
 You can easily change the default sound effect by providing an ID of a built-in sound effect.
 
@@ -131,7 +139,7 @@ Or you can, alternatively, just point to your own sound effect.
 bash ./alarm.sh -t 10s -s /path/to/your/folder/effect.wav -c
 ```
 
-### Example 12 - Sound Volume
+### Example 13 - Sound Volume
 
 Flag "-v" is used to temporarily change the master volume during the alarm to a percentage of your choosing. It is a great way to avoid missing an alarm.
 
@@ -139,7 +147,7 @@ Flag "-v" is used to temporarily change the master volume during the alarm to a 
 bash ./alarm.sh -t 10s -v 100 -c
 ```
 
-### Example 13 - Displaying Messages
+### Example 14 - Displaying Messages
 
 You can display a custom message when the alarm is triggered using the "-m" flag.
 
@@ -147,7 +155,7 @@ You can display a custom message when the alarm is triggered using the "-m" flag
 bash ./alarm.sh -t 10s -m "My alarm message!" -c
 ```
 
-### Example 14 - Global Alarms
+### Example 15 - Global Alarms
 
 If you want to set a countdown, interval, or an alarm that will trigger for all logged-in users, you should use the "--global" flag.
 
@@ -155,7 +163,7 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 bash ./alarm.sh --global -t 1m -c
 ```
 
-### Example 15 - Stopping Alarms
+### Example 16 - Stopping Alarms
 
 All triggered alarms can be stopped using the following command.
 
@@ -163,7 +171,7 @@ All triggered alarms can be stopped using the following command.
 bash ./alarm.sh --stop
 ```
 
-### Example 16 - Interactive Mode
+### Example 17 - Interactive Mode
 
 If you don't want to deal with all of the flags above, simply use the interactive mode.
 
@@ -171,7 +179,7 @@ If you don't want to deal with all of the flags above, simply use the interactiv
 bash ./alarm.sh --interactive
 ```
 
-### Example 17 - Exporting & Importing
+### Example 18 - Exporting & Importing
 
 Alarms can conveniently be exported to a file by using the following command.
 
@@ -185,7 +193,7 @@ And later you can easily import your alarms in a similar fashion.
 bash ./alarm.sh --import my-export.dat
 ```
 
-### Example 18 - Dependency Installation
+### Example 19 - Dependency Installation
 
 **Alarm** doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
 

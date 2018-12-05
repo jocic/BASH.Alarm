@@ -78,6 +78,7 @@ list_alarms="no";
 remove_alarm="no";
 enable_alarm="no";
 disable_alarm="no";
+toggle_alarm="no";
 import_alarms="no";
 export_alarms="no";
 stop_alarms="no";
@@ -169,6 +170,10 @@ else
         
         disable_alarm "$alarm_index";
         
+    elif [ "$toggle_alarm" = "yes" ]; then
+        
+        toggle_alarm "$alarm_index";
+        
     elif [ "$import_alarms" = "yes" ]; then
         
         import_alarms "$dump_location";
@@ -176,7 +181,7 @@ else
     elif [ "$export_alarms" = "yes" ]; then
         
         export_alarms "$dump_location";
-    
+        
     elif [ "$stop_alarms" = "yes" ]; then
         
         stop_alarms;
