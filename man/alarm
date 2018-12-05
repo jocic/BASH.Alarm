@@ -78,6 +78,9 @@ Display this help and exit.
 \fB\-g\fR, \fB\-\-global\fR
 Trigger an alarm for all logged-in users.
 .TP
+\fB\-\-stop\fR
+Stop all triggered alarms.
+.TP
 \fB\-\-test\fR
 Test the sound effect.
 .TP

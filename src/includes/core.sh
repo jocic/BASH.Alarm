@@ -187,6 +187,23 @@ play_sound_effect()
     fi
 }
 
+# Stops all alarms.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+stop_alarms()
+{
+    # Logic
+    
+    printf "Stopping alarms...\n";
+    
+    killall aplay 2>&1;
+}
+
 # Shows an alarm message in form of a system notification.
 # 
 # @author: Djordje Jocic <office@djordjejocic.com>

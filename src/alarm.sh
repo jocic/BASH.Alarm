@@ -82,6 +82,7 @@ display_help="no";
 display_version="no";
 list_alarms="no";
 interactive_mode="no";
+stop_alarms="no";
 
 ###################
 # OTHER VARIABLES #
@@ -175,6 +176,10 @@ else
     elif [ "$alarm_exporting" = "yes" ]; then
         
         export_alarms "$dump_location";
+    
+    elif [ "$stop_alarms" = "yes" ]; then
+        
+        stop_alarms;
         
     else
         

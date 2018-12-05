@@ -161,6 +161,8 @@ process_arguments()
         
         [ "$arg" = "-l" ] || [ "$arg" = "--list" ] && list_alarms="yes";
         
+        [ "$arg" = "--stop" ] && stop_alarms="yes";
+        
         [ "$arg" = "--test" ] && test_sound="yes";
         
         [ "$arg" = "--interactive" ] && interactive_mode="yes";
