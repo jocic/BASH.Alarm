@@ -35,7 +35,7 @@
 
 user_id="$(id -u)";
 source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
-version="1.2.1";
+version="1.2.2";
 
 ###################
 # REGEX VARIABLES #
