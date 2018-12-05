@@ -145,19 +145,19 @@ process_arguments()
         
         [ "$arg" = "-i" ] || [ "$arg" = "--interval" ] && alarm_type="interval" && queue="alarm-command";
         
-        [ "$arg" = "-r" ] || [ "$arg" = "--remove" ] && alarm_removal="yes" && queue="remove";
+        [ "$arg" = "-r" ] || [ "$arg" = "--remove" ] && remove_alarm="yes" && queue="remove";
         
-        [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && alarm_enabling="yes" && queue="enable";
+        [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && enable_alarm="yes" && queue="enable";
         
-        [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && alarm_disabling="yes" && queue="disable";
+        [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && disable_alarm="yes" && queue="disable";
         
-        [ "$arg" = "--import" ] && alarm_importing="yes" && queue="import";
+        [ "$arg" = "--import" ] && import_alarms="yes" && queue="import";
         
-        [ "$arg" = "--export" ] && alarm_exporting="yes" && queue="export";
+        [ "$arg" = "--export" ] && export_alarms="yes" && queue="export";
         
         [ "$arg" = "-g" ] || [ "$arg" = "--global" ] && global_alarm="yes";
         
-        [ "$arg" = "-h" ] || [ "$arg" = "--help" ] && display_help="yes";
+        [ "$arg" = "-h" ] || [ "$arg" = "--help" ] && show_help="yes";
         
         [ "$arg" = "-l" ] || [ "$arg" = "--list" ] && list_alarms="yes";
         
@@ -169,7 +169,7 @@ process_arguments()
         
         [ "$arg" = "--install" ] && install_deps="yes";
         
-        [ "$arg" = "--version" ] && display_version="yes";
+        [ "$arg" = "--version" ] && show_version="yes";
         
     done
 }

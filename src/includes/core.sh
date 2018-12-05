@@ -342,9 +342,9 @@ get_user_input()
     get_initial_input;
     
     if [ "$temp" = "4" ]; then
-        display_help="yes";
+        show_help="yes";
     elif [ "$temp" = "5" ]; then
-        display_version="yes";
+        show_version="yes";
     elif [ "$temp" != "1" ] && [ "$temp" != "2" ] && [ "$temp" != "3" ]; then
         printf "Error: Invalid input provided.\n" && exit;
     fi
@@ -398,11 +398,11 @@ get_user_input()
             read -rp "Enter alarm's index: " alarm_index && printf "\n";
             
             if [ "$temp" = "2" ]; then
-                alarm_removal="yes";
+                remove_alarm="yes";
             elif [ "$temp" = "3" ]; then
-                alarm_enabling="yes";
+                enable_alarm="yes";
             elif [ "$temp" = "4" ]; then
-                alarm_disabling="yes";
+                disable_alarm="yes";
             else
                 printf "Error: Invalid input provided.\n" && exit;
             fi

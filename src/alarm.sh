@@ -70,19 +70,19 @@ dump_location="";
 # CONTROL PARAMETER VARIABLES #
 ###############################
 
-alarm_removal="no";
-alarm_enabling="no";
-alarm_disabling="no";
-alarm_importing="no";
-alarm_exporting="no";
-test_sound="no";
-global_alarm="no";
 install_deps="no";
-display_help="no";
-display_version="no";
-list_alarms="no";
 interactive_mode="no";
+show_help="no";
+show_version="no";
+list_alarms="no";
+remove_alarm="no";
+enable_alarm="no";
+disable_alarm="no";
+import_alarms="no";
+export_alarms="no";
 stop_alarms="no";
+global_alarm="no";
+test_sound="no";
 
 ###################
 # OTHER VARIABLES #
@@ -145,11 +145,11 @@ else
     
     # Handle Request
     
-    if [ "$display_help" = "yes" ]; then
+    if [ "$show_help" = "yes" ]; then
         
         show_help;
         
-    elif [ "$display_version" = "yes" ]; then
+    elif [ "$show_version" = "yes" ]; then
         
         show_version;
         
@@ -157,23 +157,23 @@ else
         
         list_alarms;
         
-    elif [ "$alarm_removal" = "yes" ]; then
+    elif [ "$remove_alarm" = "yes" ]; then
         
         remove_alarm "$alarm_index";
         
-    elif [ "$alarm_enabling" = "yes" ]; then
+    elif [ "$enable_alarm" = "yes" ]; then
         
         enable_alarm "$alarm_index";
         
-    elif [ "$alarm_disabling" = "yes" ]; then
+    elif [ "$disable_alarm" = "yes" ]; then
         
         disable_alarm "$alarm_index";
         
-    elif [ "$alarm_importing" = "yes" ]; then
+    elif [ "$import_alarms" = "yes" ]; then
         
         import_alarms "$dump_location";
         
-    elif [ "$alarm_exporting" = "yes" ]; then
+    elif [ "$export_alarms" = "yes" ]; then
         
         export_alarms "$dump_location";
     
