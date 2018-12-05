@@ -182,7 +182,7 @@ list_alarms()
     local alarm_hour="";
     local alarm_minute="";
     local alarm_period="";
-    local alarm_status="Enabled";
+    local alarm_status="";
     local alarm_name="";
     local index=1;
     
@@ -249,8 +249,10 @@ list_alarms()
                 
                 # Determine Alarm Status
                 
-                if [ "$(echo "$alarm" | grep -cP "^#")" = "1" ]; then
+                if [ -n "$(echo "$alarm" | grep -oP "^#")" ]; then
                     alarm_status="Disabled";
+                else
+                    alarm_status="Enabled";
                 fi
                 
                 # Determine Alarm Name
