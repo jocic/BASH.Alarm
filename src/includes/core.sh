@@ -197,11 +197,21 @@ play_sound_effect()
 
 stop_alarms()
 {
+    # Core Variables
+    
+    processes="$(pgrep -f alarm)";
+    
     # Logic
     
-    printf "Stopping alarms...\n";
+    printf "Stopping alarms...\n\n";
     
-    killall aplay 2>&1;
+    for process in $processes; do
+        
+        printf "Stopping alarm with PID: $process\n";
+        
+        kill "$process" > /dev/null 2>&1 &
+        
+    done
 }
 
 # Shows an alarm message in form of a system notification.
