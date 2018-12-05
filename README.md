@@ -155,7 +155,15 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 bash ./alarm.sh --global -t 1m -c
 ```
 
-### Example 15 - Interactive Mode
+### Example 15 - Stopping Alarms
+
+All triggered alarms can be stopped using the following command.
+
+```bash
+bash ./alarm.sh --stop
+```
+
+### Example 16 - Interactive Mode
 
 If you don't want to deal with all of the flags above, simply use the interactive mode.
 
@@ -163,7 +171,7 @@ If you don't want to deal with all of the flags above, simply use the interactiv
 bash ./alarm.sh --interactive
 ```
 
-### Example 16 - Exporting & Importing
+### Example 17 - Exporting & Importing
 
 Alarms can conveniently be exported to a file by using the following command.
 
@@ -177,7 +185,7 @@ And later you can easily import your alarms in a similar fashion.
 bash ./alarm.sh --import my-export.dat
 ```
 
-### Example 17 - Dependency Installation
+### Example 18 - Dependency Installation
 
 **Alarm** doesn't have a lot of dependencies but, in any case, there's a way to install them quickly and effortlessly.
 

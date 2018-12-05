@@ -217,6 +217,12 @@ If you want to set a countdown, interval, or an alarm that will trigger for all 
 
 \fBalarm --global -t 1m -c\fR
 .TP
+.I Stopping Alarms
+
+All triggered alarms can be stopped using the following command.
+
+\fBalarm --stop\fR
+.TP
 .I Interactive Mode
 
 If you don't want to deal with all of the flags above, simply use the interactive mode.
