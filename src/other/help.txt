@@ -28,6 +28,7 @@ Available general options:
   -m, --message     : Message you want to display at the end of a countdown, interval, or an alarm.
   -h, --help        : Display this help and exit.
   -g, --global      : Trigger an alarm for all logged-in users.
+      --display     : Set display that should be used for messages.
       --stop        : Stop all triggered alarms.
       --test        : Test the sound effect.
       --interactive : Setup an alarm using an interactive mode.

@@ -62,6 +62,7 @@ alarm_time="";
 alarm_delay="";
 alarm_command="";
 alarm_message="";
+alarm_display="";
 sound_effect="";
 sound_volume="";
 dump_location="";

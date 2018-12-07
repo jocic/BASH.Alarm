@@ -238,13 +238,21 @@ show_alarm_message()
     
     alarm_message=$(parse_value "$alarm_message");
     
-    for active_display in $active_displays; do
+    if [ -n "$alarm_display" ]; then
         
-        if [ -n "$(echo "$active_display" | grep -oP "^:[0-9]+$")" ]; then
-            execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &" "$global_alarm";
-        fi
+        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$alarm_display > /dev/null 2>&1 &" "$global_alarm";
         
-    done
+    else
+        
+        for active_display in $active_displays; do
+            
+            if [ -n "$(echo "$active_display" | grep -oP "^:[0-9]+$")" ]; then
+                execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &" "$global_alarm";
+            fi
+            
+        done
+        
+    fi
 }
 
 # Executes command of an alarm.

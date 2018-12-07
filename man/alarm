@@ -81,6 +81,9 @@ Display this help and exit.
 \fB\-g\fR, \fB\-\-global\fR
 Trigger an alarm for all logged-in users.
 .TP
+\fB\-\-display\fR
+Set display that should be used for messages.
+.TP
 \fB\-\-stop\fR
 Stop all triggered alarms.
 .TP
@@ -219,6 +222,10 @@ Flag "-v" is used to temporarily change the master volume during the alarm to a 
 You can display a custom message when the alarm is triggered using the "-m" flag.
 
 \fBalarm -t 10s -m "My alarm message!" -c\fR
+
+If needed, you may even set the display for alarm message.
+
+\fBalarm --display ":1" -t 10s -m "My alarm message!" -c\fR
 .TP
 .I Global Alarms
 

@@ -115,6 +115,8 @@ process_arguments()
         
         [ "$queue" = "export" ] || [ "$queue" = "import" ] && dump_location=$arg;
         
+        [ "$queue" = "alarm-display" ] && alarm_display=$arg;
+        
         [ "$queue" = "alarm-command" ] && alarm_command="$arg";
         
         # Reset Queue Value
@@ -152,6 +154,8 @@ process_arguments()
         [ "$arg" = "--import" ] && import_alarms="yes" && queue="import";
         
         [ "$arg" = "--export" ] && export_alarms="yes" && queue="export";
+        
+        [ "$arg" = "--display" ] && queue="alarm-display";
         
         [ "$arg" = "-g" ] || [ "$arg" = "--global" ] && global_alarm="yes";
         
