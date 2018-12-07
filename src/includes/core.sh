@@ -230,11 +230,21 @@ show_alarm_message()
     
     local alarm_message="$1";
     
+    # Other Variables
+    
+    local active_displays=$(ls /tmp/.X11-unix | tr "X" ":");
+    
     # Logic
     
-    local alarm_message=$(parse_value "$alarm_message");
+    alarm_message=$(parse_value "$alarm_message");
     
-    execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=:0 > /dev/null 2>&1 &" "$global_alarm";
+    for active_display in $active_displays; do
+        
+        if [ -n "$(echo "$active_display" | grep -oP "^:[0-9]+$")" ]; then
+            execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &" "$global_alarm";
+        fi
+        
+    done
 }
 
 # Executes command of an alarm.
