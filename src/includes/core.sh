@@ -234,7 +234,7 @@ show_alarm_message()
     
     local alarm_message=$(parse_value "$alarm_message");
     
-    execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info > /dev/null 2>&1 &" "$global_alarm";
+    execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=:0 > /dev/null 2>&1 &" "$global_alarm";
 }
 
 # Executes command of an alarm.
