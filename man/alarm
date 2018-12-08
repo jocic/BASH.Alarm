@@ -1,6 +1,6 @@
 .\" Manpage for alarm.
 .\" Contact office@djordjejocic.com to correct errors or typos.
-.TH ALARM "1" "23 Nov 2018" "1.2.2" "General Commands Manual"
+.TH ALARM "1" "23 Nov 2018" "1.2.3" "General Commands Manual"
 .SH NAME
 alarm \- creates countdown, interval, or an alarm.
 .SH SYNOPSIS
@@ -264,7 +264,7 @@ Alarm doesn't have a lot of dependencies but, in any case, there's a way to inst
 .SH SEE ALSO
 Full documentation is available at: <http://www.github.com/jocic/BASH.Alarm>
 
-aplay(1), alsamixer(1), crontab(1)
+aplay(1), alsamixer(1), crontab(1), zenity(1)
 .SH BUGS
 There are no known bugs.
 .SH AUTHOR
