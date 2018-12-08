@@ -224,6 +224,8 @@ sleep_for()
         passed=$(( passed + 1 ))
         
     done
+    
+    stty -icanon time 1 min 1
 }
 
 # Plays an alarm sound effect, with an option to temporarily change the master

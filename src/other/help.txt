@@ -41,6 +41,7 @@ Available sound effects - alarm & countdown:
   -2 : Analogue watch.
   -3 : Annoying alarm.
   -4 : Missile alert.
+  -5 : Tornado siren.
 
 Available sound effects - interval:
 
@@ -48,3 +49,4 @@ Available sound effects - interval:
   -2 : AM/FM beep.
   -3 : Beep in A.
   -4 : Generic bleep.
+  -5 : Robot blip.

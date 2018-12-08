@@ -113,6 +113,9 @@ Annoying alarm.
 \fB -4\fR
 Missile alert.
 .TP
+\fB -5\fR
+Tornado siren.
+.TP
 .I Available sound effects - interval:
 .TP
 \fB -1\fR
@@ -126,6 +129,9 @@ Beep in A.
 .TP
 \fB -4\fR
 Generic bleep.
+.TP
+\fB -5\fR
+Robot blip.
 .SH EXAMPLES
 Following examples were created to help you get started.
 .TP
@@ -262,7 +268,7 @@ Alarm doesn't have a lot of dependencies but, in any case, there's a way to inst
 
 \fBalarm --install\fR
 .SH SEE ALSO
-Full documentation is available at: <http://www.github.com/jocic/BASH.Alarm>
+Full documentation is also available at: <http://www.github.com/jocic/BASH.Alarm>
 
 aplay(1), alsamixer(1), crontab(1), zenity(1)
 .SH BUGS

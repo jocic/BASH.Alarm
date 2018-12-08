@@ -165,5 +165,9 @@ print_countdown_effect_path()
             echo "$effect_dir/missile-alert.wav";
         ;;
         
+        "5")
+            echo "$effect_dir/tornado-siren.wav";
+        ;;
+        
     esac
 }
