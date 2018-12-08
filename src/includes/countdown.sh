@@ -63,6 +63,8 @@
 #   Master volume (percentage) that should be used during playback.
 # @param string $countdown_command
 #   Command that should be executed when an countdown is triggered.
+# @param string $countdown_global
+#   Flag <i>yes</i> if countdown should be triggered globally, and vice versa.
 # @return void
 
 create_countdown()
@@ -75,6 +77,7 @@ create_countdown()
     local countdown_effect="$4";
     local countdown_volume="$5";
     local countdown_command="$6";
+    local countdown_global="$7";
     
     # Step 1 -Print Notice
     
@@ -98,14 +101,14 @@ create_countdown()
     
     # Step 3 - Trigger Alarm
     
-    play_sound_effect "$countdown_effect" "$countdown_volume" &
+    play_sound_effect "$countdown_effect" "$countdown_volume" "$countdown_global" &
     
     if [ -n "$countdown_message" ]; then
-        show_alarm_message "$countdown_message" &
+        show_alarm_message "$countdown_message" "$countdown_global" &
     fi
     
     if [ -n "$countdown_command" ]; then
-        execute_alarm_command "$countdown_command" &
+        execute_alarm_command "$countdown_command" "$countdown_global" &
     fi
 }
 
@@ -125,6 +128,8 @@ create_countdown()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $effect_dir
+#   Directory containing effects.
 # @param string $effect_id
 #   ID of a sound effect that should be resolved.
 # @return void
@@ -133,30 +138,31 @@ print_countdown_effect_path()
 {
     # Core Variables
     
-    local effect_id="$1";
+    local effect_dir="$1";
+    local effect_id="$2";
     
     # Logic
     
     case "$effect_id" in
         
         "")
-            echo "$source_dir/effects/alarms/fire-alarm.wav";
+            echo "$effect_dir/fire-alarm.wav";
         ;;
         
         "1")
-            echo "$source_dir/effects/alarms/fire-alarm.wav";
+            echo "$effect_dir/fire-alarm.wav";
         ;;
         
         "2")
-            echo "$source_dir/effects/alarms/analogue-watch.wav";
+            echo "$effect_dir/analogue-watch.wav";
         ;;
         
         "3")
-            echo "$source_dir/effects/alarms/annoying-alarm.wav";
+            echo "$effect_dir/annoying-alarm.wav";
         ;;
         
         "4")
-            echo "$source_dir/effects/alarms/missile-alert.wav";
+            echo "$effect_dir/missile-alert.wav";
         ;;
         
     esac

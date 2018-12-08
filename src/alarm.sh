@@ -226,11 +226,11 @@ else
             # Resolve Sound Effect ID
             
             if [ "$alarm_type" = "alarm" ]; then
-                sound_effect=$(print_alarm_effect_path "$sound_effect");
+                sound_effect=$(print_alarm_effect_path "$source_dir/effects/alarms" "$sound_effect");
             elif [ "$alarm_type" = "countdown" ]; then
-                sound_effect=$(print_countdown_effect_path "$sound_effect");
+                sound_effect=$(print_countdown_effect_path "$source_dir/effects/alarms" "$sound_effect");
             elif [ "$alarm_type" = "interval" ]; then
-                sound_effect=$(print_interval_effect_path "$sound_effect");
+                sound_effect=$(print_interval_effect_path "$source_dir/effects/beeps" "$sound_effect");
             fi
             
             # Check Resolved Path
@@ -274,25 +274,25 @@ else
         if [ "$alarm_type" = "alarm" ]; then
             
             if [ "$test_sound" = "yes" ]; then
-                test_sound "Alarm" "$sound_effect" "$sound_volume";
+                test_sound "Alarm" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+                create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
             fi
             
         elif [ "$alarm_type" = "countdown" ]; then
             
             if [ "$test_sound" = "yes" ]; then
-                test_sound "Countdown" "$sound_effect" "$sound_volume";
+                test_sound "Countdown" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_countdown "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+                create_countdown "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
             fi
             
         elif [ "$alarm_type" = "interval" ]; then
             
             if [ "$test_sound" = "yes" ]; then
-                test_sound "Interval" "$sound_effect" "$sound_volume";
+                test_sound "Interval" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_interval "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command";
+                create_interval "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
             fi
             
         else

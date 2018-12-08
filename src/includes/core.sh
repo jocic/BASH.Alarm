@@ -237,6 +237,8 @@ sleep_for()
 #   Location of the sound effect that should be played.
 # @param integer $sound_volume
 #   Master volume (percentage) that should be used during playback.
+# @param string $global_play
+#   Flag <i>yes</i> if sound should be played globally, and vice versa.
 # @return void
 
 play_sound_effect()
@@ -245,6 +247,7 @@ play_sound_effect()
     
     local sound_effect="$1";
     local sound_volume="$2";
+    local global_play="$3";
     local play_command="";
     
     # Regex Variables
@@ -282,9 +285,9 @@ play_sound_effect()
     sound_effect=$(parse_value "$sound_effect");
     
     if [ -z "$sound_volume" ]; then
-        execute_alarm_command "$play_command '$sound_effect' > /dev/null 2>&1" "$global_alarm";
+        execute_alarm_command "$play_command '$sound_effect' > /dev/null 2>&1" "$global_play";
     else
-        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && $play_command '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_alarm";
+        execute_alarm_command "(amixer set 'Master' '$sound_volume%' && $play_command '$sound_effect' && amixer set 'Master' '$left_channel,$right_channel') > /dev/null 2>&1 &" "$global_play";
     fi
 }
 
@@ -325,6 +328,8 @@ stop_alarms()
 #   Alarm message that should be shown.
 # @param string $alarm_global
 #   Flag <i>yes</i> if message will be shown to all users.
+# @param string $alarm_global
+#   Flag <i>yes</i> if command should be executed globally, and vice versa.
 # @return void
 
 show_alarm_message()
@@ -332,6 +337,7 @@ show_alarm_message()
     # Core Variables
     
     local alarm_message="$1";
+    local alarm_global="$2";
     
     # Other Variables
     
@@ -347,7 +353,7 @@ show_alarm_message()
     
     # Step 2 - Get Active Displays
     
-    if [ "$global_alarm" = "yes" ]; then
+    if [ "$alarm_global" = "yes" ]; then
         active_displays=$(print_active_displays "");
     else
         active_displays=$(print_active_displays "$current_user");
@@ -616,7 +622,10 @@ print_active_displays()
 # 
 # @param string $alarm_type
 #   Type of an alarm, ex. <i>alarm</i>, <i>countdown</i>, or an <i>interval</i>.
+# @param string $alarm_global
+#   Flag <i>yes</i> if sound should be tested globally, and vice versa.
 # @param string $sound_effect
+#   Location of the sound effect that should be played.
 # @param integer $sound_volume
 #   Master volume (percentage) that should be used during playback.
 # @return void
@@ -626,8 +635,9 @@ test_sound()
     # Core Variables
     
     local alarm_type="$1";
-    local sound_effect="$2";
-    local sound_volume="$3";
+    local alarm_global="$2";
+    local sound_effect="$3";
+    local sound_volume="$4";
     
     # Print Notice
     
@@ -635,5 +645,5 @@ test_sound()
     
     # Play Effect
     
-    play_sound_effect "$sound_effect" "$sound_volume";
+    play_sound_effect "$sound_effect" "$sound_volume" "$alarm_global";
 }

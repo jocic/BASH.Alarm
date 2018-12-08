@@ -65,6 +65,8 @@
 #   Master volume (percentage) that should be used during playback.
 # @param string $alarm_command
 #   Command that should be executed when an countdown is triggered.
+# @param string $alarm_global
+#   Flag <i>yes</i> if alarm should be triggered globally, and vice versa.
 # @return void
 
 create_alarm()
@@ -78,6 +80,7 @@ create_alarm()
     local alarm_effect="$5";
     local alarm_volume="$6";
     local alarm_command="$7";
+    local alarm_global="$8";
     
     # Cront Variables
     
@@ -141,7 +144,7 @@ create_alarm()
     
     cron_task="$cron_task -s '$alarm_effect'";
     
-    if [ $global_alarm = "yes" ]; then
+    if [ "$alarm_global" = "yes" ]; then
         cron_task="$cron_task -g";
     fi
     
@@ -689,6 +692,8 @@ export_alarms()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $effect_dir
+#   Directory containing effects.
 # @param string $effect_id
 #   ID of a sound effect that should be resolved.
 # @return void
@@ -697,30 +702,31 @@ print_alarm_effect_path()
 {
     # Core Variables
     
-    local effect_id="$1";
+    local effect_dir="$1";
+    local effect_id="$2";
     
     # Logic
     
     case "$effect_id" in
         
         "")
-            echo "$source_dir/effects/alarms/fire-alarm.wav";
+            echo "$effect_dir/fire-alarm.wav";
         ;;
         
         "1")
-            echo "$source_dir/effects/alarms/fire-alarm.wav";
+            echo "$effect_dir/fire-alarm.wav";
         ;;
         
         "2")
-            echo "$source_dir/effects/alarms/analogue-watch.wav";
+            echo "$effect_dir/analogue-watch.wav";
         ;;
         
         "3")
-            echo "$source_dir/effects/alarms/annoying-alarm.wav";
+            echo "$effect_dir/annoying-alarm.wav";
         ;;
         
         "4")
-            echo "$source_dir/effects/alarms/missile-alert.wav";
+            echo "$effect_dir/missile-alert.wav";
         ;;
         
     esac

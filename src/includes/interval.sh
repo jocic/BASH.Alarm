@@ -63,6 +63,8 @@
 #   Master volume (percentage) that should be used during playback.
 # @param string $interval_command
 #   Command that should be executed when an interval is triggered.
+# @param string $interval_global
+#   Flag <i>yes</i> if interval should be triggered globally, and vice versa.
 # @return void
 
 create_interval()
@@ -75,6 +77,7 @@ create_interval()
     local interval_effect="$4";
     local interval_volume="$5";
     local interval_command="$6";
+    local interval_global="$7";
     
     # Other Variables
     
@@ -147,6 +150,8 @@ create_interval()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $effect_dir
+#   Directory containing effects.
 # @param string $effect_id
 #   ID of a sound effect that should be resolved.
 # @return void
@@ -155,30 +160,31 @@ print_interval_effect_path()
 {
     # Core Variables
     
-    local effect_id="$1";
+    local effect_dir="$1";
+    local effect_id="$2";
     
     # Logic
     
     case "$effect_id" in
         
         "")
-            echo "$source_dir/effects/beeps/electronic-chime.wav";
+            echo "$effect_dir/electronic-chime.wav";
         ;;
         
         "1")
-            echo "$source_dir/effects/beeps/electronic-chime.wav";
+            echo "$effect_dir/electronic-chime.wav";
         ;;
         
         "2")
-            echo "$source_dir/effects/beeps/am-fm-beep.wav";
+            echo "$effect_dir/am-fm-beep.wav";
         ;;
         
         "3")
-            echo "$source_dir/effects/beeps/beep-in-a.wav";
+            echo "$effect_dir/beep-in-a.wav";
         ;;
         
         "4")
-            echo "$source_dir/effects/beeps/generic-bleep.wav";
+            echo "$effect_dir/generic-bleep.wav";
         ;;
         
     esac
