@@ -347,7 +347,7 @@ show_alarm_message()
     
     # Step 1 - Handle Root User
     
-    if [ "$current_user" = "root" ]; then
+    if [ "$current_user" = "root" ] && [ "$SUDO_USER" != "" ]; then
         current_user="$SUDO_USER";
     fi
     
