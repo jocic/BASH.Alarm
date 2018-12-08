@@ -323,6 +323,8 @@ stop_alarms()
 # 
 # @param string $alarm_message
 #   Alarm message that should be shown.
+# @param string $alarm_global
+#   Flag <i>yes</i> if message will be shown to all users.
 # @return void
 
 show_alarm_message()
@@ -333,24 +335,34 @@ show_alarm_message()
     
     # Other Variables
     
-    local active_displays=$(ls /tmp/.X11-unix | tr "X" ":");
+    local current_user="$(whoami)";
+    local logged_users="$(who | grep -oP "^([^\s]+)" | cut -f1 -d -)";
+    local active_displays="";
     
-    # Logic
+    # Step 1 - Handle Root User
     
-    alarm_message=$(parse_value "$alarm_message");
+    if [ "$current_user" = "root" ]; then
+        current_user="$SUDO_USER";
+    fi
+    
+    # Step 2 - Get Active Displays
+    
+    if [ "$global_alarm" = "yes" ]; then
+        active_displays=$(print_active_displays "");
+    else
+        active_displays=$(print_active_displays "$current_user");
+    fi
+    
+    # Step 3 - Display Alarm Message
     
     if [ -n "$alarm_display" ]; then
         
-        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$alarm_display > /dev/null 2>&1 &" "$global_alarm";
+        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$alarm_display > /dev/null 2>&1 &";
         
     else
         
         for active_display in $active_displays; do
-            
-            if [ -n "$(echo "$active_display" | grep -oP "^:[0-9]+$")" ]; then
-                execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &" "$global_alarm";
-            fi
-            
+            execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &";
         done
         
     fi
@@ -565,6 +577,36 @@ get_user_input()
 ###################
 # OTHER FUNCTIONS #
 ###################
+
+# Prints active display of the user.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @param string $username
+#   Username that should be used for fetching active displays. If the username
+#   isn't provided, then all active displays will be fetched.
+# @return void
+
+print_active_displays()
+{
+    # Core Variables
+    
+    local username="$1";
+    
+    # Other Variables
+    
+    if [ -n "$username" ]; then
+        active_displays=$(w -hs | awk '/'"$username"'/{ print $3 }');
+    else
+        active_displays=$(w -hs | awk '{ print $3 }');
+    fi
+    
+    # Logic
+    
+    printf "%s\n" "$active_displays";
+}
 
 # Test plays a sound based on the provided parameters.
 # 
