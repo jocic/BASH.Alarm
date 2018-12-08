@@ -33,7 +33,108 @@
 # GET FUNCTIONS #
 #################
 
-# GET FUNCTIONS GO HERE
+# Gets initial input.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+get_initial_input()
+{
+    # Step 1 - Print Question
+    
+    printf -- "- What do you want to do?\n\n";
+    
+    # Step 2 - Print Options
+    
+    printf "1. Add an alarm\n";
+    printf "2. Manage alarms\n";
+    printf "3. Test alarm sound\n";
+    printf "4. Display help\n";
+    printf "5. Display version\n\n";
+    
+    # Step 3 - Get Answer
+    
+    read -rp "Option: " temp && printf "\n";
+}
+
+# Get add alarm input.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+get_add_alarm_input()
+{
+    # Step 1 - Print Question
+    
+    printf -- "- What do you want to add?\n\n";
+    
+    # Step 2 - Print Options
+    
+    printf "1. Alarm\n";
+    printf "2. Countdown\n";
+    printf "3. Interval\n\n";
+    
+    # Step 3 - Get Answer
+    
+    read -rp "Option: " temp && printf "\n";
+}
+
+# Gets manage alarms input.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+get_manage_alarms_input()
+{
+    # Step 1 - Print Question
+    
+    printf -- "- What do you want to do?\n\n";
+    
+    # Step 2 - Print Options
+    
+    printf "1. List alarms\n";
+    printf "2. Remove an alarm\n";
+    printf "3. Enable an alarm\n";
+    printf "4. Disable an alarm\n\n";
+    
+    # Step 3 - Get Answer
+    
+    read -rp "Option: " temp && printf "\n";
+}
+
+# Gets test alarm sound input.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return void
+
+get_test_alarm_sound_input()
+{
+    # Step 1 - Print Question
+    
+    printf -- "- What do you want to do?\n\n";
+    
+    # Step 2 - Print Options
+    
+    printf "1. Alarm\n";
+    printf "2. Countdown\n";
+    printf "3. Interval\n\n";
+    
+    # Step 3 - Get Answer
+    
+    read -rp "Option: " temp && printf "\n";
+}
 
 #################
 # SET FUNCTIONS #
@@ -464,109 +565,6 @@ get_user_input()
 ###################
 # OTHER FUNCTIONS #
 ###################
-
-# Gets initial input.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-get_initial_input()
-{
-    # Step 1 - Print Question
-    
-    printf -- "- What do you want to do?\n\n";
-    
-    # Step 2 - Print Options
-    
-    printf "1. Add an alarm\n";
-    printf "2. Manage alarms\n";
-    printf "3. Test alarm sound\n";
-    printf "4. Display help\n";
-    printf "5. Display version\n\n";
-    
-    # Step 3 - Get Answer
-    
-    read -rp "Option: " temp && printf "\n";
-}
-
-# Get add alarm input.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-get_add_alarm_input()
-{
-    # Step 1 - Print Question
-    
-    printf -- "- What do you want to add?\n\n";
-    
-    # Step 2 - Print Options
-    
-    printf "1. Alarm\n";
-    printf "2. Countdown\n";
-    printf "3. Interval\n\n";
-    
-    # Step 3 - Get Answer
-    
-    read -rp "Option: " temp && printf "\n";
-}
-
-# Gets manage alarms input.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-get_manage_alarms_input()
-{
-    # Step 1 - Print Question
-    
-    printf -- "- What do you want to do?\n\n";
-    
-    # Step 2 - Print Options
-    
-    printf "1. List alarms\n";
-    printf "2. Remove an alarm\n";
-    printf "3. Enable an alarm\n";
-    printf "4. Disable an alarm\n\n";
-    
-    # Step 3 - Get Answer
-    
-    read -rp "Option: " temp && printf "\n";
-}
-
-# Gets test alarm sound input.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return void
-
-get_test_alarm_sound_input()
-{
-    # Step 1 - Print Question
-    
-    printf -- "- What do you want to do?\n\n";
-    
-    # Step 2 - Print Options
-    
-    printf "1. Alarm\n";
-    printf "2. Countdown\n";
-    printf "3. Interval\n\n";
-    
-    # Step 3 - Get Answer
-    
-    read -rp "Option: " temp && printf "\n";
-}
 
 # Test plays a sound based on the provided parameters.
 # 
