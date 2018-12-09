@@ -65,6 +65,8 @@
 #   Command that should be executed when an interval is triggered.
 # @param string $interval_global
 #   Flag <i>yes</i> if interval should be triggered globally, and vice versa.
+# @param string $interval_display
+#   Interval display that should be used for displaying alarm message.
 # @return void
 
 create_interval()
@@ -78,6 +80,7 @@ create_interval()
     local interval_volume="$5";
     local interval_command="$6";
     local interval_global="$7";
+    local interval_display="$8";
     
     # Other Variables
     
@@ -94,7 +97,7 @@ create_interval()
     fi
     
     if [ -n "$interval_message" ]; then
-        printf "\nFollowing message will be shown: %s\n" "$interval_message";
+        printf "\nFollowing message will be shown: %s\n" "$interval_message" "$interval_display";
     fi
     
     printf "\nPress CTRL + C to stop it...\n\n";

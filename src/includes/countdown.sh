@@ -65,6 +65,8 @@
 #   Command that should be executed when an countdown is triggered.
 # @param string $countdown_global
 #   Flag <i>yes</i> if countdown should be triggered globally, and vice versa.
+# @param string $countdown_display
+#   Countdown display that should be used for displaying alarm message.
 # @return void
 
 create_countdown()
@@ -78,6 +80,7 @@ create_countdown()
     local countdown_volume="$5";
     local countdown_command="$6";
     local countdown_global="$7";
+    local countdown_display="$8";
     
     # Step 1 -Print Notice
     
@@ -104,7 +107,7 @@ create_countdown()
     play_sound_effect "$countdown_effect" "$countdown_volume" "$countdown_global" &
     
     if [ -n "$countdown_message" ]; then
-        show_alarm_message "$countdown_message" "$countdown_global" &
+        show_alarm_message "$countdown_message" "$countdown_global" "$countdown_display" &
     fi
     
     if [ -n "$countdown_command" ]; then

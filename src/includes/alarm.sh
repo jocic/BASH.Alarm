@@ -67,6 +67,8 @@
 #   Command that should be executed when an countdown is triggered.
 # @param string $alarm_global
 #   Flag <i>yes</i> if alarm should be triggered globally, and vice versa.
+# @param string $alarm_display
+#   Alarm display that should be used for displaying alarm message.
 # @return void
 
 create_alarm()
@@ -81,6 +83,7 @@ create_alarm()
     local alarm_volume="$6";
     local alarm_command="$7";
     local alarm_global="$8";
+    local alarm_display="$9";
     
     # Cront Variables
     
@@ -137,6 +140,7 @@ create_alarm()
     alarm_effect=$(parse_value "$alarm_effect");
     alarm_message=$(parse_value "$alarm_message");
     alarm_command=$(parse_value "$alarm_command");
+    alarm_display=$(parse_value "$alarm_display");
     
     # Step 6 - Generate Cron Task
     
@@ -146,6 +150,10 @@ create_alarm()
     
     if [ "$alarm_global" = "yes" ]; then
         cron_task="$cron_task -g";
+    fi
+    
+    if [ -n "$alarm_display" ]; then
+        cron_task="$cron_task --display '$alarm_display'";
     fi
     
     if [ -n "$alarm_volume" ]; then

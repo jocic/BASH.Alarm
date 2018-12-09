@@ -330,8 +330,8 @@ stop_alarms()
 #   Alarm message that should be shown.
 # @param string $alarm_global
 #   Flag <i>yes</i> if message will be shown to all users.
-# @param string $alarm_global
-#   Flag <i>yes</i> if command should be executed globally, and vice versa.
+# @param string $alarm_display
+#   Alarm display that should be used.
 # @return void
 
 show_alarm_message()
@@ -340,6 +340,7 @@ show_alarm_message()
     
     local alarm_message="$1";
     local alarm_global="$2";
+    local alarm_display="$3";
     
     # Other Variables
     
@@ -365,12 +366,12 @@ show_alarm_message()
     
     if [ -n "$alarm_display" ]; then
         
-        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$alarm_display > /dev/null 2>&1 &";
+        execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$alarm_display > /dev/null 2>&1 &" "$alarm_global";
         
     else
         
         for active_display in $active_displays; do
-            execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &";
+            execute_alarm_command "echo '$alarm_message' | zenity --title 'Alarm Message' --text-info --display=$active_display > /dev/null 2>&1 &" "$alarm_global";
         done
         
     fi

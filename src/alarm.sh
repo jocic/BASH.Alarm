@@ -276,7 +276,7 @@ else
             if [ "$test_sound" = "yes" ]; then
                 test_sound "Alarm" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
+                create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm" "$alarm_display";
             fi
             
         elif [ "$alarm_type" = "countdown" ]; then
@@ -284,7 +284,7 @@ else
             if [ "$test_sound" = "yes" ]; then
                 test_sound "Countdown" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_countdown "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
+                create_countdown "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm" "$alarm_display";
             fi
             
         elif [ "$alarm_type" = "interval" ]; then
@@ -292,7 +292,7 @@ else
             if [ "$test_sound" = "yes" ]; then
                 test_sound "Interval" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_interval "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm";
+                create_interval "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm" "$alarm_display";
             fi
             
         else
