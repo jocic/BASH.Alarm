@@ -312,7 +312,7 @@ list_alarms()
                     alarm_volume="As Is";
                 fi
                 
-                # Print Alarm Line
+                # Print Alarm Details
                 
                 if [ "$verbose_mode" = "yes" ]; then
                     
@@ -670,6 +670,11 @@ import_alarms()
     local import_file="$1";
     local cron_details="";
     
+    # Other Variables
+    
+    local imported=0;
+    local skipped=0;
+    
     # Temp Variables
     
     local temp_file=$(mktemp);
@@ -682,19 +687,40 @@ import_alarms()
         
     elif [ -f "$import_file" ]; then
         
+        # Print Notice
+        
         printf "Importing alarms...\n";
+        
+        # Import Alarms
         
         cron_details=$(crontab -l 2>&1);
         
         while read alarm; do
             
             if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ] && [ -z "$(crontab -l | grep -Fx "$alarm")" ]; then
+                
                 cron_details="$cron_details\n$alarm";
+                
+                imported=$(( imported + 1 ));
+                
+            else
+                
+                skipped=$(( skipped + 1 ));
+                
             fi
             
         done < "$import_file";
         
         printf "$cron_details\n" | crontab;
+        
+        # Print Stats
+        
+        if [ "$verbose_mode" = "yes" ]; then
+            
+            printf -- "\n- Imported %d alarms.\n" "$imported";
+            printf -- "- Skipped %d duplicates.\n" "$skipped";
+            
+        fi
         
     else
         
@@ -719,6 +745,10 @@ export_alarms()
     
     local export_file="$1";
     
+    # Other Variables
+    
+    local exported=0;
+    
     # Temp Variables
     
     local temp_file=$(mktemp);
@@ -731,17 +761,33 @@ export_alarms()
         
     else
         
+        # Print Notice
+        
         printf "Exporting alarms...\n";
+        
+        # Export Alarms
         
         crontab -l > "$temp_file" 2>&1;
         
         while read alarm; do
             
             if [ -n "$(echo "$alarm" | grep -oP "$alarm_regex")" ]; then
+                
                 printf "$alarm\n" >> "$export_file";
+                
+                exported=$(( exported + 1 ));
+                
             fi
             
         done < "$temp_file";
+        
+        # Print Stats
+        
+        if [ "$verbose_mode" = "yes" ]; then
+            
+            printf -- "\n- Exported %d alarms.\n" "$exported";
+            
+        fi
         
     fi
 }
