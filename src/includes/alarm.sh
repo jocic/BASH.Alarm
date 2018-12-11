@@ -193,7 +193,7 @@ list_alarms()
     
     local verbose_mode="$1";
     
-    # Alarm Variables
+    # Primary Alarm Variables
     
     local alarm="";
     local alarm_hour="";
@@ -201,8 +201,13 @@ list_alarms()
     local alarm_period="";
     local alarm_status="";
     local alarm_name="";
-    local alarm_message="";
     local index=1;
+    
+    # Secondary Alarm Variables
+    
+    local alarm_message="";
+    local alarm_global="";
+    local alarm_volume="";
     
     # Temp Variables
     
@@ -281,6 +286,16 @@ list_alarms()
                     alarm_name="None";
                 fi
                 
+                # Determine Alarm Global Flag
+                
+                alarm_global=$(echo "$alarm" | grep -oP "\-g");
+                
+                if [ -z "$alarm_global" ]; then
+                    alarm_global="No";
+                else
+                    alarm_global="Yes";
+                fi
+                
                 # Determine Alarm Message
                 
                 alarm_message=$(echo "$alarm" | grep -oP "\-m '(.*)'" | grep -oP "(?<=')(.*)(?=')");
@@ -289,13 +304,23 @@ list_alarms()
                     alarm_message="None";
                 fi
                 
+                # Determine Alarm Volume
+                
+                alarm_volume=$(echo "$alarm" | grep -oP "\-v '([0-9]+)'" | grep -oP "(?<=')(.*)(?=')");
+                
+                if [ -z "$alarm_volume" ]; then
+                    alarm_volume="As Is";
+                fi
+                
                 # Print Alarm Line
                 
                 if [ "$verbose_mode" = "yes" ]; then
                     
                     printf "%02d. alarm: %02d:%02d %s (%s, %s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status" "$alarm_name";
                     
+                    printf "  - Global Alarm: %s\n" "$alarm_global";
                     printf "  - Alarm Message: %s\n" "$alarm_message";
+                    printf "  - Alarm Volume: %s\n" "$alarm_volume";
                     
                 else
                     
