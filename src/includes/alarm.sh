@@ -183,11 +183,17 @@ create_alarm()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
+# @param string $verbose_mode
+#   Value <i>YES</i> if you plan to use verbose mode, and vice versa.
 # @return void
 
 list_alarms()
 {
     # Core Variables
+    
+    local verbose_mode="$1";
+    
+    # Alarm Variables
     
     local alarm="";
     local alarm_hour="";
@@ -195,6 +201,7 @@ list_alarms()
     local alarm_period="";
     local alarm_status="";
     local alarm_name="";
+    local alarm_message="";
     local index=1;
     
     # Temp Variables
@@ -274,9 +281,27 @@ list_alarms()
                     alarm_name="None";
                 fi
                 
+                # Determine Alarm Message
+                
+                alarm_message=$(echo "$alarm" | grep -oP "\-m '(.*)'" | grep -oP "(?<=')(.*)(?=')");
+                
+                if [ -z "$alarm_message" ]; then
+                    alarm_message="None";
+                fi
+                
                 # Print Alarm Line
                 
-                printf "%02d. alarm: %02d:%02d %s (%s, %s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status" "$alarm_name";
+                if [ "$verbose_mode" = "yes" ]; then
+                    
+                    printf "%02d. alarm: %02d:%02d %s (%s, %s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status" "$alarm_name";
+                    
+                    printf "  - Alarm Message: %s\n" "$alarm_message";
+                    
+                else
+                    
+                    printf "%02d. alarm: %02d:%02d %s (%s, %s)\n" "$index" "$alarm_hour" "$alarm_minute" "$alarm_period" "$alarm_status" "$alarm_name";
+                    
+                fi
                 
                 index=$(( index + 1 ));
                 
@@ -295,6 +320,8 @@ list_alarms()
 # 
 # @param integer $alarm_index
 #   Index of an alarm that should be removed.
+# @param string $verbose_mode
+#   Value <i>YES</i> if you plan to use verbose mode, and vice versa.
 # @return void
 
 remove_alarm()
@@ -302,6 +329,7 @@ remove_alarm()
     # Core Variables
     
     local removal_index=$(echo "$1" | sed "s/^0//");
+    local verbose_mode="$2";
     
     # Control Variables
     
@@ -355,7 +383,7 @@ remove_alarm()
             printf "There was no alarm at position %d.\n\n" "$removal_index";
         fi
         
-        list_alarms;
+        list_alarms "$verbose_mode";
         
     fi
 }
@@ -368,6 +396,8 @@ remove_alarm()
 # 
 # @param integer $alarm_index
 #   Index of an alarm that should be enalbe.
+# @param string $verbose_mode
+#   Value <i>YES</i> if you plan to use verbose mode, and vice versa.
 # @return void
 
 enable_alarm()
@@ -375,6 +405,7 @@ enable_alarm()
     # Core Variables
     
     local enable_index=$(echo "$1" | sed "s/^0//");
+    local verbose_mode="$2";
     
     # Control Variables
     
@@ -430,7 +461,7 @@ enable_alarm()
             printf "There was no alarm at position %d.\n\n" "$enable_index";
         fi
         
-        list_alarms;
+        list_alarms "$verbose_mode";
         
     fi
 }
@@ -443,6 +474,8 @@ enable_alarm()
 # 
 # @param integer $alarm_index
 #   Index of an alarm that should be disabled.
+# @param string $verbose_mode
+#   Value <i>YES</i> if you plan to use verbose mode, and vice versa.
 # @return void
 
 disable_alarm()
@@ -450,6 +483,7 @@ disable_alarm()
     # Core Variables
     
     local disable_index=$(echo "$1" | sed "s/^0//");
+    local verbose_mode="$2";
     
     # Control Variables
     
@@ -505,7 +539,7 @@ disable_alarm()
             printf "There was no alarm at position %d.\n\n" "$disable_index";
         fi
         
-        list_alarms;
+        list_alarms "$verbose_mode";
         
     fi
 }
@@ -518,6 +552,8 @@ disable_alarm()
 # 
 # @param integer $alarm_index
 #   Index of an alarm that should be toggles.
+# @param string $verbose_mode
+#   Value <i>YES</i> if you plan to use verbose mode, and vice versa.
 # @return void
 
 toggle_alarm()
@@ -525,6 +561,7 @@ toggle_alarm()
     # Core Variables
     
     local toggle_index=$(echo "$1" | sed "s/^0//");
+    local verbose_mode="$2";
     
     # Control Variables
     
@@ -586,7 +623,7 @@ toggle_alarm()
             printf "There was no alarm at position %d.\n\n" "$toggle_index";
         fi
         
-        list_alarms;
+        list_alarms "$verbose_mode";
         
     fi
 }

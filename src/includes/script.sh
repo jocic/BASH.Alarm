@@ -151,6 +151,8 @@ process_arguments()
         
         [ "$arg" = "-o" ] || [ "$arg" = "--toggle" ] && toggle_alarm="yes" && queue="toggle";
         
+        [ "$arg" = "-v" ] || [ "$arg" = "--verbose" ] && verbose_mode="yes";
+        
         [ "$arg" = "--import" ] && import_alarms="yes" && queue="import";
         
         [ "$arg" = "--export" ] && export_alarms="yes" && queue="export";

@@ -85,6 +85,7 @@ export_alarms="no";
 stop_alarms="no";
 global_alarm="no";
 test_sound="no";
+verbose_mode="no";
 
 ###################
 # OTHER VARIABLES #
@@ -157,23 +158,23 @@ else
         
     elif [ "$list_alarms" = "yes" ]; then
         
-        list_alarms;
+        list_alarms "$verbose_mode";
         
     elif [ "$remove_alarm" = "yes" ]; then
         
-        remove_alarm "$alarm_index";
+        remove_alarm "$alarm_index" "$verbose_mode";
         
     elif [ "$enable_alarm" = "yes" ]; then
         
-        enable_alarm "$alarm_index";
+        enable_alarm "$alarm_index" "$verbose_mode";
         
     elif [ "$disable_alarm" = "yes" ]; then
         
-        disable_alarm "$alarm_index";
+        disable_alarm "$alarm_index" "$verbose_mode";
         
     elif [ "$toggle_alarm" = "yes" ]; then
         
-        toggle_alarm "$alarm_index";
+        toggle_alarm "$alarm_index" "$verbose_mode";
         
     elif [ "$import_alarms" = "yes" ]; then
         
