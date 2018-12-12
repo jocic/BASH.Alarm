@@ -214,6 +214,12 @@ else
             printf "Error: Invalid alarm delay provided, please use an integer.\n" && exit;
         fi
         
+        # Check Alarm Display
+        
+        if [ -n "$alarm_display" ] && [ -z "$(echo "$alarm_display" | grep -oP "^(:[0-9]+)?(.[0-9]+)$")" ]; then
+            printf "Error: Invalid alarm display selected, try using a :0 or :0.0 format.\n" && exit;
+        fi
+        
         # Check Type
         
         if [ -z "$alarm_type" ]; then
