@@ -16,7 +16,7 @@ Available alarm options:
   -e, --enable      : Enable an alarm.
   -b, --disable     : Disable an alarm.
   -o, --toggle      : Toggle an alarm.
-  -v, --verbose     : Increase verbosity level.
+      --verbose     : Increase verbosity level.
       --import      : Import alarms from a file.
       --export      : Export alarms to a file.
 

@@ -41,7 +41,7 @@ Disable an alarm.
 \fB\-o\fR, \fB\-\-toggle\fR
 Toggle an alarm.
 .TP
-\fB\-v\fR, \fB\-\-verbose\fR
+\fB\-\-verbose\fR
 Increase verbosity level.
 .TP
 .I Available alarm options:
