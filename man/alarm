@@ -44,17 +44,6 @@ Toggle an alarm.
 \fB\-\-verbose\fR
 Increase verbosity level.
 .TP
-.I Available alarm options:
-.TP
-\fB\-l\fR, \fB\-\-list\fR
-List available alarms.
-.TP
-\fB\-r\fR, \fB\-\-remove\fR
-Remove an alarm.
-.TP
-\fB\-b\fR, \fB\-\-disable\fR
-Disable an alarm.
-.TP
 \fB\-\-import\fR
 Import alarms from a file.
 .TP
