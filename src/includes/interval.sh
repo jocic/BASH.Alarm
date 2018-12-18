@@ -187,11 +187,11 @@ print_interval_effect_path()
         ;;
         
         "4")
-            echo "$effect_dir/generic-bleep.wav";
+            echo "$effect_dir/generic-beep.wav";
         ;;
         
         "5")
-            echo "$effect_dir/robot-blip.wav";
+            echo "$effect_dir/robot-beep.wav";
         ;;
         
     esac

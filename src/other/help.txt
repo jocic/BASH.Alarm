@@ -38,16 +38,16 @@ Available general options:
 
 Available sound effects - alarm & countdown:
 
-  -1 : Fire alarm (default).
-  -2 : Analogue watch.
-  -3 : Annoying alarm.
-  -4 : Missile alert.
-  -5 : Tornado siren.
+  1 : Fire alarm (default).
+  2 : Analogue watch.
+  3 : Annoying alarm.
+  4 : Missile alert.
+  5 : Tornado siren.
 
 Available sound effects - interval:
 
-  -1 : Electornic chime (default).
-  -2 : AM/FM beep.
-  -3 : Beep in A.
-  -4 : Generic bleep.
-  -5 : Robot blip.
+  1 : Electornic chime (default).
+  2 : AM/FM beep.
+  3 : Beep in A.
+  4 : Generic beep.
+  5 : Robot beep.
