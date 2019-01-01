@@ -6,18 +6,20 @@ Alarm is a simple BASH script for creating alarms, countdowns, and intervals wit
 
 Script has been tested on the following distributions:
 
-* Ubuntu 18.04
-* Debian 9.5
+*   Ubuntu 18.04
+*   Debian 9.5
 
 [![Buy Me Coffee](img/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
+
+**Song of the project:** [Motörhead - Electricity](https://www.youtube.com/watch?v=SF-8LKPknhU)
 
 ## Versioning Scheme
 
 I use a 3-digit [Semantic Versioning](https://semver.org/spec/v2.0.0.html) identifier, for example 1.0.2. These digits have the following meaning:
 
-* The first digit (1) specifies the MAJOR version number.
-* The second digit (0) specifies the MINOR version number.
-* The third digit (2) specifies the PATCH version number.
+*   The first digit (1) specifies the MAJOR version number.
+*   The second digit (0) specifies the MINOR version number.
+*   The third digit (2) specifies the PATCH version number.
 
 Complete documentation can be found by following the link above.
 
@@ -246,10 +248,10 @@ sudo apt-get install alarm
 
 Please review the following documents if you are planning to contribute to the project:
 
-* [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
-* [Contribution Guidelines](CONTRIBUTING.md)
-* [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
-* [MIT License](LICENSE.md)
+*   [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
+*   [Contribution Guidelines](CONTRIBUTING.md)
+*   [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
+*   [MIT License](LICENSE.md)
 
 ## Support
 
@@ -257,7 +259,7 @@ Please don't hessitate to contact me if you have any questions, ideas, or concer
 
 My Twitter account is: [@jocic_91](https://www.twitter.com/jocic_91)
 
-My support E-Mail address is: <support@djordjejocic.com>
+My support E-Mail address is: [support@djordjejocic.com](mailto:support@djordjejocic.com)
 
 ## Copyright & License
 
