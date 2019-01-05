@@ -11,7 +11,7 @@ Script has been tested on the following distributions:
 
 [![Buy Me Coffee](img/buy-me-coffee.png)](https://www.paypal.me/DjordjeJocic)
 
-**Song of the project:** [Motörhead - Electricity](https://www.youtube.com/watch?v=SF-8LKPknhU)
+**Song of the project:** [AC/DC - Hells Bells](https://www.youtube.com/watch?v=etAIpkdhU9Q)
 
 ## Versioning Scheme
 
@@ -248,10 +248,10 @@ sudo apt-get install alarm
 
 Please review the following documents if you are planning to contribute to the project:
 
-*   [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)
-*   [Contribution Guidelines](CONTRIBUTING.md)
-*   [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
-*   [MIT License](LICENSE.md)
+*   [Contributor Covenant Code of Conduct](code-of-conduct.md)
+*   [Contribution Guidelines](contributing.md)
+*   [Pull Request Template](pull-request-template.md)
+*   [MIT License](license.md)
 
 ## Support
 
