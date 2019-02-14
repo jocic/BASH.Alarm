@@ -35,18 +35,58 @@
 
 source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 
-###########################
-# Step 1 - Test Functions #
-###########################
+#################
+# Primary Tests #
+#################
 
-bash "$source_dir/../tests/generic/test-config-funcs.sh";
-bash "$source_dir/../tests/generic/test-core-funcs.sh";
+# Tests output of the <i>version</i> parameter - long variant.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
-############################
-# Step 2 - Test Parameters #
-############################
+testLongVariant()
+{
+    # Core Variables
+    
+    local valid_output=$(cat "$source_dir/../source/other/version.txt");
+    local script_output=$(bash "$source_dir/../source/alarm.sh" --version \
+        --suppress-dependency-check);
+    
+    # Logic
+    
+    valid_output=$(printf "Alarm $J_A_VERSION\n%s" "$valid_output");
+    
+    assertEquals "$valid_output" "$script_output";
+    
+    return 0;
+}
 
-#bash "$source_dir/../tests/test-param-none.sh";
-bash "$source_dir/../tests/test-param-help.sh";
-bash "$source_dir/../tests/test-param-version.sh";
-#bash "$source_dir/../tests/test-param-init.sh";
+###################
+# Secondary Tests #
+###################
+
+# SECONDARY TESTS GO HERE
+
+##################
+# Tertiary Tests #
+##################
+
+# TERTIARY TESTS GO HERE
+
+########################
+# Include Dependencies #
+########################
+
+export J_A_VERSION="1.2.4";
+export J_A_CONF_DIR="alarm";
+export J_A_CONF_FILE="basic.conf";
+
+##################
+# Include SHUnit #
+##################
+
+. "$source_dir/../other/shunit2/executable";
