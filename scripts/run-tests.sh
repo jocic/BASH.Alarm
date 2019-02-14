@@ -34,16 +34,30 @@
 ##################
 
 source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
+fakers=$(echo "mv dirname tr" | tr " " "\n");
+
+##########################
+# Step 1 - Prepare Tests #
+##########################
+
+for faker in $fakers; do
+    
+    [ -f "$source_dir/fakers/$faker" ] \
+        && rm "$source_dir/fakers/$faker";
+    
+    ln -s "$(command -v $faker)" "$source_dir/fakers/$faker";
+    
+done
 
 ###########################
-# Step 1 - Test Functions #
+# Step 2 - Test Functions #
 ###########################
 
 bash "$source_dir/../tests/generic/test-config-funcs.sh";
 bash "$source_dir/../tests/generic/test-core-funcs.sh";
 
 ############################
-# Step 2 - Test Parameters #
+# Step 3 - Test Parameters #
 ############################
 
 bash "$source_dir/../tests/test-param-none.sh";
