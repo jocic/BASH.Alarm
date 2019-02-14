@@ -35,18 +35,50 @@
 
 source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 
-###########################
-# Step 1 - Test Functions #
-###########################
+#################
+# Primary Tests #
+#################
 
-bash "$source_dir/../tests/generic/test-config-funcs.sh";
-bash "$source_dir/../tests/generic/test-core-funcs.sh";
+# Tests parsing function - <i>parse_value</i>.
+# 
+# @author: Djordje Jocic <office@djordjejocic.com>
+# @copyright: 2018 MIT License (MIT)
+# @version: 1.0.0
+# 
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
-############################
-# Step 2 - Test Parameters #
-############################
+testParsingFunction()
+{
+    # Logic
+    
+    assertEquals "foo" "$(parse_value 'foo')";
+    assertEquals "foo bar" "$(parse_value 'foo bar')";
+    assertEquals "foo '\'' bar" "$(parse_value 'foo '\'' bar')";
+    
+    return 0;
+}
 
-#bash "$source_dir/../tests/test-param-none.sh";
-#bash "$source_dir/../tests/test-param-help.sh";
-#bash "$source_dir/../tests/test-param-version.sh";
-#bash "$source_dir/../tests/test-param-init.sh";
+###################
+# Secondary Tests #
+###################
+
+# SECONDARY TESTS GO HERE
+
+##################
+# Tertiary Tests #
+##################
+
+# TERTIARY TESTS GO HERE
+
+########################
+# Include Dependencies #
+########################
+
+. "$source_dir/../../source/includes/core.sh";
+
+##################
+# Include SHUnit #
+##################
+
+. "$source_dir/../../other/shunit2/executable";

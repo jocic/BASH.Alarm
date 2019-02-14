@@ -101,8 +101,8 @@ export J_A_CONF_FILE="basic.conf";
 # Step 2 - Include Functions #
 ##############################
 
-. "$J_A_SOURCE_DIR/includes/script.sh";
 . "$J_A_SOURCE_DIR/includes/core.sh";
+. "$J_A_SOURCE_DIR/includes/alarm-core.sh";
 . "$J_A_SOURCE_DIR/includes/alarm.sh";
 . "$J_A_SOURCE_DIR/includes/countdown.sh";
 . "$J_A_SOURCE_DIR/includes/interval.sh";

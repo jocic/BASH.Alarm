@@ -35,18 +35,32 @@
 
 source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 
-###########################
-# Step 1 - Test Functions #
-###########################
+#################
+# Primary Tests #
+#################
 
-bash "$source_dir/../tests/generic/test-config-funcs.sh";
-bash "$source_dir/../tests/generic/test-core-funcs.sh";
+# PRIMARY TESTS GO HERE
 
-############################
-# Step 2 - Test Parameters #
-############################
+###################
+# Secondary Tests #
+###################
 
-#bash "$source_dir/../tests/test-param-none.sh";
-#bash "$source_dir/../tests/test-param-help.sh";
-#bash "$source_dir/../tests/test-param-version.sh";
-#bash "$source_dir/../tests/test-param-init.sh";
+# SECONDARY TESTS GO HERE
+
+##################
+# Tertiary Tests #
+##################
+
+# TERTIARY TESTS GO HERE
+
+########################
+# Include Dependencies #
+########################
+
+# DEPENDENCIES GO HERE
+
+##################
+# Include SHUnit #
+##################
+
+. "$source_dir/../other/shunit2/executable";

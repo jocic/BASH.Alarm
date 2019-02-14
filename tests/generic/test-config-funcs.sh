@@ -240,14 +240,14 @@ testGetSetFunctions()
     assertEquals 1 $(set_config_param "#" ""; echo "$?"); # Invalid Key
     assertEquals 1 $(set_config_param "" "" "#"; echo "$?"); # Invalid Conf.
     assertEquals 1 $(set_config_param "" "" "" "#"; echo "$?"); # Invalid Conf.
-    assertEquals 1 $(set_config_param "" "" "test"; echo "$?"); # Missing Conf.
+    assertEquals 1 $(set_config_param "a" "" "test"; echo "$?"); # Missing Conf.
     
     # Step 4 - Test Specific Cases (Get)
     
     assertEquals 1 $(get_config_param "#" ; echo "$?"); # Invalid Key
     assertEquals 1 $(get_config_param "" "#"; echo "$?"); # Invalid Conf.
     assertEquals 1 $(get_config_param "" "" "#"; echo "$?"); # Invalid Conf.
-    assertEquals 1 $(get_config_param "" "test"; echo "$?"); # Missing Conf.
+    assertEquals 1 $(get_config_param "a" "test"; echo "$?"); # Missing Conf.
     
     # Step 5 - Handle Old & Test Configurations
     
