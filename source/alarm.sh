@@ -96,6 +96,7 @@ export J_A_SOURCE_DIR="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 export J_A_VERSION="1.2.4";
 export J_A_CONF_DIR="alarm";
 export J_A_CONF_FILE="basic.conf";
+export J_A_SUPRESS_DCHECK="no";
 
 ##############################
 # Step 2 - Include Functions #
@@ -191,6 +192,8 @@ for arg in "$@"; do
     
     [ "$arg" = "--version" ] && show_version="yes";
     
+    [ "$arg" = "--suppress-dependency-check" ] && J_A_SUPRESS_DCHECK="yes";
+    
 done
 
 ############################
@@ -221,10 +224,14 @@ else
     
     # Check Dependencies
     
-    temp=$(check_dependencies);
-    
-    if [ -n "$temp" ]; then
-        printf "%s\n" "$temp" && exit;
+    if [ "$J_A_SUPRESS_DCHECK" = "no" ]; then
+        
+        temp=$(check_dependencies);
+        
+        if [ -n "$temp" ]; then
+            printf "%s\n" "$temp" && exit;
+        fi
+        
     fi
     
     # Handle Interactive Mode

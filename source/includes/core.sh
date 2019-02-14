@@ -51,7 +51,8 @@
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
-# @return void
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
 show_help()
 {
@@ -66,7 +67,8 @@ show_help()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
-# @return void
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
 show_version()
 {
@@ -83,7 +85,8 @@ show_version()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
-# @return void
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
 install_dependencies()
 {
@@ -104,6 +107,8 @@ install_dependencies()
         fi;
         
     done
+    
+    return 0;
 }
 
 ###################
@@ -116,7 +121,8 @@ install_dependencies()
 # @copyright: 2018 MIT License (MIT)
 # @version: 1.0.0
 # 
-# @return void
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
 check_dependencies()
 {
@@ -141,6 +147,8 @@ check_dependencies()
         fi
         
     done
+    
+    return 0;
 }
 
 ###################
@@ -155,7 +163,8 @@ check_dependencies()
 # 
 # @param string $value
 #   Value that should be parsed.
-# @return void
+# @return integer
+#   It always returns <i>0</i> - SUCCESS.
 
 parse_value()
 {
