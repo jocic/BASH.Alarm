@@ -48,4 +48,4 @@ apt_log="$4";
 # Logic #
 #########
 
-printf "apt-get $1 $2 $3\n" >> "$apt_log";
+printf "yum $1 $2 $3\n" >> "$apt_log";
