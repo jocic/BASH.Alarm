@@ -1,5 +1,7 @@
 # Alarm
 
+[![Build Status](https://travis-ci.org/jocic/BASH.Alarm.svg?branch=master)](https://travis-ci.org/jocic/BASH.Alarm) [![Coverage Status](https://coveralls.io/repos/github/jocic/BASH.Alarm/badge.svg?branch=master)](https://coveralls.io/github/jocic/BASH.Alarm?branch=master) [![Codecov](https://codecov.io/gh/jocic/BASH.Alarm/branch/master/graph/badge.svg)](https://codecov.io/gh/jocic/BASH.Alarm) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/70d5f42df9b04769a339228120f19ef6)](https://www.codacy.com/app/jocic/BASH.Alarm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jocic/BASH.Alarm&amp;utm_campaign=Badge_Grade)
+
 Alarm is a simple BASH script for creating alarms, countdowns, and intervals with optional command execution at the end.
 
 ![Help Example](img/help.png)
