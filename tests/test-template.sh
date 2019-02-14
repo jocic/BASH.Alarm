@@ -57,7 +57,7 @@ source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 # Include Dependencies #
 ########################
 
-# DEPENDENCIES GO HERE
+. "$source_dir/test-variables.sh";
 
 ##################
 # Include SHUnit #

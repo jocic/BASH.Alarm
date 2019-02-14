@@ -79,7 +79,7 @@ testCase()
 # Include Dependencies #
 ########################
 
-# DEPENDENCIES GO HERE
+. "$source_dir/test-variables.sh";
 
 ##################
 # Include SHUnit #

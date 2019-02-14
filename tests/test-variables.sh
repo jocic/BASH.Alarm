@@ -33,58 +33,6 @@
 # Core Variables #
 ##################
 
-source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
-
-#################
-# Primary Tests #
-#################
-
-# Tests output of the <i>version</i> parameter - long variant.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @return integer
-#   It always returns <i>0</i> - SUCCESS.
-
-testLongVariant()
-{
-    # Core Variables
-    
-    local valid_output=$(cat "$source_dir/../source/other/version.txt");
-    local script_output=$(bash "$source_dir/../source/alarm.sh" --version \
-        --suppress-dependency-check);
-    
-    # Logic
-    
-    valid_output=$(printf "Alarm $J_A_VERSION\n%s" "$valid_output");
-    
-    assertEquals "$valid_output" "$script_output";
-    
-    return 0;
-}
-
-###################
-# Secondary Tests #
-###################
-
-# SECONDARY TESTS GO HERE
-
-##################
-# Tertiary Tests #
-##################
-
-# TERTIARY TESTS GO HERE
-
-########################
-# Include Dependencies #
-########################
-
-. "$source_dir/test-variables.sh";
-
-##################
-# Include SHUnit #
-##################
-
-. "$source_dir/../other/shunit2/executable";
+export J_A_VERSION="1.2.4";
+export J_A_CONF_DIR="alarm";
+export J_A_CONF_FILE="basic.conf";

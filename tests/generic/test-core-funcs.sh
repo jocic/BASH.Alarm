@@ -75,6 +75,8 @@ testParsingFunction()
 # Include Dependencies #
 ########################
 
+. "$source_dir/../test-variables.sh";
+
 . "$source_dir/../../source/includes/core.sh";
 
 ##################

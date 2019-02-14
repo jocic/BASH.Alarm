@@ -268,9 +268,7 @@ testGetSetFunctions()
 # Include Dependencies #
 ########################
 
-export J_A_VERSION="1.2.4";
-export J_A_CONF_DIR="alarm";
-export J_A_CONF_FILE="basic.conf";
+. "$source_dir/../test-variables.sh";
 
 . "$source_dir/../../source/includes/configuration.sh";
 
