@@ -1,0 +1,28 @@
+sudo: true
+
+language: bash
+
+env:
+  - PATH=${PATH}:${HOME}/kcov/bin
+
+addons:
+  apt:
+    packages:
+      - binutils-dev
+      - libcurl4-openssl-dev
+      - libdw-dev
+      - libiberty-dev
+
+before_install:
+  - ./scripts/print-info.sh
+  - ./scripts/download-kcov.sh ./temp/kcov 36
+  - ./scripts/build-kcov.sh ./temp/kcov 36
+
+install:
+  - ./scripts/install-kcov.sh ./temp/kcov
+
+script:
+  - ./scripts/run-kcov.sh ./temp/kcov/coverage
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -s ./temp/kcov/coverage
