@@ -317,7 +317,7 @@ else
         # Check Type
         
         if [ -z "$alarm_type" ]; then
-            printf "Error: You haven't selected a type.\n" && exit;
+            printf "[X] You haven't selected a type.\n" && exit;
         fi
         
         # Check Sound Effect
