@@ -144,7 +144,7 @@ create_alarm()
     
     # Step 6 - Generate Cron Task
     
-    cron_task="$clock_minute $clock_hour * * * bash '$source_dir/alarm.sh' -t 0s";
+    cron_task="$clock_minute $clock_hour * * * bash '$J_A_SOURCE_DIR/alarm.sh' -t 0s";
     
     cron_task="$cron_task -s '$alarm_effect'";
     

@@ -29,14 +29,6 @@
 # OTHER DEALINGS IN THE SOFTWARE.                                 #
 ###################################################################
 
-##################
-# CORE VARIABLES #
-##################
-
-user_id="$(id -u)";
-source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
-version="1.2.4";
-
 ###################
 # REGEX VARIABLES #
 ###################
@@ -91,28 +83,123 @@ verbose_mode="no";
 # OTHER VARIABLES #
 ###################
 
+queue="";
 probe="";
 temp="";
 
+##################################
+# Step 1 - Export Core Variables #
+##################################
+
+export J_A_USER_ID="$(id -u)";
+export J_A_SOURCE_DIR="$(cd -- "$(dirname -- "$0")" && pwd -P)";
+export J_A_VERSION="1.2.4";
+export J_A_CONF_DIR="alarm";
+export J_A_CONF_FILE="basic.conf";
+
 ##############################
-# STEP 1 - INCLUDE FUNCTIONS #
+# Step 2 - Include Functions #
 ##############################
 
-. "$source_dir/includes/script.sh";
-. "$source_dir/includes/core.sh";
-. "$source_dir/includes/alarm.sh";
-. "$source_dir/includes/countdown.sh";
-. "$source_dir/includes/interval.sh";
+. "$J_A_SOURCE_DIR/includes/script.sh";
+. "$J_A_SOURCE_DIR/includes/core.sh";
+. "$J_A_SOURCE_DIR/includes/alarm.sh";
+. "$J_A_SOURCE_DIR/includes/countdown.sh";
+. "$J_A_SOURCE_DIR/includes/interval.sh";
+
+##############################
+# STEP 3 - Process Arguments #
+##############################
+
+for arg in "$@"; do
+    
+    # Assign Queued Values
+    
+    [ "$queue" = "time" ] && alarm_time=$arg;
+    
+    [ "$queue" = "delay" ] && alarm_delay=$arg;
+    
+    [ "$queue" = "message" ] && alarm_message=$arg;
+    
+    [ "$queue" = "sound" ] && sound_effect=$arg;
+    
+    [ "$queue" = "volume" ] && sound_volume=$arg;
+    
+    [ "$queue" = "name" ] && alarm_name=$arg;
+    
+    [ "$queue" = "remove" ] || [ "$queue" = "enable" ] || [ "$queue" = "disable" ] || [ "$queue" = "toggle" ] && alarm_index=$arg;
+    
+    [ "$queue" = "export" ] || [ "$queue" = "import" ] && dump_location=$arg;
+    
+    [ "$queue" = "alarm-display" ] && alarm_display=$arg;
+    
+    [ "$queue" = "alarm-command" ] && alarm_command="$arg";
+    
+    # Reset Queue Value
+    
+    queue="";
+    
+    # Queue Commands
+    
+    [ "$arg" = "-t" ] || [ "$arg" = "--time" ] && queue="time";
+    
+    [ "$arg" = "-d" ] || [ "$arg" = "--delay" ] && queue="delay";
+    
+    [ "$arg" = "-m" ] || [ "$arg" = "--message" ] && queue="message";
+    
+    [ "$arg" = "-s" ] || [ "$arg" = "--sound" ] && queue="sound";
+    
+    [ "$arg" = "-v" ] || [ "$arg" = "--volume" ] && queue="volume";
+    
+    [ "$arg" = "-n" ] || [ "$arg" = "--name" ] && queue="name";
+    
+    [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ] && alarm_type="alarm" && queue="alarm-command";
+    
+    [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ] && alarm_type="countdown" && queue="alarm-command";
+    
+    [ "$arg" = "-i" ] || [ "$arg" = "--interval" ] && alarm_type="interval" && queue="alarm-command";
+    
+    [ "$arg" = "-r" ] || [ "$arg" = "--remove" ] && remove_alarm="yes" && queue="remove";
+    
+    [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && enable_alarm="yes" && queue="enable";
+    
+    [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && disable_alarm="yes" && queue="disable";
+    
+    [ "$arg" = "-o" ] || [ "$arg" = "--toggle" ] && toggle_alarm="yes" && queue="toggle";
+    
+    [ "$arg" = "--verbose" ] && verbose_mode="yes";
+    
+    [ "$arg" = "--import" ] && import_alarms="yes" && queue="import";
+    
+    [ "$arg" = "--export" ] && export_alarms="yes" && queue="export";
+    
+    [ "$arg" = "--display" ] && queue="alarm-display";
+    
+    [ "$arg" = "-g" ] || [ "$arg" = "--global" ] && global_alarm="yes";
+    
+    [ "$arg" = "-h" ] || [ "$arg" = "--help" ] && show_help="yes";
+    
+    [ "$arg" = "-l" ] || [ "$arg" = "--list" ] && list_alarms="yes";
+    
+    [ "$arg" = "--stop" ] && stop_alarms="yes";
+    
+    [ "$arg" = "--test" ] && test_sound="yes";
+    
+    [ "$arg" = "--interactive" ] && interactive_mode="yes";
+    
+    [ "$arg" = "--install" ] && install_deps="yes";
+    
+    [ "$arg" = "--version" ] && show_version="yes";
+    
+done
 
 ############################
-# STEP 2 - PROCESS REQUEST #
+# STEP 4 - PROCESS REQUEST #
 ############################
-
-process_arguments "$@";
 
 if [ "$install_deps" = "yes" ]; then
     
-    if [ "$user_id" = "0" ]; then
+    if [ "$J_A_USER_ID" = "0" ]; then
         
         # Get Confirmation
         
@@ -192,7 +279,7 @@ else
         
         # Check Privileges For Global Alarm
         
-        if [ "$global_alarm" = "yes" ] && [ "$user_id" != "0" ]; then
+        if [ "$global_alarm" = "yes" ] && [ "$J_A_USER_ID" != "0" ]; then
             printf "Error: Global alarms can only be created by users with root privileges.\n" && exit;
         fi
         
@@ -233,11 +320,11 @@ else
             # Resolve Sound Effect ID
             
             if [ "$alarm_type" = "alarm" ]; then
-                sound_effect=$(print_alarm_effect_path "$source_dir/effects/alarms" "$sound_effect");
+                sound_effect=$(print_alarm_effect_path "$J_A_SOURCE_DIR/effects/alarms" "$sound_effect");
             elif [ "$alarm_type" = "countdown" ]; then
-                sound_effect=$(print_countdown_effect_path "$source_dir/effects/alarms" "$sound_effect");
+                sound_effect=$(print_countdown_effect_path "$J_A_SOURCE_DIR/effects/alarms" "$sound_effect");
             elif [ "$alarm_type" = "interval" ]; then
-                sound_effect=$(print_interval_effect_path "$source_dir/effects/beeps" "$sound_effect");
+                sound_effect=$(print_interval_effect_path "$J_A_SOURCE_DIR/effects/beeps" "$sound_effect");
             fi
             
             # Check Resolved Path
@@ -283,7 +370,7 @@ else
             if [ "$test_sound" = "yes" ]; then
                 test_sound "Alarm" "$global_alarm" "$sound_effect" "$sound_volume";
             else
-                create_alarm "$source_dir" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm" "$alarm_display";
+                create_alarm "$J_A_SOURCE_DIR" "$alarm_time" "$alarm_delay" "$alarm_message" "$sound_effect" "$sound_volume" "$alarm_command" "$global_alarm" "$alarm_display";
             fi
             
         elif [ "$alarm_type" = "countdown" ]; then

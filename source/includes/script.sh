@@ -57,7 +57,7 @@ show_help()
 {
     # Logic
     
-    cat "$source_dir/other/help.txt" && exit;
+    cat "$J_A_SOURCE_DIR/other/help.txt" && exit;
 }
 
 # Prints project's version.
@@ -72,110 +72,9 @@ show_version()
 {
     # Logic
     
-    printf "Alarm %s\n" "$version";
+    printf "Alarm %s\n" "$J_A_VERSION";
     
-    cat "$source_dir/other/version.txt" && exit;
-}
-
-# Processes passed script arguments.
-# 
-# @author: Djordje Jocic <office@djordjejocic.com>
-# @copyright: 2018 MIT License (MIT)
-# @version: 1.0.0
-# 
-# @param array $args
-#   Arguments that should be processed.
-# @return void
-
-process_arguments()
-{
-    # Control Variables
-    
-    local queue="";
-    
-    # Logic
-    
-    for arg in "$@"; do
-        
-        # Assign Queued Values
-        
-        [ "$queue" = "time" ] && alarm_time=$arg;
-        
-        [ "$queue" = "delay" ] && alarm_delay=$arg;
-        
-        [ "$queue" = "message" ] && alarm_message=$arg;
-        
-        [ "$queue" = "sound" ] && sound_effect=$arg;
-        
-        [ "$queue" = "volume" ] && sound_volume=$arg;
-        
-        [ "$queue" = "name" ] && alarm_name=$arg;
-        
-        [ "$queue" = "remove" ] || [ "$queue" = "enable" ] || [ "$queue" = "disable" ] || [ "$queue" = "toggle" ] && alarm_index=$arg;
-        
-        [ "$queue" = "export" ] || [ "$queue" = "import" ] && dump_location=$arg;
-        
-        [ "$queue" = "alarm-display" ] && alarm_display=$arg;
-        
-        [ "$queue" = "alarm-command" ] && alarm_command="$arg";
-        
-        # Reset Queue Value
-        
-        queue="";
-        
-        # Queue Commands
-        
-        [ "$arg" = "-t" ] || [ "$arg" = "--time" ] && queue="time";
-        
-        [ "$arg" = "-d" ] || [ "$arg" = "--delay" ] && queue="delay";
-        
-        [ "$arg" = "-m" ] || [ "$arg" = "--message" ] && queue="message";
-        
-        [ "$arg" = "-s" ] || [ "$arg" = "--sound" ] && queue="sound";
-        
-        [ "$arg" = "-v" ] || [ "$arg" = "--volume" ] && queue="volume";
-        
-        [ "$arg" = "-n" ] || [ "$arg" = "--name" ] && queue="name";
-        
-        [ "$arg" = "-a" ] || [ "$arg" = "--alarm" ] && alarm_type="alarm" && queue="alarm-command";
-        
-        [ "$arg" = "-c" ] || [ "$arg" = "--countdown" ] && alarm_type="countdown" && queue="alarm-command";
-        
-        [ "$arg" = "-i" ] || [ "$arg" = "--interval" ] && alarm_type="interval" && queue="alarm-command";
-        
-        [ "$arg" = "-r" ] || [ "$arg" = "--remove" ] && remove_alarm="yes" && queue="remove";
-        
-        [ "$arg" = "-e" ] || [ "$arg" = "--enable" ] && enable_alarm="yes" && queue="enable";
-        
-        [ "$arg" = "-b" ] || [ "$arg" = "--disable" ] && disable_alarm="yes" && queue="disable";
-        
-        [ "$arg" = "-o" ] || [ "$arg" = "--toggle" ] && toggle_alarm="yes" && queue="toggle";
-        
-        [ "$arg" = "--verbose" ] && verbose_mode="yes";
-        
-        [ "$arg" = "--import" ] && import_alarms="yes" && queue="import";
-        
-        [ "$arg" = "--export" ] && export_alarms="yes" && queue="export";
-        
-        [ "$arg" = "--display" ] && queue="alarm-display";
-        
-        [ "$arg" = "-g" ] || [ "$arg" = "--global" ] && global_alarm="yes";
-        
-        [ "$arg" = "-h" ] || [ "$arg" = "--help" ] && show_help="yes";
-        
-        [ "$arg" = "-l" ] || [ "$arg" = "--list" ] && list_alarms="yes";
-        
-        [ "$arg" = "--stop" ] && stop_alarms="yes";
-        
-        [ "$arg" = "--test" ] && test_sound="yes";
-        
-        [ "$arg" = "--interactive" ] && interactive_mode="yes";
-        
-        [ "$arg" = "--install" ] && install_deps="yes";
-        
-        [ "$arg" = "--version" ] && show_version="yes";
-        
-    done
+    cat "$J_A_SOURCE_DIR/other/version.txt" && exit;
 }
 
 # Installs project's dependencies.
