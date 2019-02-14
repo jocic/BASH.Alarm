@@ -39,7 +39,7 @@ source_dir="$(cd -- "$(dirname -- "$0")" && pwd -P)";
 # Step 1 - Test Functions #
 ###########################
 
-#bash "$source_dir/../tests/generic/test-config-funcs.sh";
+bash "$source_dir/../tests/generic/test-config-funcs.sh";
 #bash "$source_dir/../tests/generic/test-core-funcs.sh";
 
 ############################
