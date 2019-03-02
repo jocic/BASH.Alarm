@@ -261,10 +261,9 @@ install **Alarm** like you would anything else.
 Add the repository.
 
 ```bash
-wget -nc https://www.djordjejocic.com/files/apt/Release.key
-sudo apt-key add Release.key
-sudo echo "deb http://apt.djordjejocic.com general main" >>
-"/etc/apt/sources.list"
+wget -nc https://www.djordjejocic.com/storage/app/media/other/release.key
+sudo apt-key add release.key
+sudo echo "deb http://apt.djordjejocic.com general main" >> "/etc/apt/sources.list"
 sudo apt-get update
 ```
 
